@@ -3,11 +3,11 @@
 // For Firebase libs versions see: https://firebase.google.com/support/release-notes/android
 
 object Versions {
-    const val kotlin = "1.3.31"
+    const val kotlin = "1.3.40"
     const val kotlinCoroutines = "1.3.0-M1"
     const val lifecycle = "2.1.0-beta01"
-    const val okhttp = "3.14.1"
-    const val retrofit = "2.5.0"
+    const val okhttp = "3.14.2"
+    const val retrofit = "2.6.0"
     const val glide = "4.9.0"
 }
 
@@ -18,11 +18,11 @@ object Dependencies {
 
     // AndroidX - General
     const val appcompat = "androidx.appcompat:appcompat:1.1.0-beta01"
-    const val coreKtx = "androidx.core:core-ktx:1.2.0-alpha01"
+    const val coreKtx = "androidx.core:core-ktx:1.2.0-alpha02"
 
     // AndroidX - UI
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta1"
-    const val material = "com.google.android.material:material:1.1.0-alpha06"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
+    const val material = "com.google.android.material:material:1.1.0-alpha07"
     const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-alpha06"
 
     // AndroidX - Lifecycle
@@ -39,7 +39,7 @@ object Dependencies {
     const val retrofitAdapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
 
     // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.8"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.10"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.3.0"
 
