@@ -3,10 +3,10 @@
 // For Firebase libs versions see: https://firebase.google.com/support/release-notes/android
 
 object Versions {
-    const val kotlin = "1.3.40"
-    const val kotlinCoroutines = "1.3.0-M1"
+    const val kotlin = "1.3.41"
+    const val kotlinCoroutines = "1.3.0-M2"
     const val lifecycle = "2.1.0-beta01"
-    const val okhttp = "3.14.2"
+    const val okhttp = "4.0.1"
     const val retrofit = "2.6.0"
     const val glide = "4.9.0"
 }
@@ -17,13 +17,13 @@ object Dependencies {
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
 
     // AndroidX - General
-    const val appcompat = "androidx.appcompat:appcompat:1.1.0-beta01"
+    const val appcompat = "androidx.appcompat:appcompat:1.1.0-rc01"
     const val coreKtx = "androidx.core:core-ktx:1.2.0-alpha02"
 
     // AndroidX - UI
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    const val material = "com.google.android.material:material:1.1.0-alpha07"
-    const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-alpha06"
+    const val material = "com.google.android.material:material:1.1.0-alpha08"
+    const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-beta01"
 
     // AndroidX - Lifecycle
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"   // ViewModel and LiveData
