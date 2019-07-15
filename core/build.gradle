@@ -1,6 +1,7 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -13,6 +14,11 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
     }
 
     buildTypes {
@@ -55,13 +61,9 @@ dependencies {
 
     // UI
     api Dependencies.glide
-    api Dependencies.glideProcessor
+    kapt Dependencies.glideProcessor
     api Dependencies.glideOkhttp3
 
     // Tools
     api Dependencies.timber
-}
-
-repositories {
-    mavenCentral()
 }
