@@ -6,6 +6,10 @@ This template is both a project best practice showcase and a base to kickstart a
 
 ### Libraries
 
+### Gradle
+
+An env product flavor is present on top of the default debug and release build types. Its primary use is to define the DOMAIN_URL variable for switching the back-end domain between prod, preprod and dev.
+
 ### Modules
 
 ### Base classes
