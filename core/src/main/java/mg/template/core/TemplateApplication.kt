@@ -12,6 +12,7 @@ class TemplateApplication : Application() {
     override fun onCreate() {
         super.onCreate()
         instance = this
+
         initLogging()
     }
 
