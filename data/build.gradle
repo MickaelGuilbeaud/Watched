@@ -1,20 +1,16 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
+apply plugin: 'com.android.library'
 
 android {
     compileSdkVersion androidCompileSdkVersion
 
     defaultConfig {
-        applicationId "mg.template"
-
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
 
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -33,18 +29,19 @@ android {
     productFlavors {
         dev {
             dimension "env"
-            applicationIdSuffix ".dev"
+            buildConfigField "String", "DOMAIN_URL", "\"https://www.google.com/\""
         }
         preprod {
             dimension "env"
-            applicationIdSuffix ".preprod"
+            buildConfigField "String", "DOMAIN_URL", "\"https://www.google.com/\""
         }
         prod {
             dimension "env"
+            buildConfigField "String", "DOMAIN_URL", "\"https://www.google.com/\""
         }
     }
 }
 
 dependencies {
-    api project(path: ':data')
+    api project(path: ':core')
 }
