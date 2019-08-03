@@ -30,7 +30,7 @@ A BaseActivity and BaseFragment are implemented with the added benefit to automa
 
 #### Logging
 
-Logging is done with Timber. We initialize it to only print logs in debug builds, preventing logs in release versions.
+Logging is done using Timber. It is initialized to only print logs in debug builds, preventing logs in release versions.
 
 ### Codestyle
 
