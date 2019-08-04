@@ -78,6 +78,10 @@ dependencies {
     kapt Dependencies.glideProcessor
     api Dependencies.glideOkhttp3
 
+    // Firebase
+    api Dependencies.firebaseCore
+    api Dependencies.firebaseCrashlytics
+
     // Tools
     api Dependencies.timber
 }

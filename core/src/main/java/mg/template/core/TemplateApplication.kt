@@ -1,6 +1,8 @@
 package mg.template.core
 
 import android.app.Application
+import mg.template.utils.CrashlyticsLogsTree
+import mg.template.utils.CrashlyticsTemplateExceptionsTree
 import timber.log.Timber
 
 class TemplateApplication : Application() {
@@ -17,8 +19,10 @@ class TemplateApplication : Application() {
     }
 
     private fun initLogging() {
-        if (BuildConfig.DEBUG) {
-            Timber.plant(Timber.DebugTree())
+        if (BuildConfig.FLAVOR != "dev") {
+            Timber.plant(CrashlyticsLogsTree())
+            Timber.plant(CrashlyticsTemplateExceptionsTree())
         }
+        if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
 }

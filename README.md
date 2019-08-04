@@ -28,9 +28,13 @@ A BaseActivity and BaseFragment are implemented with the added benefit to automa
 
 #### Crash reporting
 
+Template uses Firebase Crashlytics library for crash reporting. It is disabled for dev builds through a flag in the dev AndroidManifest to avoid getting spammed by Firebase crash emails.
+
 #### Logging
 
 Logging is done using Timber. It is initialized to only print logs in debug builds, preventing logs in release versions.
+TemplateExceptions, an Exception subclass, are logged in Crashlytics as non-fatal crashes so we still have crash insight.
+Finally logs are forwarded to Crashlytics for non-dev builds in order to get more informations about crashes.
 
 ### Codestyle
 
@@ -38,6 +42,14 @@ The project code style is following the official [Kotlin coding convention](http
 
 ## How to start a new project using Template
 
+### Packages
+
+The base package used by Template is mg.template, it can and should be replaced by your app package.
+
 ### Renaming
 
-Basically everything called Template should be renamed with the real project name. It includes [TODO]
+Basically everything called Template should be renamed with the real project name. It includes the TemplateApplication, TemplateException[TODO]
+
+### Firebase
+
+In order to use Firebase in Template, a google-services.json file should be put in the app/ folder and projects should be created for your.package, your.package.preprod and your.package.dev. If you are not planning to use Firebase simply remove the dependencies and their use in code.

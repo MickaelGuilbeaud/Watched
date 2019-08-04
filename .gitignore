@@ -12,3 +12,6 @@
 /buildSrc/build
 /captures
 .externalNativeBuild
+
+# Delete the following line when using Template in a real project, or keep it for open source projects
+/app/google-services.json

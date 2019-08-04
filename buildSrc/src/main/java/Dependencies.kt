@@ -48,7 +48,10 @@ object Dependencies {
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
     const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
 
+    // Firebase
+    const val firebaseCore = "com.google.firebase:firebase-core:17.0.1"
+    const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
+
     // Tools
     const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val crashlytics = "com.crashlytics.sdk.android:crashlytics:2.9.9@aar"
 }
