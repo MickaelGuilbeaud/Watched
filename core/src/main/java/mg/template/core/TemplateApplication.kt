@@ -1,8 +1,8 @@
 package mg.template.core
 
 import android.app.Application
-import mg.template.utils.CrashlyticsLogsTree
-import mg.template.utils.CrashlyticsTemplateExceptionsTree
+import mg.template.core.utils.CrashlyticsLogsTree
+import mg.template.core.utils.CrashlyticsTemplateExceptionsTree
 import timber.log.Timber
 
 class TemplateApplication : Application() {

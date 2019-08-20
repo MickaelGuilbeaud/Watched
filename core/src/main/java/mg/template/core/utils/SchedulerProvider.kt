@@ -1,4 +1,4 @@
-package mg.template.utils
+package mg.template.core.utils
 
 import io.reactivex.Scheduler
 import io.reactivex.android.schedulers.AndroidSchedulers

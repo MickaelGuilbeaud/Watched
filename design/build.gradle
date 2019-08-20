@@ -1,22 +1,17 @@
-apply plugin: 'com.android.application'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
-apply plugin: 'io.fabric'
+apply plugin: 'com.android.library'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 android {
     compileSdkVersion androidCompileSdkVersion
 
     defaultConfig {
-        applicationId "mg.template"
-
         minSdkVersion androidMinSdkVersion
         targetSdkVersion androidTargetSdkVersion
 
         versionCode 1
         versionName "1.0"
 
-        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
 
     compileOptions {
@@ -35,11 +30,9 @@ android {
     productFlavors {
         dev {
             dimension "env"
-            applicationIdSuffix ".dev"
         }
         preprod {
             dimension "env"
-            applicationIdSuffix ".preprod"
         }
         prod {
             dimension "env"
@@ -48,8 +41,5 @@ android {
 }
 
 dependencies {
-    api project(path: ':data')
-    api project(path: ':design')
+    api project(path: ':core')
 }
-
-apply plugin: 'com.google.gms.google-services'

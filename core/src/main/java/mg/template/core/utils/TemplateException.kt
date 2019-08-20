@@ -1,4 +1,4 @@
-package mg.template.utils
+package mg.template.core.utils
 
 class TemplateException : Exception {
     constructor() : super()

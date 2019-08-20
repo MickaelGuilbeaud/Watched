@@ -1,4 +1,4 @@
-package mg.template.utils
+package mg.template.core.utils
 
 import com.crashlytics.android.Crashlytics
 import timber.log.Timber
