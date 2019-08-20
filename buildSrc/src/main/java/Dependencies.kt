@@ -4,10 +4,10 @@
 
 object Versions {
     const val kotlin = "1.3.41"
-    const val kotlinCoroutines = "1.3.0-M2"
+    const val kotlinCoroutines = "1.3.0-RC2"
     const val lifecycle = "2.1.0-beta01"
-    const val okhttp = "4.0.1"
-    const val retrofit = "2.6.0"
+    const val okhttp = "4.1.0"
+    const val retrofit = "2.6.1"
     const val glide = "4.9.0"
 }
 
@@ -18,12 +18,12 @@ object Dependencies {
 
     // AndroidX - General
     const val appcompat = "androidx.appcompat:appcompat:1.1.0-rc01"
-    const val coreKtx = "androidx.core:core-ktx:1.2.0-alpha02"
+    const val coreKtx = "androidx.core:core-ktx:1.2.0-alpha03"
 
     // AndroidX - UI
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    const val material = "com.google.android.material:material:1.1.0-alpha08"
-    const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-beta01"
+    const val material = "com.google.android.material:material:1.1.0-alpha09"
+    const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-beta03"
 
     // AndroidX - Lifecycle
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"   // ViewModel and LiveData
@@ -39,9 +39,9 @@ object Dependencies {
     const val retrofitAdapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
 
     // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.10"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.11"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
-    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.3.0"
+    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     // UI
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
@@ -49,7 +49,7 @@ object Dependencies {
     const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.0.1"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.1.0"
     const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Tools
