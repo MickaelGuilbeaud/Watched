@@ -3,8 +3,8 @@
 // For Firebase libs versions see: https://firebase.google.com/support/release-notes/android
 
 object Versions {
-    const val kotlin = "1.3.41"
-    const val kotlinCoroutines = "1.3.0-RC2"
+    const val kotlin = "1.3.50"
+    const val kotlinCoroutines = "1.3.0"
     const val lifecycle = "2.1.0-beta01"
     const val okhttp = "4.1.0"
     const val retrofit = "2.6.1"
@@ -39,7 +39,7 @@ object Dependencies {
     const val retrofitAdapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
 
     // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.11"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.12"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
@@ -49,7 +49,7 @@ object Dependencies {
     const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.1.0"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.2.0"
     const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Tools
