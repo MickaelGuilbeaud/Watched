@@ -1,1 +1,1 @@
-apply from: "$rootProject.projectDir/android-library-feature.gradle"
+apply from: "$rootProject.projectDir/feature-android-library.gradle"
