@@ -7,9 +7,7 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import timber.log.Timber
 
-abstract class BaseFragment : Fragment() {
-
-    abstract val logsTag: String
+abstract class BaseFragment(private val logsTag: String) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

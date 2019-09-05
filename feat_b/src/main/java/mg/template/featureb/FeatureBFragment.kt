@@ -6,9 +6,11 @@ import android.view.View
 import android.view.ViewGroup
 import mg.template.core.BaseFragment
 
-class FeatureBFragment : BaseFragment() {
+class FeatureBFragment : BaseFragment(FeatureBFragment::class.java.simpleName) {
 
-    override val logsTag: String = FeatureBFragment::class.java.simpleName
+    companion object {
+        fun newInstance() = FeatureBFragment()
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
