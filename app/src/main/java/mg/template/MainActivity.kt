@@ -2,6 +2,7 @@ package mg.template
 
 import android.os.Bundle
 import mg.template.core.BaseActivity
+import mg.template.featurea.FeatureAFragment
 
 class MainActivity : BaseActivity() {
 
@@ -10,5 +11,9 @@ class MainActivity : BaseActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fragmentContainer, FeatureAFragment.newInstance())
+            .commit()
     }
 }
