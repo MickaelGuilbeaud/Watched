@@ -20,6 +20,6 @@ class FeatureAFragment : BaseFragment(FeatureAFragment::class.java.simpleName) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        btnGoToFeatureB.setOnClickListener { /* TODO */ }
+        btnGoToFeatureB.setOnClickListener { getTemplateRouter().routeToBScreen() }
     }
 }
