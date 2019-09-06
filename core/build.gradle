@@ -49,18 +49,27 @@ dependencies {
     api Dependencies.kotlinCoroutines
 
     // AndroidX - General
+    api Dependencies.activity
     api Dependencies.appcompat
-    api Dependencies.coreKtx
+    api Dependencies.core
+    api Dependencies.fragment
+    api Dependencies.vectorDrawable
+    api Dependencies.vectorDrawableAnimated
 
     // AndroidX - UI
     api Dependencies.constraintLayout
-    api Dependencies.material
     api Dependencies.recyclerView
 
     // AndroidX - Lifecycle
     api Dependencies.lifecycle
     api Dependencies.livedata
     api Dependencies.viewModel
+
+    // UI
+    api Dependencies.material
+    api Dependencies.glide
+    kapt Dependencies.glideProcessor
+    api Dependencies.glideOkhttp3
 
     // Network
     api Dependencies.okHttpClient
@@ -72,11 +81,6 @@ dependencies {
     api Dependencies.rxJava
     api Dependencies.rxAndroid
     api Dependencies.rxKotlin
-
-    // UI
-    api Dependencies.glide
-    kapt Dependencies.glideProcessor
-    api Dependencies.glideOkhttp3
 
     // Firebase
     api Dependencies.firebaseCore

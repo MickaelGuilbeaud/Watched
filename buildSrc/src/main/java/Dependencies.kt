@@ -4,9 +4,9 @@
 
 object Versions {
     const val kotlin = "1.3.50"
-    const val kotlinCoroutines = "1.3.0"
-    const val lifecycle = "2.1.0-beta01"
-    const val okhttp = "4.1.0"
+    const val kotlinCoroutines = "1.3.1"
+    const val lifecycle = "2.1.0"
+    const val okhttp = "4.1.1"
     const val retrofit = "2.6.1"
     const val glide = "4.9.0"
 }
@@ -17,13 +17,16 @@ object Dependencies {
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
 
     // AndroidX - General
-    const val appcompat = "androidx.appcompat:appcompat:1.1.0-rc01"
-    const val coreKtx = "androidx.core:core-ktx:1.2.0-alpha03"
+    const val activity = "androidx.activity:activity-ktx:1.0.0"
+    const val appcompat = "androidx.appcompat:appcompat:1.1.0"
+    const val core = "androidx.core:core-ktx:1.2.0-alpha03"
+    const val fragment = "androidx.fragment:fragment-ktx:1.1.0"
+    const val vectorDrawable = "androidx.vectordrawable:vectordrawable:1.1.0"
+    const val vectorDrawableAnimated = "androidx.vectordrawable:vectordrawable-animated:1.1.0"
 
     // AndroidX - UI
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta2"
-    const val material = "com.google.android.material:material:1.1.0-alpha09"
-    const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-beta03"
+    const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0-beta04"
 
     // AndroidX - Lifecycle
     const val lifecycle = "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"   // ViewModel and LiveData
@@ -31,6 +34,12 @@ object Dependencies {
         "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"  // Extensions functions for LiveData
     const val viewModel =
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"    // Extensions functions for ViewModel
+
+    // UI
+    const val material = "com.google.android.material:material:1.1.0-alpha10"
+    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
+    const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
+    const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
 
     // Network
     const val okHttpClient = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
@@ -42,11 +51,6 @@ object Dependencies {
     const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.12"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
-
-    // UI
-    const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
-    const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
-    const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
 
     // Firebase
     const val firebaseCore = "com.google.firebase:firebase-core:17.2.0"
