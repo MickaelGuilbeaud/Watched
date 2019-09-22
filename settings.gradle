@@ -1,3 +1,6 @@
-include ':app', ':design', ':feat_a', ':feat_b'
+include ':app'
 include ':core'
 include ':data'
+include ':design'
+include ':feat_a'
+include ':feat_b'
