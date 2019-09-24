@@ -4,17 +4,17 @@
 
 object Versions {
     const val kotlin = "1.3.50"
-    const val kotlinCoroutines = "1.3.1"
     const val lifecycle = "2.1.0"
     const val okhttp = "4.1.1"
     const val retrofit = "2.6.1"
     const val glide = "4.9.0"
+    const val dagger = "2.24"
 }
 
 object Dependencies {
     // Kotlin
     const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.kotlinCoroutines}"
+    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.1"
 
     // AndroidX - General
     const val activity = "androidx.activity:activity-ktx:1.0.0"
@@ -51,6 +51,9 @@ object Dependencies {
     const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.12"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
+
+    // DI
+    const val koin = "org.koin:koin-android:2.0.1"
 
     // Firebase
     const val firebaseCore = "com.google.firebase:firebase-core:17.2.0"

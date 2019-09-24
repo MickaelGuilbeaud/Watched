@@ -7,6 +7,8 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import timber.log.Timber
 
+fun BaseFragment.requireBaseActivity() = requireActivity() as BaseActivity
+
 abstract class BaseFragment(private val logsTag: String) : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {

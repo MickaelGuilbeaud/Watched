@@ -82,6 +82,9 @@ dependencies {
     api Dependencies.rxAndroid
     api Dependencies.rxKotlin
 
+    // DI
+    api Dependencies.koin
+
     // Firebase
     api Dependencies.firebaseCore
     api Dependencies.firebaseCrashlytics
