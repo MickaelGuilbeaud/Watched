@@ -22,7 +22,7 @@ abstract class BaseApplication : Application() {
     abstract fun initDI()
 
     private fun initLogging() {
-        if (buildParams.getEnvironment() != BuildEnvironment.DEV) {
+        if (buildParams.environment != BuildEnvironment.DEV) {
             Timber.plant(CrashlyticsLogsTree())
             Timber.plant(CrashlyticsTemplateExceptionsTree())
         }

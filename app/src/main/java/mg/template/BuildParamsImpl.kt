@@ -6,9 +6,9 @@ import timber.log.Timber
 
 class BuildParamsImpl : BuildParams {
 
-    override fun getBaseUrl(): String = BuildConfig.BASE_URL
+    override val baseUrl: String = BuildConfig.BASE_URL
 
-    override fun getEnvironment(): BuildEnvironment = when (BuildConfig.FLAVOR) {
+    override val environment: BuildEnvironment = when (BuildConfig.FLAVOR) {
         "dev" -> BuildEnvironment.DEV
         "preprod" -> BuildEnvironment.PREPROD
         "prod" -> BuildEnvironment.PROD

@@ -1,8 +1,8 @@
 package mg.template.core
 
 interface BuildParams {
-    fun getBaseUrl(): String
-    fun getEnvironment(): BuildEnvironment
+    val baseUrl: String
+    val environment: BuildEnvironment
 }
 
 enum class BuildEnvironment {

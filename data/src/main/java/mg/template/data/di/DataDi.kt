@@ -8,6 +8,7 @@ import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
 import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory
@@ -52,8 +53,7 @@ val dataDiModule = module {
 
     single<Retrofit> {
         Retrofit.Builder()
-            // TODO: Get baseUrl from build fields
-            .baseUrl("https://pokeapi.co/api/v2/")
+            .baseUrl(get<String>(named("baseUrl")))
             .client(get())
             .addConverterFactory(MoshiConverterFactory.create(get()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
