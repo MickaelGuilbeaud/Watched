@@ -22,10 +22,12 @@ abstract class BaseApplication : Application() {
     abstract fun initDI()
 
     private fun initLogging() {
-        if (BuildConfig.FLAVOR != "dev") {
+        if (buildParams.getEnvironment() != BuildEnvironment.DEV) {
             Timber.plant(CrashlyticsLogsTree())
             Timber.plant(CrashlyticsTemplateExceptionsTree())
         }
         if (BuildConfig.DEBUG) Timber.plant(Timber.DebugTree())
     }
+
+    abstract val buildParams: BuildParams
 }

@@ -40,13 +40,16 @@ android {
         dev {
             dimension "env"
             applicationIdSuffix ".dev"
+            buildConfigField "String", "BASE_URL", "\"https://pokeapi.co/api/v2/\""
         }
         preprod {
             dimension "env"
             applicationIdSuffix ".preprod"
+            buildConfigField "String", "BASE_URL", "\"https://pokeapi.co/api/v2/\""
         }
         prod {
             dimension "env"
+            buildConfigField "String", "BASE_URL", "\"https://pokeapi.co/api/v2/\""
         }
     }
 }

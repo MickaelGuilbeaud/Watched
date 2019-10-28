@@ -1,3 +1,5 @@
+apply from: "$rootProject.projectDir/base-android-library.gradle"
+
 dependencies {
     api project(':data')
     api project(':design')

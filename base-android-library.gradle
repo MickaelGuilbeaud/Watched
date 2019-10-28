@@ -6,8 +6,9 @@ android {
     compileSdkVersion androidCompileSdkVersion
 
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
+        minSdkVersion androidMinSdkVersion
+        targetSdkVersion androidTargetSdkVersion
+
         versionCode 1
         versionName "1.0"
 
@@ -28,19 +29,6 @@ android {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-    flavorDimensions "env"
-    productFlavors {
-        dev {
-            dimension "env"
-        }
-        preprod {
-            dimension "env"
-        }
-        prod {
-            dimension "env"
         }
     }
 }
