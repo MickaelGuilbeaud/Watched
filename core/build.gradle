@@ -22,6 +22,10 @@ android {
         targetCompatibility 1.8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -76,6 +80,10 @@ dependencies {
     api Dependencies.okHttpLogging
     api Dependencies.retrofitClient
     api Dependencies.retrofitAdapterRxJava2
+    api Dependencies.retrofitMoshiConverter
+
+    // JSON
+    api Dependencies.moshi
 
     // Rx
     api Dependencies.rxJava

@@ -1,7 +1,6 @@
 apply plugin: 'com.android.library'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
-apply plugin: 'kotlin-kapt'
 
 android {
     compileSdkVersion androidCompileSdkVersion
@@ -19,6 +18,10 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     buildTypes {
@@ -43,8 +46,8 @@ android {
 }
 
 dependencies {
-    api project(path: ':data')
-    api project(path: ':design')
+    api project(':data')
+    api project(':design')
 
     // Add test dependencies here
     //testImplementation deps.test.junit

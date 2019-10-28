@@ -1,4 +1,6 @@
 apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
 android {
@@ -17,6 +19,10 @@ android {
     compileOptions {
         sourceCompatibility 1.8
         targetCompatibility 1.8
+    }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
     }
 
     buildTypes {
@@ -41,5 +47,5 @@ android {
 }
 
 dependencies {
-    api project(path: ':core')
+    api project(':core')
 }

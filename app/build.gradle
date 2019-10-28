@@ -24,6 +24,10 @@ android {
         targetCompatibility 1.8
     }
 
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -48,8 +52,8 @@ android {
 }
 
 dependencies {
-    api project(path: ':feat_a')
-    api project(path: ':feat_b')
+    api project(':feat_a')
+    api project(':feat_b')
 }
 
 apply plugin: 'com.google.gms.google-services'
