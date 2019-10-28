@@ -4,6 +4,8 @@ import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.template.data.BuildConfig
+import mg.template.data.pokemon.PokemonService
+import mg.template.data.pokemon.PokemonStore
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -59,4 +61,11 @@ val dataDiModule = module {
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
+
+    single<PokemonService> {
+        val retrofit: Retrofit = get()
+        retrofit.create(PokemonService::class.java)
+    }
+
+    single<PokemonStore> { PokemonStore(get()) }
 }
