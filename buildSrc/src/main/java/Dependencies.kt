@@ -58,7 +58,7 @@ object Dependencies {
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     // DI
-    const val koin = "org.koin:koin-android-scope:2.0.1"
+    const val koin = "org.koin:koin-androidx-viewmodel:2.0.1"
 
     // Firebase
     const val firebaseCore = "com.google.firebase:firebase-core:17.2.0"

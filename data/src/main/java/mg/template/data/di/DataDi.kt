@@ -4,8 +4,8 @@ import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.template.data.BuildConfig
-import mg.template.data.pokemon.PokemonService
 import mg.template.data.pokemon.PokemonStore
+import mg.template.data.pokemon.network.PokemonService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response

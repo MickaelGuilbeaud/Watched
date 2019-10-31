@@ -2,9 +2,9 @@ package mg.template
 
 import android.os.Bundle
 import mg.template.core.BaseActivity
-import mg.template.featurea.FeatureAFragment
 import mg.template.featurea.FeatureARouter
 import mg.template.featurea.FeatureARouterProvider
+import mg.template.featurea.PokedexFragment
 
 class MainActivity : BaseActivity(), FeatureARouterProvider {
 
@@ -16,7 +16,7 @@ class MainActivity : BaseActivity(), FeatureARouterProvider {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, FeatureAFragment.newInstance())
+            .replace(R.id.fragmentContainer, PokedexFragment.newInstance())
             .commit()
     }
 }
