@@ -22,6 +22,8 @@ internal class PokemonAdapter : ListAdapter<Pokemon, PokemonViewHolder>(DiffCall
         setHasStableIds(true)
     }
 
+    override fun getItemId(position: Int): Long = getItem(position).id
+
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): PokemonViewHolder =
         PokemonViewHolder.newInstance(parent)
 
