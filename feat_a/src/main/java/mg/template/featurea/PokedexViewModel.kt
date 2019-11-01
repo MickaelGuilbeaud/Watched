@@ -7,6 +7,7 @@ import mg.template.core.viewmodel.BaseViewModel
 import mg.template.core.viewmodel.DefaultNavigationEvent
 import mg.template.core.viewmodel.ErrorActionEvent
 import mg.template.data.pokemon.PokemonStore
+import timber.log.Timber
 
 internal class PokedexViewModel(
     private val pokemonStore: PokemonStore
@@ -15,8 +16,8 @@ internal class PokedexViewModel(
     init {
         pokemonStore.getPokemonsOnce()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = { pushViewState(PokedexViewState.Pokemons(it)) })
+            .subscribeBy(onSuccess = { pushViewState(PokedexViewState.Pokemons(it)) },
+                onError = { Timber.e(it, "Get Pokemons failed") })
             .addTo(compositeDisposable)
     }
-
 }

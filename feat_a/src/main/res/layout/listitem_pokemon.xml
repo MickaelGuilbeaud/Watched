@@ -21,12 +21,45 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
+        android:includeFontPadding="false"
         android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle1"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/tvType1"
         app:layout_constraintEnd_toStartOf="@+id/tvNumber"
         app:layout_constraintStart_toEndOf="@id/ivSprite"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_chainStyle="packed"
         tools:text="Bulbazaur" />
+
+    <TextView
+        android:id="@+id/tvType1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:background="@drawable/bg_type"
+        android:includeFontPadding="false"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:textColor="@color/white"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="@id/tvName"
+        app:layout_constraintTop_toBottomOf="@id/tvName"
+        tools:backgroundTint="@color/type_grass"
+        tools:text="@string/type_grass" />
+
+    <TextView
+        android:id="@+id/tvType2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="8dp"
+        android:background="@drawable/bg_type"
+        android:includeFontPadding="false"
+        android:textAllCaps="true"
+        android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+        android:textColor="@color/white"
+        app:layout_constraintStart_toEndOf="@id/tvType1"
+        app:layout_constraintTop_toTopOf="@id/tvType1"
+        tools:backgroundTint="@color/type_poison"
+        tools:text="@string/type_poison" />
 
     <TextView
         android:id="@+id/tvNumber"

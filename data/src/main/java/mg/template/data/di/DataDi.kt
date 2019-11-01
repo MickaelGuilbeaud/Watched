@@ -6,6 +6,7 @@ import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.template.data.BuildConfig
 import mg.template.data.pokemon.PokemonStore
 import mg.template.data.pokemon.network.PokemonService
+import mg.template.data.pokemon.network.PokemonTypeAdapter
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -21,6 +22,7 @@ val dataDiModule = module {
 
     single<Moshi> {
         Moshi.Builder()
+            .add(PokemonTypeAdapter())
             .add(KotlinJsonAdapterFactory())
             .build()
     }

@@ -12,7 +12,7 @@ class PokemonStore(private val pokemonService: PokemonService) {
     fun getPokemonsOnce(): Single<List<Pokemon>> {
         Timber.d("Get Pokemons")
 
-        return Observable.rangeLong(1, 9)
+        return Observable.rangeLong(1, 20)
             .concatMapEager { pokemonId ->
                 pokemonService.getPokemonDetails(pokemonId)
                     .subscribeOn(Schedulers.io())
