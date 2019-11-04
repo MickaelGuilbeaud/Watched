@@ -1,4 +1,4 @@
-package mg.template.core
+package mg.template.core.base
 
 import android.os.Bundle
 import android.view.LayoutInflater

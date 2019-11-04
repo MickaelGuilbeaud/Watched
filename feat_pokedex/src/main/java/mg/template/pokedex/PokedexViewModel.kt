@@ -1,23 +1,28 @@
-package mg.template.featurea
+package mg.template.pokedex
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import mg.template.core.Lce
 import mg.template.core.viewmodel.BaseViewModel
 import mg.template.core.viewmodel.DefaultNavigationEvent
 import mg.template.core.viewmodel.ErrorActionEvent
 import mg.template.data.pokemon.PokemonStore
-import timber.log.Timber
 
 internal class PokedexViewModel(
     private val pokemonStore: PokemonStore
 ) : BaseViewModel<PokedexViewState, DefaultNavigationEvent, ErrorActionEvent>() {
 
     init {
-        pokemonStore.getPokemonsOnce()
+        pokemonStore.pokemonsStream()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = { pushViewState(PokedexViewState.Pokemons(it)) },
-                onError = { Timber.e(it, "Get Pokemons failed") })
+            .subscribeBy(onNext = { lce ->
+                when (lce) {
+                    is Lce.Loading -> pushViewState(PokedexViewState.Loading)
+                    is Lce.Content -> pushViewState(PokedexViewState.Pokemons(lce.content))
+                    is Lce.Error -> pushViewState(PokedexViewState.Error(lce.error))
+                }
+            })
             .addTo(compositeDisposable)
     }
 }

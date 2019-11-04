@@ -1,6 +1,9 @@
-package mg.template.core
+package mg.template.core.base
 
 import android.app.Application
+import mg.template.core.BuildConfig
+import mg.template.core.build.BuildEnvironment
+import mg.template.core.build.BuildParams
 import mg.template.core.utils.CrashlyticsLogsTree
 import mg.template.core.utils.CrashlyticsTemplateExceptionsTree
 import timber.log.Timber

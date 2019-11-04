@@ -1,10 +1,10 @@
 package mg.template
 
-import mg.template.core.BaseActivity
-import mg.template.featurea.FeatureARouter
+import mg.template.core.base.BaseActivity
 import mg.template.featureb.FeatureBFragment
+import mg.template.pokedex.PokedexRouter
 
-class FeatureARouterImpl(private val activity: BaseActivity) : FeatureARouter {
+class PokedexRouterImpl(private val activity: BaseActivity) : PokedexRouter {
 
     override fun routeToBScreen() {
         activity.supportFragmentManager.beginTransaction()

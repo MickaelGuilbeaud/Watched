@@ -1,15 +1,15 @@
 package mg.template
 
 import android.os.Bundle
-import mg.template.core.BaseActivity
-import mg.template.featurea.FeatureARouter
-import mg.template.featurea.FeatureARouterProvider
-import mg.template.featurea.PokedexFragment
+import mg.template.core.base.BaseActivity
+import mg.template.pokedex.PokedexFragment
+import mg.template.pokedex.PokedexRouter
+import mg.template.pokedex.PokedexRouterProvider
 
-class MainActivity : BaseActivity(), FeatureARouterProvider {
+class MainActivity : BaseActivity(), PokedexRouterProvider {
 
     override val logsTag: String = BaseActivity::class.java.simpleName
-    override val featureARouter: FeatureARouter = FeatureARouterImpl(this)
+    override val pokedexRouter: PokedexRouter = PokedexRouterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

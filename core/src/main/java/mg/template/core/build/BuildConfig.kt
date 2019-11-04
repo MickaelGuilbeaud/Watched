@@ -1,4 +1,4 @@
-package mg.template.core
+package mg.template.core.build
 
 interface BuildParams {
     val baseUrl: String

@@ -1,4 +1,4 @@
-package mg.template.featurea
+package mg.template.pokedex
 
 import android.content.res.ColorStateList
 import android.view.LayoutInflater
@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import mg.template.data.pokemon.network.Pokemon
+import mg.template.data.pokemon.network.models.Pokemon
 import mg.template.design.getColor
 import mg.template.design.getName
 

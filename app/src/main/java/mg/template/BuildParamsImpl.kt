@@ -1,7 +1,7 @@
 package mg.template
 
-import mg.template.core.BuildEnvironment
-import mg.template.core.BuildParams
+import mg.template.core.build.BuildEnvironment
+import mg.template.core.build.BuildParams
 import timber.log.Timber
 
 class BuildParamsImpl : BuildParams {

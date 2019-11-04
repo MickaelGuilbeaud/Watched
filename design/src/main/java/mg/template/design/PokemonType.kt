@@ -2,7 +2,7 @@ package mg.template.design
 
 import androidx.annotation.ColorRes
 import androidx.annotation.StringRes
-import mg.template.data.pokemon.network.PokemonType
+import mg.template.data.pokemon.network.models.PokemonType
 
 @StringRes
 fun PokemonType.getName(): Int = when (this) {

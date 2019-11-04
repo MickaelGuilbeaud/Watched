@@ -1,6 +1,7 @@
 package mg.template.data.pokemon.network
 
 import io.reactivex.Single
+import mg.template.data.pokemon.network.models.Pokemon
 import retrofit2.http.GET
 import retrofit2.http.Path
 

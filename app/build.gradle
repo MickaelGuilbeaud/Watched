@@ -55,7 +55,7 @@ android {
 }
 
 dependencies {
-    api project(':feat_a')
+    api project(':feat_pokedex')
     api project(':feat_b')
 }
 

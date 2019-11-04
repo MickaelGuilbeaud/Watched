@@ -1,4 +1,4 @@
-package mg.template.data.pokemon.network
+package mg.template.data.pokemon.network.models
 
 import com.squareup.moshi.Json
 

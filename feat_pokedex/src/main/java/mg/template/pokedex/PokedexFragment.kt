@@ -1,12 +1,14 @@
-package mg.template.featurea
+package mg.template.pokedex
 
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_pokedex.*
-import mg.template.core.BaseFragment
+import mg.template.core.base.BaseFragment
+import mg.template.core.utils.exhaustive
 import mg.template.design.SimpleDividerItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -39,7 +41,7 @@ class PokedexFragment : BaseFragment(PokedexFragment::class.java.simpleName) {
         rvPokemons.adapter = pokemonsAdapter
         rvPokemons.addItemDecoration(SimpleDividerItemDecoration(requireContext()))
 
-        //btnGoToFeatureB.setOnClickListener { getFeatureARouter().routeToBScreen() }
+        //btnGoToFeatureB.setOnClickListener { getPokedexRouter().routeToBScreen() }
     }
 
     // endregion
@@ -48,10 +50,18 @@ class PokedexFragment : BaseFragment(PokedexFragment::class.java.simpleName) {
 
     private fun bindViewState(viewState: PokedexViewState) {
         when (viewState) {
+            PokedexViewState.Loading -> {
+                pbLoading.isVisible = true
+                rvPokemons.isVisible = false
+            }
+            is PokedexViewState.Error -> TODO()
             is PokedexViewState.Pokemons -> {
+                pbLoading.isVisible = false
+                rvPokemons.isVisible = true
+
                 pokemonsAdapter.submitList(viewState.pokemons)
             }
-        }
+        }.exhaustive
     }
 
     // endregion

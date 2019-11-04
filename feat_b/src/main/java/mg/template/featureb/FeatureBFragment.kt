@@ -4,7 +4,7 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import mg.template.core.BaseFragment
+import mg.template.core.base.BaseFragment
 
 class FeatureBFragment : BaseFragment(FeatureBFragment::class.java.simpleName) {
 
