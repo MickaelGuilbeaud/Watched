@@ -1,6 +1,6 @@
 package mg.template.pokedex
 
-import mg.template.data.pokemon.network.models.Pokemon
+import mg.template.data.pokemon.db.models.Pokemon
 
 sealed class PokedexViewState {
     object Loading : PokedexViewState()

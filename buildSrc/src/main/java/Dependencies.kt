@@ -7,6 +7,7 @@ object Versions {
     const val lifecycle = "2.1.0"
     const val okhttp = "4.2.2"
     const val retrofit = "2.6.2"
+    const val room = "2.2.1"
     const val moshi = "1.8.0"
     const val glide = "4.10.0"
 }
@@ -48,6 +49,11 @@ object Dependencies {
     const val retrofitClient = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitAdapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
     const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
+
+    // Database
+    const val room = "androidx.room:room-runtime:${Versions.room}"
+    const val roomRxJava = "androidx.room:room-rxjava2:${Versions.room}"
+    const val roomProcessor = "androidx.room:room-compiler:${Versions.room}"
 
     // JSON
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"

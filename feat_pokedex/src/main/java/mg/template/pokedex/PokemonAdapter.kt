@@ -12,7 +12,7 @@ import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import mg.template.data.pokemon.network.models.Pokemon
+import mg.template.data.pokemon.db.models.Pokemon
 import mg.template.design.getColor
 import mg.template.design.getName
 
@@ -54,10 +54,10 @@ internal class PokemonViewHolder private constructor(view: View) : RecyclerView.
 
     fun bindPokemon(pokemon: Pokemon) {
         Glide.with(ivSprite.context)
-            .load(pokemon.sprites.frontDefault)
+            .load(pokemon.frontSpriteUrl)
             .into(ivSprite)
 
-        tvName.text = pokemon.name.capitalize()
+        tvName.text = pokemon.name
         tvNumber.text = tvNumber.context.getString(R.string.pokemon_listitem_number, pokemon.id.toString())
 
         bindType1(pokemon)
@@ -66,23 +66,23 @@ internal class PokemonViewHolder private constructor(view: View) : RecyclerView.
 
     private fun bindType1(pokemon: Pokemon) {
         tvType1.apply {
-            text = context.getString(pokemon.types[0].getName())
+            text = context.getString(pokemon.type1.getName())
 
-            val type1Color = ContextCompat.getColor(context, pokemon.types[0].getColor())
+            val type1Color = ContextCompat.getColor(context, pokemon.type1.getColor())
             backgroundTintList = ColorStateList.valueOf(type1Color)
         }
     }
 
     private fun bindType2(pokemon: Pokemon) {
         tvType2.apply {
-            if (pokemon.types.size == 2) {
-                isVisible = true
-                text = context.getString(pokemon.types[1].getName())
-
-                val type2Color = ContextCompat.getColor(context, pokemon.types[1].getColor())
-                backgroundTintList = ColorStateList.valueOf(type2Color)
-            } else {
+            if (pokemon.type2 == null) {
                 isVisible = false
+            } else {
+                isVisible = true
+                text = context.getString(pokemon.type2!!.getName())
+
+                val type2Color = ContextCompat.getColor(context, pokemon.type2!!.getColor())
+                backgroundTintList = ColorStateList.valueOf(type2Color)
             }
         }
     }

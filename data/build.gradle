@@ -1,5 +1,23 @@
 apply from: "$rootProject.projectDir/base-android-library.gradle"
+apply plugin: 'kotlin-kapt'
+
+android {
+    defaultConfig {
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [
+                        "room.schemaLocation"  : "$projectDir/schemas".toString(),
+                        "room.incremental"     : "true",
+                        "room.expandProjection": "true"]
+            }
+        }
+    }
+}
 
 dependencies {
     api project(':core')
+
+    api Dependencies.room
+    api Dependencies.roomRxJava
+    kapt Dependencies.roomProcessor
 }

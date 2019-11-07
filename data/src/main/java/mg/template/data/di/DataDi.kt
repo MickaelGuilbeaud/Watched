@@ -1,16 +1,20 @@
 package mg.template.data.di
 
 import android.util.Log
+import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.template.data.BuildConfig
+import mg.template.data.TemplateDatabase
 import mg.template.data.pokemon.PokemonStore
+import mg.template.data.pokemon.db.PokemonDao
 import mg.template.data.pokemon.network.PokemonService
 import mg.template.data.pokemon.network.PokemonTypeAdapter
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
 import okhttp3.logging.HttpLoggingInterceptor
+import org.koin.android.ext.koin.androidContext
 import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import retrofit2.Retrofit
@@ -19,6 +23,14 @@ import retrofit2.converter.moshi.MoshiConverterFactory
 import timber.log.Timber
 
 val dataDiModule = module {
+
+    // region Stores
+
+    single<PokemonStore> { PokemonStore(get(), get()) }
+
+    // endregion
+
+    // region Network
 
     single<Moshi> {
         Moshi.Builder()
@@ -69,5 +81,19 @@ val dataDiModule = module {
         retrofit.create(PokemonService::class.java)
     }
 
-    single<PokemonStore> { PokemonStore(get()) }
+    // endregion
+
+    // region Database
+
+    single<TemplateDatabase> {
+        Room.databaseBuilder(androidContext(), TemplateDatabase::class.java, "template_database")
+            .build()
+    }
+
+    single<PokemonDao> {
+        val db: TemplateDatabase = get()
+        db.pokemonDao()
+    }
+
+    // endregion
 }

@@ -3,18 +3,18 @@ package mg.template.data.pokemon.network
 import com.squareup.moshi.FromJson
 import com.squareup.moshi.ToJson
 import mg.template.data.pokemon.network.models.PokemonType
-import mg.template.data.pokemon.network.models.PokemonTypeJson
+import mg.template.data.pokemon.network.models.PokemonTypeEntity
 
-class PokemonTypeAdapter {
+internal class PokemonTypeAdapter {
 
     @ToJson
-    fun toJson(pokemonTypes: List<PokemonType>): List<PokemonTypeJson> {
-        TODO()
+    fun toJson(pokemonTypes: List<PokemonType>): List<PokemonTypeEntity> {
+        throw NotImplementedError("pokemonTypes to json is not implemented")
     }
 
     @FromJson
-    fun fromJson(pokemonTypesJson: List<PokemonTypeJson>): List<PokemonType> {
-        return pokemonTypesJson.map { pokemonTypeJson ->
+    fun fromJson(pokemonTypesEntity: List<PokemonTypeEntity>): List<PokemonType> {
+        return pokemonTypesEntity.map { pokemonTypeJson ->
             Pair(pokemonTypeJson.slot, PokemonType.valueOf(pokemonTypeJson.typeDetails.name.toUpperCase()))
         }
             .sortedBy { it.first }
