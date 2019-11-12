@@ -10,8 +10,7 @@ data class PokemonEntity(
 )
 
 data class Sprites(
-    @Json(name = "front_default") val frontDefault: String,
-    @Json(name = "back_default") val backDefault: String
+    @Json(name = "front_default") val frontDefault: String
 )
 
 data class PokemonTypeEntity(

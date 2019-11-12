@@ -87,6 +87,7 @@ val dataDiModule = module {
 
     single<TemplateDatabase> {
         Room.databaseBuilder(androidContext(), TemplateDatabase::class.java, "template_database")
+            .fallbackToDestructiveMigration()
             .build()
     }
 

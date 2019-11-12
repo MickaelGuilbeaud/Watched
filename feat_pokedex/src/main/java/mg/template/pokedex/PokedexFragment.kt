@@ -8,6 +8,7 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_pokedex.*
 import mg.template.core.base.BaseFragment
+import mg.template.core.utils.addNeedToLoadMoreListener
 import mg.template.core.utils.exhaustive
 import mg.template.design.SimpleDividerItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -40,6 +41,7 @@ class PokedexFragment : BaseFragment(PokedexFragment::class.java.simpleName) {
         rvPokemons.setHasFixedSize(true)
         rvPokemons.adapter = pokemonsAdapter
         rvPokemons.addItemDecoration(SimpleDividerItemDecoration(requireContext()))
+        rvPokemons.addNeedToLoadMoreListener { viewModel.loadMorePokemons() }
 
         //btnGoToFeatureB.setOnClickListener { getPokedexRouter().routeToBScreen() }
     }

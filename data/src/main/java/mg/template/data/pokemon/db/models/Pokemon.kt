@@ -10,7 +10,6 @@ data class Pokemon(
     @PrimaryKey val id: Long,
     val name: String,
     @ColumnInfo(name = "front_sprite_url") val frontSpriteUrl: String,
-    @ColumnInfo(name = "back_sprite_url") val backSpriteUrl: String,
     val type1: PokemonType,
     val type2: PokemonType?
 )

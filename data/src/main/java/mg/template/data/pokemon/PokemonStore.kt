@@ -17,12 +17,18 @@ class PokemonStore(
     private val pokemonDao: PokemonDao
 ) {
 
+    companion object {
+        private const val pageSize: Long = 20L
+    }
+
     private val compositeDisposable = CompositeDisposable()
 
     // region Pokemons
 
-    private var pokemons: List<Pokemon>? = null
+    private var pokemons: List<Pokemon> = emptyList()
     private var isLoadingPokemons: Boolean = false
+
+    private var pokemonsCurrentPageNumber: Int = 0
 
     private val pokemonsSubject = BehaviorSubject.create<Lce<List<Pokemon>>>()
 
@@ -33,55 +39,56 @@ class PokemonStore(
         // Avoid updating Pokemons data multiple times in parallel
         if (isLoadingPokemons) return
 
-        if (pokemons == null) {
+        if (pokemons.isEmpty()) {
             isLoadingPokemons = true
-            getPokemonsFromDB()
-        } else {
-            if (isPokemonsDataOutdated()) {
-                isLoadingPokemons = true
-                getPokemonsFromNetwork()
-            } else {
-                // Nothing to do ?
-            }
+            getPokemonsFromDB(0)
+        } else if (isPokemonsDataOutdated()) {
+            isLoadingPokemons = true
+            getPokemonsFromNetwork(0)
         }
     }
 
     private fun isPokemonsDataOutdated(): Boolean = false
 
-    private fun getPokemonsFromDB() {
-        pokemonDao.getPokemonsInRange(1, 20)
+    private fun getPokemonsFromDB(pageNumber: Int) {
+        val startIndex = pageNumber * pageSize + 1
+        val endIndex = startIndex + pageSize - 1
+        pokemonDao.getPokemonsInRange(startIndex, endIndex)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe {
-                Timber.d("Get Pokémons from DB")
+                Timber.d("Get Pokémons page $pageNumber ($startIndex to $endIndex) from DB")
+                isLoadingPokemons = true
                 pokemonsSubject.onNext(Lce.Loading(pokemons))
             }
             .subscribeBy(onSuccess = { dbPokemons ->
                 Timber.d("Successfully retrieved ${dbPokemons.size} Pokémons from DB")
                 if (dbPokemons.isEmpty()) {
-                    getPokemonsFromNetwork()
+                    getPokemonsFromNetwork(pageNumber)
                 } else {
-                    pokemons = dbPokemons
+                    pokemons = if (pageNumber == 0) dbPokemons else pokemons + dbPokemons
 
                     if (isPokemonsDataOutdated()) {
                         pokemonsSubject.onNext(Lce.Loading(pokemons))
-                        getPokemonsFromNetwork()
+                        getPokemonsFromNetwork(pageNumber)
                     } else {
                         isLoadingPokemons = false
-                        pokemonsSubject.onNext(Lce.Content(pokemons!!))
+                        pokemonsSubject.onNext(Lce.Content(pokemons))
                     }
                 }
             }, onError = {
                 Timber.e(it, "Failed to retrieve Pokémons from DB")
-                getPokemonsFromNetwork()
+                getPokemonsFromNetwork(0)
             })
             .addTo(compositeDisposable)
     }
 
-    private fun getPokemonsFromNetwork() {
-        Observable.rangeLong(1, 20)
+    private fun getPokemonsFromNetwork(pageNumber: Int) {
+        val startIndex = pageNumber * pageSize + 1
+        Observable.rangeLong(startIndex, pageSize)
             .subscribeOn(Schedulers.io())
             .doOnSubscribe {
-                Timber.d("Get Pokémons from Network")
+                Timber.d("Get Pokémons page $pageNumber (from $startIndex, $pageSize Pokémons} from Network")
+                isLoadingPokemons = true
                 pokemonsSubject.onNext(Lce.Loading(pokemons))
             }
             .concatMapEager { pokemonId ->
@@ -96,26 +103,41 @@ class PokemonStore(
                         pokemon.id,
                         pokemon.name.capitalize(),
                         pokemon.sprites.frontDefault,
-                        pokemon.sprites.backDefault,
                         pokemon.types[0],
                         pokemon.types.getOrNull(1)
                     )
                 }
             }
             .doOnSuccess { pokemons ->
+                Timber.d("Delete Pokémons from id ${pokemons.first().id} to ${pokemons.last().id}")
+                pokemonDao.deletePokemonsInRange(pokemons.first().id, pokemons.last().id)
                 Timber.d("Save ${pokemons.size} Pokémons in DB")
-                pokemonDao.deletePokemonsInRange(0, pokemons.size)
                 pokemonDao.insertAll(pokemons)
             }
-            .subscribeBy(onSuccess = { pokemons ->
-                Timber.d("Successfully retrieved ${pokemons.size} Pokémons from network")
-                this.pokemons = pokemons
-                pokemonsSubject.onNext(Lce.Content(this.pokemons!!))
+            .subscribeBy(onSuccess = { newPokemons ->
+                Timber.d("Successfully retrieved ${newPokemons.size} Pokémons from network")
+
+                isLoadingPokemons = false
+                pokemons = if (pageNumber == 0) newPokemons else pokemons + newPokemons
+
+                pokemonsSubject.onNext(Lce.Content(this.pokemons))
             }, onError = { error ->
                 Timber.e(error, "Get Pokémons from network failed")
+                isLoadingPokemons = false
                 pokemonsSubject.onNext(Lce.Error(error))
             })
             .addTo(compositeDisposable)
+    }
+
+    fun loadNextPokemonsPage() {
+        if (isLoadingPokemons) return
+
+        Timber.d("Load next Pokémons page")
+
+        pokemonsCurrentPageNumber += 1
+
+        isLoadingPokemons = true
+        getPokemonsFromDB(pokemonsCurrentPageNumber)
     }
 
     // endregion

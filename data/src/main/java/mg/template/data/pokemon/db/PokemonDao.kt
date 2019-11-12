@@ -10,10 +10,10 @@ import mg.template.data.pokemon.db.models.Pokemon
 interface PokemonDao {
 
     @Query("SELECT * FROM pokemon WHERE id BETWEEN :start AND :endInclusive")
-    fun getPokemonsInRange(start: Int, endInclusive: Int): Single<List<Pokemon>>
+    fun getPokemonsInRange(start: Long, endInclusive: Long): Single<List<Pokemon>>
 
     @Query("DELETE FROM pokemon WHERE id BETWEEN :start AND :endInclusive")
-    fun deletePokemonsInRange(start: Int, endInclusive: Int)
+    fun deletePokemonsInRange(start: Long, endInclusive: Long)
 
     @Insert
     fun insertAll(pokemons: List<Pokemon>)

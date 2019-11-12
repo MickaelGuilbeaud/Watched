@@ -18,11 +18,21 @@ internal class PokedexViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onNext = { lce ->
                 when (lce) {
-                    is Lce.Loading -> pushViewState(PokedexViewState.Loading)
+                    is Lce.Loading -> {
+                        if (lce.previousContent == null) {
+                            pushViewState(PokedexViewState.Loading)
+                        } else {
+                            pushViewState(PokedexViewState.Pokemons(lce.previousContent!!))
+                        }
+                    }
                     is Lce.Content -> pushViewState(PokedexViewState.Pokemons(lce.content))
                     is Lce.Error -> pushViewState(PokedexViewState.Error(lce.error))
                 }
             })
             .addTo(compositeDisposable)
+    }
+
+    fun loadMorePokemons() {
+        pokemonStore.loadNextPokemonsPage()
     }
 }
