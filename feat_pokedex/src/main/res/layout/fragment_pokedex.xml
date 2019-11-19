@@ -12,6 +12,17 @@
         android:layout_gravity="center"
         tools:visibility="gone" />
 
+    <TextView
+        android:id="@+id/tvError"
+        style="@style/TextAppearance.MaterialComponents.Body1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginStart="16dp"
+        android:layout_marginEnd="16dp"
+        android:text="@string/pokedex_global_error"
+        android:visibility="gone" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvPokemons"
         android:layout_width="match_parent"

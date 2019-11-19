@@ -54,11 +54,17 @@ class PokedexFragment : BaseFragment(PokedexFragment::class.java.simpleName) {
         when (viewState) {
             PokedexViewState.Loading -> {
                 pbLoading.isVisible = true
+                tvError.isVisible = false
                 rvPokemons.isVisible = false
             }
-            is PokedexViewState.Error -> TODO()
+            is PokedexViewState.Error -> {
+                pbLoading.isVisible = false
+                tvError.isVisible = true
+                rvPokemons.isVisible = false
+            }
             is PokedexViewState.Pokemons -> {
                 pbLoading.isVisible = false
+                tvError.isVisible = false
                 rvPokemons.isVisible = true
 
                 pokemonsAdapter.submitList(viewState.pokemons)
