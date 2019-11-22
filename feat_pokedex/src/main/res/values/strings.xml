@@ -1,6 +1,7 @@
 <resources>
 
     <!-- Pokedex -->
+    <string name="pokedex_title">Pokédex</string>
     <string name="pokedex_global_error">An error occurred</string>
 
     <!-- Pokemon listitem -->

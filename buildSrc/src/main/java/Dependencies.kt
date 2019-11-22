@@ -38,7 +38,7 @@ object Dependencies {
         "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"    // Extensions functions for ViewModel
 
     // UI
-    const val material = "com.google.android.material:material:1.1.0-alpha02"
+    const val material = "com.google.android.material:material:1.1.0-beta02"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
     const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"

@@ -38,6 +38,8 @@ class PokedexFragment : BaseFragment(PokedexFragment::class.java.simpleName) {
     }
 
     private fun initUI() {
+        toolbar.title = getString(R.string.pokedex_title)
+
         rvPokemons.setHasFixedSize(true)
         rvPokemons.adapter = pokemonsAdapter
         rvPokemons.addItemDecoration(SimpleDividerItemDecoration(requireContext()))
