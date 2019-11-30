@@ -1,9 +1,12 @@
 <resources>
 
-    <style name="TemplateTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+    <style name="Base.Theme.Template" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:statusBarColor">@color/statusBar</item>
     </style>
+
+    <style name="Theme.Template" parent="Base.Theme.Template" />
 
 </resources>

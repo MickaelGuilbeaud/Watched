@@ -9,9 +9,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
-        <com.google.android.material.appbar.MaterialToolbar
+        <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            style="@style/TemplateToolbar"
+            style="@style/Style.Template.Toolbar"
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|enterAlways|snap" />

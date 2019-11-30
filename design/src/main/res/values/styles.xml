@@ -1,9 +1,10 @@
 <resources>
 
-    <style name="TemplateToolbar">
-        <item name="android:layout_height">56dp</item>
-        <item name="android:background">?attr/colorPrimary</item>
-        <item name="android:elevation">4dp</item>
+    <style name="Base.Style.Template.Toolbar" parent="">
+        <item name="android:layout_height">?attr/actionBarSize</item>
+    </style>
+
+    <style name="Style.Template.Toolbar" parent="Base.Style.Template.Toolbar">
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
     </style>
