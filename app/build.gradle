@@ -59,4 +59,4 @@ dependencies {
     api project(':feat_b')
 }
 
-apply plugin: 'com.google.gms.google-services'
+apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

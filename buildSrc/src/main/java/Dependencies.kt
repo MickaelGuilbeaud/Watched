@@ -3,7 +3,7 @@
 // For Firebase libs versions see: https://firebase.google.com/support/release-notes/android
 
 object Versions {
-    const val kotlin = "1.3.60"
+    const val kotlin = "1.3.61"
     const val lifecycle = "2.1.0"
     const val okhttp = "4.2.2"
     const val retrofit = "2.6.2"
