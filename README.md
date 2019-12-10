@@ -1,8 +1,23 @@
 # Template
 
-This template is both a project best practice showcase and a base to kickstart a new project faster.
+### Overview
 
-## Overview
+Template is a mix of 3 goals:
+
+- A showcase of some best practices and solutions to common problems. I can use it as a reminder of how I solved some problems, but it can be used as a support material during exchanges to other developers.
+- A playground for me to test new patterns and libraries. The Android ecosystem evolves quickly so it's important to stay up-to-date with the industry trends.
+- A template to start a new project faster. Set up and configuration is rarely the most interesting part of a project, and it can takes quite some times.
+
+### To Do
+
+As an always in-progress project, here's a short list of topics I want to explore or add:
+
+- Improve the README
+- Refactor the PokemonStore. Two improvements can be bone: the in-memory cache is redundant with the database, and the pagination from the DB data is overkill and actually hurting the UX as even when all the data is available in DB, it still needs to be loaded per page
+- Unit tests for the PokedexViewModel and the PokemonStore
+- Integration tests for the Pokemon feature, trying MockWebServer in the process
+
+## Template as a showcase
 
 ### Libraries
 
