@@ -13,13 +13,40 @@ Template is a mix of 3 goals:
 As an always in-progress project, here's a short list of topics I want to explore or add:
 
 - Improve the README
-- Refactor the PokemonStore. Two improvements can be bone: the in-memory cache is redundant with the database, and the pagination from the DB data is overkill and actually hurting the UX as even when all the data is available in DB, it still needs to be loaded per page
+- Refactor the PokemonStore. Two improvements can be done: the in-memory cache is redundant with the database, and the pagination from the DB data is overkill and actually hurting the UX as even when all the data is available in DB, it still needs to be loaded per page
 - Unit tests for the PokedexViewModel and the PokemonStore
 - Integration tests for the Pokemon feature, trying MockWebServer in the process
+- Convert all gradle files to Kotlin DSL
+- Work on a CI, probably Bitrise or Github actions, that build and run tests of the project. It's also a nice opportunity to try to implement a visual QA
+- Only accept EN language
+- Rename builds based on the build variant
+- Use a custom font
 
-## Template as a showcase
+## Template as a... template
+
+### Good practices
+
+- Single Activity
+- Dark theme
+- Small optimizations
+
+#### Single Activity
+
+I think that two most viable way to build an app is as a Single Activity or only Activities (no Fragments). An app that is half-way between these two philosophies has only downsides without any advantage: navigation is harder, having factorized behaviors in a BaseActivity or BaseFragment is also harder, for each new screen we should choose between making it with an Activity or a Fragment.
+
+Creating an app using the Single Activity pattern is enjoyable and is the recommended way by Google, so it's the one I choose.
+
+#### Dark theme
+
+Even if the dark theme concept is relatively new users expect all apps to have one. Luckily inheriting from a *Theme.MaterialComponents.DayNight* theme is a great starting point and is doing a lot of work for us.
+
+#### Small optimizations
+
+- Removing of unused alternatives resources: Adding a **resConfigs** property in the app *build.gradle* file removes resources from unused locales, reducing the final apk size. See the [Android developer documentation](https://developer.android.com/studio/build/shrink-code#unused-alt-resources) for more details.
 
 ### Libraries
+
+Template uses some of the most widespread libraries: AAC ViewModel, LiveData, Retrofit, OkHttp, Room, Moshi, Glide, RxJava2, Firebase Crashlytics. As they are so commonly used a lot of documentation is available and there is a high chance that a new developer joining the project will be able to quickly add value.
 
 ### Gradle
 

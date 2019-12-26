@@ -16,6 +16,8 @@ android {
         versionCode 1
         versionName "1.0"
 
+        resConfigs 'en' // Remove unused alternative resources
+
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
 

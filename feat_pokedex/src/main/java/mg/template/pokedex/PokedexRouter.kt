@@ -11,7 +11,7 @@ interface PokedexRouterProvider {
     val pokedexRouter: PokedexRouter
 }
 
-fun BaseFragment.getPokedexRouter(): PokedexRouter {
+internal fun BaseFragment.getPokedexRouter(): PokedexRouter {
     val activity = requireActivity()
     if (activity is PokedexRouterProvider) {
         return activity.pokedexRouter
