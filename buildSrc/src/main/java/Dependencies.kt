@@ -5,9 +5,9 @@
 object Versions {
     const val kotlin = "1.3.61"
     const val lifecycle = "2.1.0"
-    const val okhttp = "4.2.2"
-    const val retrofit = "2.6.2"
-    const val room = "2.2.2"
+    const val okhttp = "4.3.0"
+    const val retrofit = "2.7.0"
+    const val room = "2.2.3"
     const val moshi = "1.9.2"
     const val glide = "4.10.0"
 }
@@ -15,7 +15,7 @@ object Versions {
 object Dependencies {
     // Kotlin
     const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.2-1.3.60"
+    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
 
     // AndroidX - General
     const val activity = "androidx.activity:activity-ktx:1.0.0"
@@ -59,7 +59,7 @@ object Dependencies {
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.14"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.16"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 

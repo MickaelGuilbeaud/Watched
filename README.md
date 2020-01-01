@@ -18,9 +18,9 @@ As an always in-progress project, here's a short list of topics I want to explor
 - Integration tests for the Pokemon feature, trying MockWebServer in the process
 - Convert all gradle files to Kotlin DSL
 - Work on a CI, probably Bitrise or Github actions, that build and run tests of the project. It's also a nice opportunity to try to implement a visual QA
-- Only accept EN language
 - Rename builds based on the build variant
 - Use a custom font
+- Add LeakCanary 2
 
 ## Template as a... template
 
@@ -28,7 +28,6 @@ As an always in-progress project, here's a short list of topics I want to explor
 
 - Single Activity
 - Dark theme
-- Small optimizations
 
 #### Single Activity
 
@@ -40,7 +39,7 @@ Creating an app using the Single Activity pattern is enjoyable and is the recomm
 
 Even if the dark theme concept is relatively new users expect all apps to have one. Luckily inheriting from a *Theme.MaterialComponents.DayNight* theme is a great starting point and is doing a lot of work for us.
 
-#### Small optimizations
+### Small optimizations
 
 - Removing of unused alternatives resources: Adding a **resConfigs** property in the app *build.gradle* file removes resources from unused locales, reducing the final apk size. See the [Android developer documentation](https://developer.android.com/studio/build/shrink-code#unused-alt-resources) for more details.
 
