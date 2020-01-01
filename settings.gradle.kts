@@ -1,0 +1,6 @@
+include(":app")
+include(":core")
+include(":data")
+include(":design")
+include(":feat_pokedex")
+include(":feat_b")
