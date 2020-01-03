@@ -26,7 +26,7 @@ object Dependencies {
     const val vectorDrawableAnimated = "androidx.vectordrawable:vectordrawable-animated:1.1.0"
 
     // AndroidX - UI
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
     const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0"
 
     // AndroidX - Lifecycle
