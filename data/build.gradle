@@ -1,5 +1,5 @@
 apply from: "$rootProject.projectDir/base-android-library.gradle"
-apply plugin: 'kotlin-kapt'
+apply plugin: "kotlin-kapt"
 
 android {
     defaultConfig {
@@ -15,7 +15,7 @@ android {
 }
 
 dependencies {
-    api project(':core')
+    api project(":core")
 
     api Dependencies.room
     api Dependencies.roomRxJava

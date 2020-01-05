@@ -1,5 +1,5 @@
 apply from: "$rootProject.projectDir/base-android-library.gradle"
-apply plugin: 'kotlin-kapt'
+apply plugin: "kotlin-kapt"
 
 dependencies {
     // Kotlin

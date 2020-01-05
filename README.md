@@ -16,8 +16,8 @@ As an always in-progress project, here's a short list of topics I want to explor
 - Refactor the PokemonStore. Two improvements can be done: the in-memory cache is redundant with the database, and the pagination from the DB data is overkill and actually hurting the UX as even when all the data is available in DB, it still needs to be loaded per page
 - Unit tests for the PokedexViewModel and the PokemonStore
 - Integration tests for the Pokemon feature, trying MockWebServer in the process
-- Convert all gradle files to Kotlin DSL
-- Work on a CI, probably Bitrise or Github actions, that build and run tests of the project. It's also a nice opportunity to try to implement a visual QA
+- Convert all gradle files to Kotlin DSL -> On hold, after playing with the Kotlin DSL it doesn't feel like it's ready for production yet.
+- Work on a CI, probably Bitrise or Github actions, that build and run tests of the project. It's also a nice opportunity to implement a visual QA
 - Rename builds based on the build variant
 - Use a custom font
 - Add LeakCanary 2
@@ -38,6 +38,13 @@ Creating an app using the Single Activity pattern is enjoyable and is the recomm
 #### Dark theme
 
 Even if the dark theme concept is relatively new users expect all apps to have one. Luckily inheriting from a *Theme.MaterialComponents.DayNight* theme is a great starting point and is doing a lot of work for us.
+
+### Project set up
+
+#### Gradle
+
+Project and dependencies versions are factorized in a *Dependencies* file inside the *buildSrc* folder, as recommended in the [Gradle documentation](https://docs.gradle.org/current/userguide/organizing_gradle_projects.html#sec:build_sources). It includes Android compile/min/target sdk versions, Java version and dependencies.
+The main benefit of this approach is to centralize versions in a single place, avoiding having to edit every module *build.gradle* file each time a new version is available, and ensuring that all modules use the same versions.
 
 ### Small optimizations
 

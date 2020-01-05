@@ -1,8 +1,17 @@
+import org.gradle.api.JavaVersion
+
 // For AndroidX libs versions see: https://developer.android.com/jetpack/androidx/versions
 // For Ktx libs versions see: https://developer.android.com/kotlin/ktx#core-packages
 // For Firebase libs versions see: https://firebase.google.com/support/release-notes/android
 
 object Versions {
+    const val androidMinSdk = 21
+    const val androidCompileSdk = 28
+    const val androidTargetSdk = androidCompileSdk
+
+    val javaSourceCompatibility = JavaVersion.VERSION_1_8
+    const val kotlinJvmTarget = "1.8"
+
     const val kotlin = "1.3.61"
     const val lifecycle = "2.1.0"
     const val okhttp = "4.3.0"
@@ -72,4 +81,9 @@ object Dependencies {
 
     // Tools
     const val timber = "com.jakewharton.timber:timber:4.7.1"
+
+    // Testing
+    const val junit = "junit:junit:4.12"
+    const val assertJ = "org.assertj:assertj-core:3.11.1"
+    const val mockk = "io.mockk:mockk:1.9"
 }

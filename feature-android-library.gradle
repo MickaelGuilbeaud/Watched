@@ -1,12 +1,6 @@
 apply from: "$rootProject.projectDir/base-android-library.gradle"
 
 dependencies {
-    api project(':data')
-    api project(':design')
-
-    // Add test dependencies here
-    //testImplementation deps.test.junit
-    //testImplementation deps.test.assertJ
-    //testImplementation deps.test.mockk
-    //testImplementation deps.test.lifecycle
+    api project(":data")
+    api project(":design")
 }
