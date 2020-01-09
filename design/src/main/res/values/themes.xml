@@ -9,4 +9,8 @@
 
     <style name="Theme.Template" parent="Base.Theme.Template" />
 
+    <style name="Theme.Template.Splash">
+        <item name="android:windowBackground">@drawable/bg_splash</item>
+    </style>
+
 </resources>

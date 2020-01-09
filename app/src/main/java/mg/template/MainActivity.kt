@@ -12,6 +12,7 @@ class MainActivity : BaseActivity(), PokedexRouterProvider {
     override val pokedexRouter: PokedexRouter = PokedexRouterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        setTheme(R.style.Theme_Template)
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 

@@ -31,9 +31,9 @@ As an always in-progress project, here's a short list of topics I want to explor
 
 #### Single Activity
 
-I think that two most viable way to build an app is as a Single Activity or only Activities (no Fragments). An app that is half-way between these two philosophies has only downsides without any advantage: navigation is harder, having factorized behaviors in a BaseActivity or BaseFragment is also harder, for each new screen we should choose between making it with an Activity or a Fragment.
+I think that the two most viable way to build an app is as a Single Activity or only Activities (without Fragments). An app that is half-way between these two philosophies has only downsides without any upside: navigation is harder, factorized behaviors in a BaseActivity or BaseFragment are duplicated, and for each new screen we should choose between making it with an Activity or a Fragment.
 
-Creating an app using the Single Activity pattern is enjoyable and is the recommended way by Google, so it's the one I choose.
+Creating an app using the Single Activity pattern is enjoyable and is the recommended way by Google, so it's the one I choose. It's worth mentioning that there is valid reasons to have more than one Activity in a Single Activity app, but it should be an exception and be done after thinking about the advantages and disadvantages.
 
 #### Dark theme
 
@@ -45,6 +45,12 @@ Even if the dark theme concept is relatively new users expect all apps to have o
 
 Project and dependencies versions are factorized in a *Dependencies* file inside the *buildSrc* folder, as recommended in the [Gradle documentation](https://docs.gradle.org/current/userguide/organizing_gradle_projects.html#sec:build_sources). It includes Android compile/min/target sdk versions, Java version and dependencies.
 The main benefit of this approach is to centralize versions in a single place, avoiding having to edit every module *build.gradle* file each time a new version is available, and ensuring that all modules use the same versions.
+
+### Niceties
+
+#### Branded splash screen
+
+Most applications have a branded splash screen displaying their brand logo. This feature is available in Template with the **Theme.Template.Splash** theme that is set to the Activity in the manifest, then the **Theme.Template** is applied in the Activity *onCreate* method once it's launched to avoid keeping the brand logo on screen. This [blog post](https://android.jlelse.eu/revisited-a-guide-on-splash-screen-in-android-in-2020-bbcd4bb1ce42) gives more details and alternatives to implement a nice splash screen.
 
 ### Small optimizations
 
