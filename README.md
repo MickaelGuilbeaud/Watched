@@ -20,7 +20,6 @@ As an always in-progress project, here's a short list of topics I want to explor
 - Work on a CI, probably Bitrise or Github actions, that build and run tests of the project. It's also a nice opportunity to implement a visual QA
 - Rename builds based on the build variant
 - Use a custom font
-- Add LeakCanary 2
 
 ## Template as a... template
 
@@ -51,6 +50,12 @@ The main benefit of this approach is to centralize versions in a single place, a
 #### Branded splash screen
 
 Most applications have a branded splash screen displaying their brand logo. This feature is available in Template with the **Theme.Template.Splash** theme that is set to the Activity in the manifest, then the **Theme.Template** is applied in the Activity *onCreate* method once it's launched to avoid keeping the brand logo on screen. This [blog post](https://android.jlelse.eu/revisited-a-guide-on-splash-screen-in-android-in-2020-bbcd4bb1ce42) gives more details and alternatives to implement a nice splash screen.
+
+### Quality
+
+#### LeakCanary
+
+[LeakCanary](https://square.github.io/leakcanary/) is an awesome library for detecting memory leaks, and adding the dependency is enough to start using it. It is enabled only for <u>debug</u> builds so memory leaks are detected sooner during development / QA phases and there is no risk that this dependency has a negative impact to the users with release builds.
 
 ### Small optimizations
 
