@@ -26,6 +26,8 @@ As an always in-progress project, here's a short list of topics I want to explor
 
 #### Modules
 
+#### Cross-module navigation
+
 #### Dependency injection
 
 #### Single Activity
@@ -78,6 +80,8 @@ Template uses Firebase Crashlytics library for crash reporting. It is disabled f
 #### Memory leaks detection
 
 [LeakCanary](https://square.github.io/leakcanary/) is an awesome library for detecting memory leaks, and adding the dependency is enough to start using it. It is enabled only for <u>debug</u> builds so memory leaks are detected sooner during development / QA phases and there is no risk that this dependency has a negative impact to the users with release builds.
+
+LeakCanary launcher icon name is set to *Template Leaks* to be grouped with the app launcher icon.
 
 ### Libraries
 
