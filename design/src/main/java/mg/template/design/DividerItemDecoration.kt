@@ -9,7 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import mg.template.core.utils.toPx
 import kotlin.math.roundToInt
 
-class SimpleDividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
+class DividerItemDecoration(context: Context) : RecyclerView.ItemDecoration() {
 
     private val divider: Drawable = ContextCompat.getDrawable(context, R.drawable.list_divider)!!
     private val paddingHorizontal: Int = 16.toPx(context)

@@ -7,5 +7,4 @@
     <color name="colorAccent">@color/brand_red</color>
     <color name="statusBar">@color/brand_red_dark</color>
     <color name="divider">#22000000</color>
-
 </resources>

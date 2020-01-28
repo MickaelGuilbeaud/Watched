@@ -1,4 +1,4 @@
-package mg.template.core.ui
+package mg.template.design
 
 import android.graphics.Rect
 import android.view.View

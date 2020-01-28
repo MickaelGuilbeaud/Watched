@@ -4,5 +4,4 @@
     <!-- Theme -->
     <color name="statusBar">@color/black</color>
     <color name="divider">#22FFFFFF</color>
-
 </resources>

@@ -8,9 +8,9 @@ import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_animes.*
 import mg.template.core.base.BaseFragment
-import mg.template.core.ui.MarginItemDecoration
 import mg.template.core.utils.exhaustive
 import mg.template.core.utils.toPx
+import mg.template.design.MarginItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class AnimesFragment : BaseFragment(AnimesFragment::class.java.simpleName) {
