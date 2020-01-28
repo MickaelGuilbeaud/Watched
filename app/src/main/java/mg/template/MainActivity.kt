@@ -1,15 +1,12 @@
 package mg.template
 
 import android.os.Bundle
+import mg.template.animes.AnimesFragment
 import mg.template.core.base.BaseActivity
-import mg.template.pokedex.PokedexFragment
-import mg.template.pokedex.PokedexRouter
-import mg.template.pokedex.PokedexRouterProvider
 
-class MainActivity : BaseActivity(), PokedexRouterProvider {
+class MainActivity : BaseActivity() {
 
     override val logsTag: String = BaseActivity::class.java.simpleName
-    override val pokedexRouter: PokedexRouter = PokedexRouterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Template)
@@ -17,7 +14,7 @@ class MainActivity : BaseActivity(), PokedexRouterProvider {
         setContentView(R.layout.activity_main)
 
         supportFragmentManager.beginTransaction()
-            .replace(R.id.fragmentContainer, PokedexFragment.newInstance())
+            .replace(R.id.fragmentContainer, AnimesFragment.newInstance())
             .commit()
     }
 }

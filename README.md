@@ -19,6 +19,8 @@ As an always in-progress project, here's a short list of topics I want to explor
 - Work on a CI, probably Bitrise or Github actions, that build and run tests of the project. It's also a nice opportunity to implement a visual QA
 - Rename builds based on the build variant
 - Use a custom font
+- Switch the JSON parser to Kotlin Serialization (currently using Moshi)
+- Play with the EncryptedSharedPreferences
 
 ## Template as a... template
 

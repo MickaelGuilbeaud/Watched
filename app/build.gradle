@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: "kotlin-kapt"
 apply plugin: 'io.fabric'
 apply plugin: "org.jlleitschuh.gradle.ktlint"
 
@@ -42,23 +43,25 @@ android {
         dev {
             dimension "env"
             applicationIdSuffix ".dev"
-            buildConfigField "String", "BASE_URL", "\"https://pokeapi.co/api/v2/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.jikan.moe/v3/\""
         }
         preprod {
             dimension "env"
             applicationIdSuffix ".preprod"
-            buildConfigField "String", "BASE_URL", "\"https://pokeapi.co/api/v2/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.jikan.moe/v3/\""
         }
         prod {
             dimension "env"
-            buildConfigField "String", "BASE_URL", "\"https://pokeapi.co/api/v2/\""
+            buildConfigField "String", "BASE_URL", "\"https://api.jikan.moe/v3/\""
         }
     }
 }
 
 dependencies {
-    api project(':feat_pokedex')
-    api project(':feat_b')
+    api project(":feat_animes")
+
+    // UI
+    kapt Dependencies.glideProcessor
 }
 
 apply plugin: 'com.google.gms.google-services'  // Google Play services Gradle plugin

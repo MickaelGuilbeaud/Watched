@@ -6,10 +6,9 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.template.data.BuildConfig
 import mg.template.data.TemplateDatabase
-import mg.template.data.pokemon.PokemonStore
-import mg.template.data.pokemon.db.PokemonDao
-import mg.template.data.pokemon.network.PokemonService
-import mg.template.data.pokemon.network.PokemonTypeAdapter
+import mg.template.data.anime.AnimeStore
+import mg.template.data.anime.db.AnimeDao
+import mg.template.data.anime.network.AnimeService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -26,7 +25,7 @@ val dataDiModule = module {
 
     // region Stores
 
-    single<PokemonStore> { PokemonStore(get(), get()) }
+    single<AnimeStore> { AnimeStore(get(), get()) }
 
     // endregion
 
@@ -34,7 +33,6 @@ val dataDiModule = module {
 
     single<Moshi> {
         Moshi.Builder()
-            .add(PokemonTypeAdapter())
             .add(KotlinJsonAdapterFactory())
             .build()
     }
@@ -76,9 +74,9 @@ val dataDiModule = module {
             .build()
     }
 
-    single<PokemonService> {
+    single<AnimeService> {
         val retrofit: Retrofit = get()
-        retrofit.create(PokemonService::class.java)
+        retrofit.create(AnimeService::class.java)
     }
 
     // endregion
@@ -91,9 +89,9 @@ val dataDiModule = module {
             .build()
     }
 
-    single<PokemonDao> {
+    single<AnimeDao> {
         val db: TemplateDatabase = get()
-        db.pokemonDao()
+        db.animeDao()
     }
 
     // endregion

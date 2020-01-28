@@ -1,0 +1,11 @@
+<resources>
+
+    <!-- Animes -->
+    <string name="animes_title">Animes</string>
+    <string name="animes_global_error">An error occurred</string>
+
+    <!-- Listitem anime -->
+    <string name="anime_producer_and_episodes">%s - %s eps</string>
+    <string name="anime_episodes">%s eps</string>
+
+</resources>

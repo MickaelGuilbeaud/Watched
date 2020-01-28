@@ -3,13 +3,13 @@ package mg.template.data
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.TypeConverters
-import mg.template.data.pokemon.db.PokemonDao
-import mg.template.data.pokemon.db.models.Pokemon
-import mg.template.data.pokemon.db.models.RoomTypeConverters
+import mg.template.core.RoomConverters
+import mg.template.data.anime.db.AnimeDao
+import mg.template.data.anime.db.models.Anime
 
-@Database(entities = [Pokemon::class], version = 1)
-@TypeConverters(RoomTypeConverters::class)
+@Database(entities = [Anime::class], version = 1)
+@TypeConverters(RoomConverters::class)
 abstract class TemplateDatabase : RoomDatabase() {
 
-    abstract fun pokemonDao(): PokemonDao
+    abstract fun animeDao(): AnimeDao
 }

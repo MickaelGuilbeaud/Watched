@@ -2,8 +2,58 @@
   "formatVersion": 1,
   "database": {
     "version": 1,
-    "identityHash": "389ab55bc5eaad12090b332dcf918963",
+    "identityHash": "daea2c93dba25846ec434ba11ccd6f21",
     "entities": [
+      {
+        "tableName": "Anime",
+        "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`malId` INTEGER NOT NULL, `title` TEXT NOT NULL, `imageUrl` TEXT NOT NULL, `synopsis` TEXT, `episodes` INTEGER, `score` REAL, PRIMARY KEY(`malId`))",
+        "fields": [
+          {
+            "fieldPath": "malId",
+            "columnName": "malId",
+            "affinity": "INTEGER",
+            "notNull": true
+          },
+          {
+            "fieldPath": "title",
+            "columnName": "title",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "imageUrl",
+            "columnName": "imageUrl",
+            "affinity": "TEXT",
+            "notNull": true
+          },
+          {
+            "fieldPath": "synopsis",
+            "columnName": "synopsis",
+            "affinity": "TEXT",
+            "notNull": false
+          },
+          {
+            "fieldPath": "episodes",
+            "columnName": "episodes",
+            "affinity": "INTEGER",
+            "notNull": false
+          },
+          {
+            "fieldPath": "score",
+            "columnName": "score",
+            "affinity": "REAL",
+            "notNull": false
+          }
+        ],
+        "primaryKey": {
+          "columnNames": [
+            "malId"
+          ],
+          "autoGenerate": false
+        },
+        "indices": [],
+        "foreignKeys": []
+      },
       {
         "tableName": "Pokemon",
         "createSql": "CREATE TABLE IF NOT EXISTS `${TABLE_NAME}` (`id` INTEGER NOT NULL, `name` TEXT NOT NULL, `front_sprite_url` TEXT NOT NULL, `type1` TEXT NOT NULL, `type2` TEXT, PRIMARY KEY(`id`))",
@@ -52,7 +102,7 @@
     "views": [],
     "setupQueries": [
       "CREATE TABLE IF NOT EXISTS room_master_table (id INTEGER PRIMARY KEY,identity_hash TEXT)",
-      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, '389ab55bc5eaad12090b332dcf918963')"
+      "INSERT OR REPLACE INTO room_master_table (id,identity_hash) VALUES(42, 'daea2c93dba25846ec434ba11ccd6f21')"
     ]
   }
 }
