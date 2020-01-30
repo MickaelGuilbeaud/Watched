@@ -16,17 +16,46 @@ As an always in-progress project, here's a short list of topics I want to explor
 - Unit tests for the PokedexViewModel and the PokemonStore
 - Integration tests for the Pokemon feature, trying MockWebServer in the process
 - Convert all gradle files to Kotlin DSL -> On hold, after playing with the Kotlin DSL it doesn't feel like it's ready for production yet.
-- Work on a CI, probably Bitrise or Github actions, that build and run tests of the project. It's also a nice opportunity to implement a visual QA
+- Work on a CI, probably Github Actions or Bitrise, that build and run tests of the project. It's also a nice opportunity to implement a visual QA
 - Rename builds based on the build variant
 - Use a custom font
-- Switch the JSON parser to Kotlin Serialization (currently using Moshi)
-- Play with the EncryptedSharedPreferences
+- Switch the JSON parser to Kotlin Serialization (currently using Moshi) to be more compatible with Kotlin multiplatform
+- Play with the EncryptedSharedPreferences, it's an easy security update
+- Create an admin feature enabled only for debug builds. It would allow to read logs and user data in the first time, but could be extended to add more capabilities
+- Create a Design system demo app. It might be hard to check that a design system is properly implemented with the need to navigate the app to find the right widget. A demo app allows to quickly inspect widgets and verify consistency and implementation
+- Implement a feature toggle system
 
 ## Template as a... template
 
 ### Architecture
 
 #### Modules
+
+Breaking a project into modules provides a lot of benefits: better separation of concerns, faster builds and the possibility to compose or reuse modules to name a few. The bigger the team, the more interesting it is to split an app into modules.
+
+Template follows a split by feature approach, this way each feature is independent, isolated and developers can work on multiple features in parallel without issues. Associated with the other project modules the dependency graph looks like a diamond:
+
+<img src="docs\images\modules.png" alt="modules" style="zoom:80%;" />
+
+##### Core
+
+The core module gathers base code and utility classes. A good rule of thumb to determine whether a class or bit of code should be in this module is to ask if it contains any business logic and if this code could be copy-pasted to another project, as we don't want any business knowledge in the core module.
+
+##### Data
+
+The data module focus on retrieving, storing and manipulating the data used by features. This module repositories aggregate these responsibilities, allowing multiple features to access the same data and its changes are reflected on other features.
+
+##### Design
+
+The implementation of the brand design system sit in the design module and includes themes, styles, resources and widgets. It provides two benefits: the design system is available in every feature module, and it's possible to build a demo app to test the implementation.
+
+##### Feature
+
+A feature module is a screen or set of screen that are related to a main use-case of the app. It usually contains UI stuff like Fragments and ViewModels. The main idea is that it should be easy to add or remove a feature by adding or removing its module.
+
+##### App
+
+The app module main goal is to compose features and handle navigation between screens. It is expected to stay small and focused.
 
 #### Cross-module navigation
 
@@ -92,16 +121,6 @@ Template uses some of the most widespread libraries: AAC ViewModel, LiveData, Re
 ### Gradle
 
 An env product flavor is present on top of the default debug and release build types. Its primary use is to define the DOMAIN_URL variable for switching the back-end domain between prod, preprod and dev.
-
-### Modules
-
-#### Core module
-
-The core module gathers base code and utility classes. It doesn't contain any business logic and basically it's code that can be copy-pasted in any project.
-
-#### Data module
-
-The data module only goal is to retrieve, gather and manipulate data that are hused by features. 
 
 ### Base classes
 
