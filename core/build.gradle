@@ -19,19 +19,15 @@ dependencies {
     api Dependencies.kotlinCoroutines
 
     // AndroidX - General
-    api Dependencies.activity
     api Dependencies.appcompat
     api Dependencies.core
+    api Dependencies.activity
     api Dependencies.fragment
-    api Dependencies.vectorDrawable
-    api Dependencies.vectorDrawableAnimated
 
     // AndroidX - UI
     api Dependencies.constraintLayout
-    api Dependencies.recyclerView
 
     // AndroidX - Lifecycle
-    api Dependencies.lifecycle
     api Dependencies.livedata
     api Dependencies.viewModel
 

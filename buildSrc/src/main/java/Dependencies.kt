@@ -2,6 +2,7 @@ import org.gradle.api.JavaVersion
 
 // For AndroidX libs versions see: https://developer.android.com/jetpack/androidx/versions
 // For Ktx libs versions see: https://developer.android.com/kotlin/ktx#core-packages
+// For Material lib version see: https://mvnrepository.com/artifact/com.google.android.material/material
 // For Firebase libs versions see: https://firebase.google.com/support/release-notes/android
 
 object Versions {
@@ -13,12 +14,12 @@ object Versions {
     const val kotlinJvmTarget = "1.8"
 
     const val kotlin = "1.3.61"
-    const val lifecycle = "2.1.0"
-    const val okhttp = "4.3.0"
-    const val retrofit = "2.7.0"
+    const val lifecycle = "2.2.0"
+    const val okhttp = "4.3.1"
+    const val retrofit = "2.7.1"
     const val room = "2.2.3"
     const val moshi = "1.9.2"
-    const val glide = "4.10.0"
+    const val glide = "4.11.0"
 }
 
 object Dependencies {
@@ -27,31 +28,24 @@ object Dependencies {
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
 
     // AndroidX - General
-    const val activity = "androidx.activity:activity-ktx:1.0.0"
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val core = "androidx.core:core-ktx:1.2.0-rc01"
-    const val fragment = "androidx.fragment:fragment-ktx:1.1.0"
-    const val vectorDrawable = "androidx.vectordrawable:vectordrawable:1.1.0"
-    const val vectorDrawableAnimated = "androidx.vectordrawable:vectordrawable-animated:1.1.0"
+    const val activity = "androidx.activity:activity-ktx:1.1.0"
+    const val fragment = "androidx.fragment:fragment-ktx:1.2.0"
 
     // AndroidX - UI
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta3"
-    const val recyclerView = "androidx.recyclerview:recyclerview:1.1.0"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
 
     // AndroidX - Lifecycle
-    const val lifecycle =
-        "androidx.lifecycle:lifecycle-extensions:${Versions.lifecycle}"   // ViewModel and LiveData
-    const val livedata =
-        "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"  // Extensions functions for LiveData
-    const val viewModel =
-        "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"    // Extensions functions for ViewModel
+    const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
+    const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
 
     // UI
-    const val material = "com.google.android.material:material:1.1.0-beta02"
+    const val material = "com.google.android.material:material:1.1.0-rc02"
+    const val flexbox = "com.google.android:flexbox:2.0.1"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
     const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
-    const val flexbox = "com.google.android:flexbox:2.0.1"
 
     // Network
     const val okHttpClient = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
@@ -69,7 +63,7 @@ object Dependencies {
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.16"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.17"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
@@ -77,7 +71,7 @@ object Dependencies {
     const val koin = "org.koin:koin-androidx-viewmodel:2.0.1"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.2.1"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.2.2"
     const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Tools
@@ -85,7 +79,7 @@ object Dependencies {
     const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.1"
 
     // Testing
-    const val junit = "junit:junit:4.12"
-    const val assertJ = "org.assertj:assertj-core:3.11.1"
-    const val mockk = "io.mockk:mockk:1.9"
+    const val junit = "junit:junit:4.13"
+    const val assertJ = "org.assertj:assertj-core:3.15.0"
+    const val mockk = "io.mockk:mockk:1.9.3"
 }
