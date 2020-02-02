@@ -12,7 +12,11 @@ import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.listitem_anime.*
 import mg.template.data.anime.db.models.Anime
 
-internal class AnimeAdapter : ListAdapter<Anime, AnimeViewHolder>(DiffCallback()) {
+internal typealias AnimeSelectedCallback = (Anime) -> Unit
+
+internal class AnimeAdapter(
+    private val onAnimeSelectedCallback: AnimeSelectedCallback
+) : ListAdapter<Anime, AnimeViewHolder>(DiffCallback()) {
 
     init {
         setHasStableIds(true)
@@ -21,7 +25,7 @@ internal class AnimeAdapter : ListAdapter<Anime, AnimeViewHolder>(DiffCallback()
     override fun getItemId(position: Int): Long = getItem(position).malId
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder =
-        AnimeViewHolder.newInstance(parent)
+        AnimeViewHolder.newInstance(parent, onAnimeSelectedCallback)
 
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
         holder.bindView(getItem(position))
@@ -33,12 +37,15 @@ internal class AnimeAdapter : ListAdapter<Anime, AnimeViewHolder>(DiffCallback()
     }
 }
 
-internal class AnimeViewHolder private constructor(view: View) : RecyclerView.ViewHolder(view), LayoutContainer {
+internal class AnimeViewHolder private constructor(
+    view: View,
+    private val animeSelectedCallback: AnimeSelectedCallback
+) : RecyclerView.ViewHolder(view), LayoutContainer {
 
     companion object {
-        fun newInstance(parent: ViewGroup): AnimeViewHolder {
+        fun newInstance(parent: ViewGroup, animeSelectedCallback: AnimeSelectedCallback): AnimeViewHolder {
             val view = LayoutInflater.from(parent.context).inflate(R.layout.listitem_anime, parent, false)
-            return AnimeViewHolder(view)
+            return AnimeViewHolder(view, animeSelectedCallback)
         }
     }
 
@@ -46,6 +53,8 @@ internal class AnimeViewHolder private constructor(view: View) : RecyclerView.Vi
         get() = itemView
 
     fun bindView(anime: Anime) {
+        itemView.setOnClickListener { animeSelectedCallback(anime) }
+
         Glide.with(ivPicture.context)
             .load(anime.imageUrl)
             .into(ivPicture)

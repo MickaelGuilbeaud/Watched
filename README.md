@@ -59,7 +59,49 @@ The app module main goal is to compose features and handle navigation between sc
 
 #### Cross-module navigation
 
-#### Dependency injection
+In a multi-modules project navigating from a feature screen to another feature screen is no longer straightforward as features are not aware of each other. The only module that knows every feature module is the app module, so it's the one responsible for linking features together.
+
+To do so a feature offer a Router and a RouterProvider interfaces. The Router declares methods representing outward navigation and the optional RouterProvider interface is syntactic sugar :
+
+```kotlin
+interface FeatureARouter {
+  fun routeToFeatureBScreen()
+}
+
+interface FeatureARouterProvider {
+  val featureARouter: FeatureARouter
+}
+```
+
+Then the app module implements the interface and provides it through the Activity:
+
+```kotlin
+class FeatureARouterImpl(activity: MainActivity) : FeatureARouter {
+  override fun routeToFeatureBScreen() { 
+    activity.supportFragmentManager.beginTransaction()
+      .replace(R.id.fragmentContainer, FeatureBFragment.newInstance())
+      .commit()
+  }
+}
+
+class MainActivity : AppCompatActivity(), FeatureARouterProvider {
+  override val featureARouter: FeatureARouter = FeatureARouterImpl(this)
+}
+```
+
+All that remains is to use it from the feature module:
+
+```kotlin
+class FeatureAFragment : Fragment() {
+  fun onItemClicked() {
+	if (requireActivity() is FeatureARouterProvider) {
+	  (requireActivity() as FeatureARouterProvider).routeToFeatureBScreen()
+	}
+  }
+}
+```
+
+This approach has some boilerplate but it doesn't require any library and in the end navigation doesn't change that often. Some other possibilities include using the Navigation library or using deeplinks.
 
 #### Single Activity
 

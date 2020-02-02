@@ -21,7 +21,9 @@ class AnimesFragment : BaseFragment(AnimesFragment::class.java.simpleName) {
 
     private val viewModel: AnimesViewModel by viewModel()
 
-    private val animeAdapter = AnimeAdapter()
+    private val animeAdapter = AnimeAdapter { anime ->
+        requireAnimesRouter().routeToAnimeDetailScreen(anime)
+    }
 
     // region Lifecycle
 
