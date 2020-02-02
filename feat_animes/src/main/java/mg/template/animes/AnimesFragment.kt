@@ -13,7 +13,7 @@ import mg.template.core.utils.toPx
 import mg.template.design.MarginItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AnimesFragment : BaseFragment(AnimesFragment::class.java.simpleName) {
+class AnimesFragment : BaseFragment() {
 
     companion object {
         fun newInstance() = AnimesFragment()

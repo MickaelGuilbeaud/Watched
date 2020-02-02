@@ -9,7 +9,6 @@ import mg.template.routers.AnimesRouterImpl
 
 class MainActivity : BaseActivity(), AnimesRouterProvider {
 
-    override val logsTag: String = BaseActivity::class.java.simpleName
     override val animesRouter: AnimesRouter = AnimesRouterImpl(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
