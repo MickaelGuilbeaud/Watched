@@ -12,8 +12,8 @@ Template is a mix of 3 goals:
 
 As an always in-progress project, here's a short list of topics I want to explore or add:
 
-- Refactor the PokemonStore. Two improvements can be done: the in-memory cache is redundant with the database, and the pagination from the DB data is overkill and actually hurting the UX as even when all the data is available in DB, it still needs to be loaded per page
-- Unit tests for the PokedexViewModel and the PokemonStore
+- Improve the AnimeStore so it can works offline
+- Unit tests for the AnimesViewModel and the AnimeStore
 - Integration tests for the Pokemon feature, trying MockWebServer in the process
 - Convert all gradle files to Kotlin DSL -> On hold, after playing with the Kotlin DSL it doesn't feel like it's ready for production yet.
 - Work on a CI, probably Github Actions or Bitrise, that build and run tests of the project. It's also a nice opportunity to implement a visual QA

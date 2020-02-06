@@ -29,9 +29,9 @@ object Dependencies {
 
     // AndroidX - General
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
-    const val core = "androidx.core:core-ktx:1.2.0-rc01"
+    const val core = "androidx.core:core-ktx:1.2.0"
     const val activity = "androidx.activity:activity-ktx:1.1.0"
-    const val fragment = "androidx.fragment:fragment-ktx:1.2.0"
+    const val fragment = "androidx.fragment:fragment-ktx:1.2.1"
 
     // AndroidX - UI
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
