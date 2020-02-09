@@ -12,5 +12,6 @@ data class Anime(
     val episodes: Int?,
     val genres: List<String> = emptyList(),
     val producers: List<String> = emptyList(),
-    val score: Double?
+    val score: Double?,
+    val sortOrder: Int
 )

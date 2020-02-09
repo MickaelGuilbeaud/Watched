@@ -41,7 +41,7 @@ object Dependencies {
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
 
     // UI
-    const val material = "com.google.android.material:material:1.1.0-rc02"
+    const val material = "com.google.android.material:material:1.1.0"
     const val flexbox = "com.google.android:flexbox:2.0.1"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
@@ -76,7 +76,7 @@ object Dependencies {
 
     // Tools
     const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.1"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.2"
 
     // Testing
     const val junit = "junit:junit:4.13"

@@ -6,7 +6,7 @@ import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.template.data.BuildConfig
 import mg.template.data.TemplateDatabase
-import mg.template.data.anime.AnimeStore
+import mg.template.data.anime.AnimeRepository
 import mg.template.data.anime.db.AnimeDao
 import mg.template.data.anime.network.AnimeService
 import okhttp3.Interceptor
@@ -25,7 +25,7 @@ val dataDiModule = module {
 
     // region Stores
 
-    single<AnimeStore> { AnimeStore(get(), get()) }
+    single<AnimeRepository> { AnimeRepository(get(), get()) }
 
     // endregion
 

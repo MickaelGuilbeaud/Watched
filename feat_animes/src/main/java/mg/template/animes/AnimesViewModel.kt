@@ -3,24 +3,35 @@ package mg.template.animes
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import mg.template.core.Lce
 import mg.template.core.viewmodel.BaseViewModel
 import mg.template.core.viewmodel.DefaultNavigationEvent
 import mg.template.core.viewmodel.ErrorActionEvent
-import mg.template.data.anime.AnimeStore
+import mg.template.data.anime.AnimeRepository
 import timber.log.Timber
 
 internal class AnimesViewModel(
-    animesStore: AnimeStore
+    animesRepository: AnimeRepository
 ) : BaseViewModel<AnimesViewState, DefaultNavigationEvent, ErrorActionEvent>() {
 
     init {
         pushViewState(AnimesViewState.Loading)
 
-        animesStore.getTopAnimesOnce()
+        animesRepository.getSeasonAnimesStream()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onSuccess = { animes ->
-                Timber.d("Successfully retrieved animes")
-                pushViewState(AnimesViewState.Animes(animes))
+            .subscribeBy(onNext = { animesLce ->
+                Timber.d("Received animes")
+
+                val viewState: AnimesViewState = when (animesLce) {
+                    is Lce.Loading -> if (animesLce.previousContent == null) {
+                        AnimesViewState.Loading
+                    } else {
+                        AnimesViewState.Animes(animesLce.previousContent!!)
+                    }
+                    is Lce.Content -> AnimesViewState.Animes(animesLce.content)
+                    is Lce.Error -> AnimesViewState.Error(animesLce.error)
+                }
+                pushViewState(viewState)
             }, onError = { error ->
                 Timber.e(error, "Failed to retrieve animes")
                 pushViewState(AnimesViewState.Error(error))
