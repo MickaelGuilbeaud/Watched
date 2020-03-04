@@ -13,11 +13,11 @@ object Versions {
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.3.61"
+    const val kotlin = "1.3.70"
     const val lifecycle = "2.2.0"
-    const val okhttp = "4.3.1"
+    const val okhttp = "4.4.0"
     const val retrofit = "2.7.1"
-    const val room = "2.2.3"
+    const val room = "2.2.4"
     const val moshi = "1.9.2"
     const val glide = "4.11.0"
 }
@@ -31,7 +31,7 @@ object Dependencies {
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
     const val core = "androidx.core:core-ktx:1.2.0"
     const val activity = "androidx.activity:activity-ktx:1.1.0"
-    const val fragment = "androidx.fragment:fragment-ktx:1.2.1"
+    const val fragment = "androidx.fragment:fragment-ktx:1.2.2"
 
     // AndroidX - UI
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
@@ -63,7 +63,7 @@ object Dependencies {
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.17"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.18"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
@@ -71,7 +71,7 @@ object Dependencies {
     const val koin = "org.koin:koin-androidx-viewmodel:2.0.1"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.2.2"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.2.3"
     const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Tools
