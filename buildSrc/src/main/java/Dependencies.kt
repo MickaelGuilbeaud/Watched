@@ -17,7 +17,7 @@ object Versions {
     const val lifecycle = "2.2.0"
     const val okhttp = "4.4.0"
     const val retrofit = "2.7.1"
-    const val room = "2.2.4"
+    const val room = "2.2.5"
     const val moshi = "1.9.2"
     const val glide = "4.11.0"
 }
@@ -63,12 +63,12 @@ object Dependencies {
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.18"
+    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.19"
     const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     // DI
-    const val koin = "org.koin:koin-androidx-viewmodel:2.0.1"
+    const val koin = "org.koin:koin-androidx-viewmodel:2.1.4"
 
     // Firebase
     const val firebaseCore = "com.google.firebase:firebase-core:17.2.3"
