@@ -13,10 +13,10 @@ object Versions {
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.3.70"
+    const val kotlin = "1.3.71"
     const val lifecycle = "2.2.0"
-    const val okhttp = "4.4.0"
-    const val retrofit = "2.7.1"
+    const val okhttp = "4.5.0"
+    const val retrofit = "2.8.1"
     const val room = "2.2.5"
     const val moshi = "1.9.2"
     const val glide = "4.11.0"
@@ -68,10 +68,10 @@ object Dependencies {
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     // DI
-    const val koin = "org.koin:koin-androidx-viewmodel:2.1.4"
+    const val koin = "org.koin:koin-androidx-viewmodel:2.1.5"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.2.3"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.3.0"
     const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Tools
