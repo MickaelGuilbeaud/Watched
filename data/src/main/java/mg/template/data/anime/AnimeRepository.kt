@@ -1,14 +1,14 @@
 package mg.template.data.anime
 
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.rxkotlin.Observables
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.schedulers.Schedulers
 import io.reactivex.subjects.BehaviorSubject
 import mg.template.core.Lce
+import mg.template.core.utils.DefaultSchedulerProvider
+import mg.template.core.utils.SchedulerProvider
 import mg.template.data.anime.db.AnimeDao
 import mg.template.data.anime.db.models.Anime
 import mg.template.data.anime.network.AnimeService
@@ -23,7 +23,8 @@ private sealed class NetworkResourceState {
 
 class AnimeRepository(
     private val animeDao: AnimeDao,
-    private val animeService: AnimeService
+    private val animeService: AnimeService,
+    private val schedulerProvider: SchedulerProvider = DefaultSchedulerProvider()
 ) {
 
     // region Properties
@@ -59,11 +60,11 @@ class AnimeRepository(
 
     private fun retrieveCurrentSeasonAnimes() {
         animeService.getSeasonAnimes("2020", "winter")
+            .subscribeOn(schedulerProvider.io())
             .doOnSubscribe {
                 Timber.d("Retrieve current season animes")
                 networkResourceStateSubject.onNext(NetworkResourceState.Loading)
             }
-            .subscribeOn(Schedulers.io())
             .map { animesWrapper ->
                 animesWrapper.anime.mapIndexed { index, anime ->
                     Anime(
@@ -83,7 +84,7 @@ class AnimeRepository(
                 animeDao.deleteAll()
                 animeDao.insert(animes)
             }
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.ui())
             .subscribeBy(
                 onSuccess = { networkResourceStateSubject.onNext(NetworkResourceState.Success) },
                 onError = { error -> networkResourceStateSubject.onNext(NetworkResourceState.Error(error)) }

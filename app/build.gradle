@@ -59,6 +59,7 @@ android {
 
 dependencies {
     api project(":feat_animes")
+    api project(":feat_login")
 
     // UI
     kapt Dependencies.glideProcessor

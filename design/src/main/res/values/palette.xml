@@ -2,6 +2,8 @@
 <resources>
     <color name="brand_red">#D32F2F</color>
     <color name="brand_red_dark">#9A0007</color>
+    <color name="brand_blue">#2554A3</color>
+    <color name="brand_blue_dark">#2554A3</color>
 
     <color name="black">#000000</color>
     <color name="white">#FFFFFF</color>

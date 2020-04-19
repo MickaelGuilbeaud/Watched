@@ -13,7 +13,7 @@ object Versions {
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.3.71"
+    const val kotlin = "1.3.72"
     const val lifecycle = "2.2.0"
     const val okhttp = "4.5.0"
     const val retrofit = "2.8.1"

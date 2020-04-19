@@ -1,10 +1,10 @@
 package mg.template
 
 import android.os.Bundle
-import mg.template.animes.AnimesFragment
 import mg.template.animes.AnimesRouter
 import mg.template.animes.AnimesRouterProvider
 import mg.template.core.base.BaseActivity
+import mg.template.login.LogInFragment
 import mg.template.routers.AnimesRouterImpl
 
 class MainActivity : BaseActivity(), AnimesRouterProvider {
@@ -19,7 +19,7 @@ class MainActivity : BaseActivity(), AnimesRouterProvider {
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
             supportFragmentManager.beginTransaction()
-                .replace(R.id.fragmentContainer, AnimesFragment.newInstance())
+                .replace(R.id.fragmentContainer, LogInFragment.newInstance())
                 .commit()
         }
     }
