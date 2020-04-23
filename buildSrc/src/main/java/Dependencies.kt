@@ -82,4 +82,5 @@ object Dependencies {
     const val junit = "junit:junit:4.13"
     const val assertJ = "org.assertj:assertj-core:3.15.0"
     const val mockk = "io.mockk:mockk:1.9.3"
+    const val lifecycleTesting = "androidx.arch.core:core-testing:2.1.0"
 }

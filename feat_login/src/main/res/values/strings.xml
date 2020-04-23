@@ -7,5 +7,7 @@
     <string name="log_in_hint_email">Email</string>
     <string name="log_in_hint_password">Password</string>
     <string name="log_in_cta_log_in">Log in</string>
+    <string name="log_in_error_invalid_email">Invalid email</string>
+    <string name="log_in_error_empty_password">Password is mandatory</string>
 
 </resources>

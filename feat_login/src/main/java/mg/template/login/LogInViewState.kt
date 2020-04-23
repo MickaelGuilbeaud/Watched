@@ -1,4 +1,6 @@
 package mg.template.login
 
-class LogInViewState {
-}
+data class LogInViewState(
+    val showInvalidEmailError: Boolean = false,
+    val showPasswordIsEmptyError: Boolean = false
+)
