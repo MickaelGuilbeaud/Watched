@@ -1,5 +1,7 @@
 package mg.template.data.di
 
+import android.content.Context
+import android.content.SharedPreferences
 import android.util.Log
 import androidx.room.Room
 import com.squareup.moshi.Moshi
@@ -9,6 +11,8 @@ import mg.template.data.TemplateDatabase
 import mg.template.data.anime.AnimeRepository
 import mg.template.data.anime.db.AnimeDao
 import mg.template.data.anime.network.AnimeService
+import mg.template.data.auth.AuthService
+import mg.template.data.auth.SessionManager
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -23,7 +27,11 @@ import timber.log.Timber
 
 val dataDiModule = module {
 
-    // region Stores
+    // region Repositories
+
+    factory<SharedPreferences> { androidContext().getSharedPreferences("ultimate_list", Context.MODE_PRIVATE) }
+
+    single<SessionManager> { SessionManager(get(), get()) }
 
     single<AnimeRepository> { AnimeRepository(get(), get()) }
 
@@ -51,17 +59,16 @@ val dataDiModule = module {
             }
         }
 
-        val userAgentInterceptor: (Interceptor.Chain) -> Response = { chain ->
+        val malClientIdInterceptor: (Interceptor.Chain) -> Response = { chain ->
             val request = chain.request().newBuilder()
-                .header("app", "Template")
-                .header("app-version", "1.0.0")
+                .header("X-MAL-Client-ID", "6114d00ca681b7701d1e15fe11a4987e")
                 .build()
             chain.proceed(request)
         }
 
         OkHttpClient.Builder()
+            .addInterceptor(malClientIdInterceptor)
             .addInterceptor(httpLoggingInterceptor)
-            .addNetworkInterceptor(userAgentInterceptor)
             .build()
     }
 
@@ -72,6 +79,11 @@ val dataDiModule = module {
             .addConverterFactory(MoshiConverterFactory.create(get()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
+    }
+
+    single<AuthService> {
+        val retrofit: Retrofit = get()
+        retrofit.create(AuthService::class.java)
     }
 
     single<AnimeService> {

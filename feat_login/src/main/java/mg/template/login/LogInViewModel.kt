@@ -1,9 +1,16 @@
 package mg.template.login
 
+import io.reactivex.android.schedulers.AndroidSchedulers
+import io.reactivex.rxkotlin.addTo
+import io.reactivex.rxkotlin.subscribeBy
+import mg.template.core.utils.isAValidEmail
 import mg.template.core.viewmodel.BaseViewModel
+import mg.template.data.auth.SessionManager
 import timber.log.Timber
 
-class LogInViewModel : BaseViewModel<LogInViewState, LogInNavigationEvent, LogInActionEvent>() {
+class LogInViewModel(
+    private val sessionManager: SessionManager
+) : BaseViewModel<LogInViewState, LogInNavigationEvent, LogInActionEvent>() {
 
     // region Properties
 
@@ -19,7 +26,7 @@ class LogInViewModel : BaseViewModel<LogInViewState, LogInNavigationEvent, LogIn
         pushViewState(viewState)
     }
 
-    private fun isEmailValid(email: String): Boolean = true
+    private fun isEmailValid(email: String): Boolean = email.isAValidEmail()
 
     private fun isPasswordValid(password: String): Boolean = password.isNotEmpty()
 
@@ -30,11 +37,25 @@ class LogInViewModel : BaseViewModel<LogInViewState, LogInNavigationEvent, LogIn
         val isPasswordValid: Boolean = isPasswordValid(password)
 
         if (isEmailValid && isPasswordValid) {
-            // TODO: Log in
+            logInUser(email, password)
         } else {
             Timber.d("Email or password are invalid")
             viewState =
                 viewState.copy(showInvalidEmailError = !isEmailValid, showPasswordIsEmptyError = !isPasswordValid)
         }
+    }
+
+    private fun logInUser(email: String, password: String) {
+        sessionManager.authenticateUser(email, password)
+            .doOnSubscribe { Timber.d("Log in user") }
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribeBy(onComplete = {
+                Timber.d("Log in user successful")
+                // TODO
+            }, onError = { error ->
+                Timber.e(error, "Log in user failed")
+                // TODO
+            })
+            .addTo(compositeDisposable)
     }
 }
