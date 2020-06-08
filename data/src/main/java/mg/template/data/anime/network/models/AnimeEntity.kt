@@ -2,19 +2,29 @@ package mg.template.data.anime.network.models
 
 import com.squareup.moshi.Json
 
-data class AnimesEntity(val anime: List<AnimeEntity> = emptyList())
+data class AnimesWrapper(val data: List<Anime> = emptyList())
 
-data class AnimeEntity(
-    @Json(name = "mal_id") val malId: Long,
+data class Anime(
+    val id: Long,
     val title: String,
-    @Json(name = "image_url") val imageUrl: String,
-    val synopsis: String,
-    val episodes: Int?,
-    val genres: List<GenreEntity> = emptyList(),
-    val producers: List<ProducerEntity> = emptyList(),
-    val score: Double?
+    @Json(name = "main_picture") val mainPicture: AnimePicture,
+    @Json(name = "my_list_status") val myListStatus: MyListStatus
 )
 
-data class GenreEntity(val name: String)
+data class AnimePicture(
+    @Json(name = "large") val largeUrl: String,
+    @Json(name = "medium") val mediumUrl: String
+)
 
-data class ProducerEntity(val name: String)
+data class MyListStatus(
+    val score: Double,
+    val status: WatchStatus
+)
+
+enum class WatchStatus {
+    COMPLETED,
+    DROPPED,
+    ON_HOLD,
+    PLAN_TO_WATCH,
+    WATCHING
+}

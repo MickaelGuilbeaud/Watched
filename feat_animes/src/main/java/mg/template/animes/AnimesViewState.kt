@@ -1,6 +1,6 @@
 package mg.template.animes
 
-import mg.template.data.anime.db.models.Anime
+import mg.template.data.anime.network.models.Anime
 
 internal sealed class AnimesViewState {
     object Loading : AnimesViewState()

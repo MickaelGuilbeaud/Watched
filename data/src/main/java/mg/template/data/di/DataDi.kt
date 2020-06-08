@@ -3,16 +3,16 @@ package mg.template.data.di
 import android.content.Context
 import android.content.SharedPreferences
 import android.util.Log
-import androidx.room.Room
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.template.data.BuildConfig
-import mg.template.data.TemplateDatabase
+import mg.template.data.UltimateListPreferences
 import mg.template.data.anime.AnimeRepository
-import mg.template.data.anime.db.AnimeDao
 import mg.template.data.anime.network.AnimeService
-import mg.template.data.auth.AuthService
-import mg.template.data.auth.SessionManager
+import mg.template.data.authentication.AuthenticationManager
+import mg.template.data.authentication.AuthenticationService
+import mg.template.data.user.UserRepository
+import mg.template.data.user.network.UserService
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -31,9 +31,13 @@ val dataDiModule = module {
 
     factory<SharedPreferences> { androidContext().getSharedPreferences("ultimate_list", Context.MODE_PRIVATE) }
 
-    single<SessionManager> { SessionManager(get(), get()) }
+    factory<UltimateListPreferences> { UltimateListPreferences(get(), get()) }
 
     single<AnimeRepository> { AnimeRepository(get(), get()) }
+
+    single<AuthenticationManager> { AuthenticationManager(get(), get(), get()) }
+
+    single<UserRepository> { UserRepository(get(), get(), get()) }
 
     // endregion
 
@@ -45,7 +49,7 @@ val dataDiModule = module {
             .build()
     }
 
-    single<OkHttpClient> {
+    single<OkHttpClient>(named("default")) {
         val httpLoggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
             override fun log(message: String) {
                 Timber.tag("OkHttp").log(Log.INFO, message)
@@ -72,39 +76,62 @@ val dataDiModule = module {
             .build()
     }
 
-    single<Retrofit> {
+    single<OkHttpClient>(named("authenticated")) {
+        val defaultOkHttpClient: OkHttpClient = get(named("default"))
+        val authenticationManager: AuthenticationManager = get()
+        defaultOkHttpClient.newBuilder()
+            .addNetworkInterceptor { chain ->
+                // TODO: Handle missing access token
+                val request = chain.request().newBuilder()
+                    .header("authorization", "Bearer " + authenticationManager.accessToken!!)
+                    .build()
+                chain.proceed(request)
+            }
+            .build()
+    }
+
+    single<Retrofit>(named("default")) {
         Retrofit.Builder()
             .baseUrl(get<String>(named("baseUrl")))
-            .client(get())
+            .client(get(named("default")))
             .addConverterFactory(MoshiConverterFactory.create(get()))
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
             .build()
     }
 
-    single<AuthService> {
-        val retrofit: Retrofit = get()
-        retrofit.create(AuthService::class.java)
+    single<Retrofit>(named("authenticated")) {
+        val defaultRetrofit: Retrofit = get(named("default"))
+        defaultRetrofit.newBuilder()
+            .client(get(named("authenticated")))
+            .build()
+    }
+
+    single<AuthenticationService> {
+        val retrofit: Retrofit = get(named("default"))
+        retrofit.create(AuthenticationService::class.java)
     }
 
     single<AnimeService> {
-        val retrofit: Retrofit = get()
+        val retrofit: Retrofit = get(named("authenticated"))
         retrofit.create(AnimeService::class.java)
+    }
+
+    single<UserService> {
+        val retrofit: Retrofit = get(named("authenticated"))
+        retrofit.create(UserService::class.java)
     }
 
     // endregion
 
     // region Database
 
+    /*
     single<TemplateDatabase> {
         Room.databaseBuilder(androidContext(), TemplateDatabase::class.java, "template_database")
             .fallbackToDestructiveMigration()
             .build()
     }
-
-    single<AnimeDao> {
-        val db: TemplateDatabase = get()
-        db.animeDao()
-    }
+     */
 
     // endregion
 }

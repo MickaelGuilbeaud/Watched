@@ -3,13 +3,12 @@ package mg.template.login
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
-import mg.template.core.utils.isAValidEmail
 import mg.template.core.viewmodel.BaseViewModel
-import mg.template.data.auth.SessionManager
+import mg.template.data.usecases.LogInUseCase
 import timber.log.Timber
 
 class LogInViewModel(
-    private val sessionManager: SessionManager
+    private val logInUseCase: LogInUseCase
 ) : BaseViewModel<LogInViewState, LogInNavigationEvent, LogInActionEvent>() {
 
     // region Properties
@@ -26,34 +25,34 @@ class LogInViewModel(
         pushViewState(viewState)
     }
 
-    private fun isEmailValid(email: String): Boolean = email.isAValidEmail()
+    private fun isUsernameValid(username: String): Boolean = username.isNotEmpty()
 
     private fun isPasswordValid(password: String): Boolean = password.isNotEmpty()
 
-    fun logIn(email: String, password: String) {
-        Timber.d("Log in with email $email and password of length ${password.length}")
+    fun logIn(username: String, password: String) {
+        Timber.d("Log in with username $username and password of length ${password.length}")
 
-        val isEmailValid: Boolean = isEmailValid(email)
+        val isUsernameValid: Boolean = isUsernameValid(username)
         val isPasswordValid: Boolean = isPasswordValid(password)
 
-        if (isEmailValid && isPasswordValid) {
-            logInUser(email, password)
+        if (isUsernameValid && isPasswordValid) {
+            logInUser(username, password)
         } else {
-            Timber.d("Email or password are invalid")
+            Timber.d("Username or password are invalid")
             viewState =
-                viewState.copy(showInvalidEmailError = !isEmailValid, showPasswordIsEmptyError = !isPasswordValid)
+                viewState.copy(showInvalidEmailError = !isUsernameValid, showPasswordIsEmptyError = !isPasswordValid)
         }
     }
 
-    private fun logInUser(email: String, password: String) {
-        sessionManager.authenticateUser(email, password)
-            .doOnSubscribe { Timber.d("Log in user") }
+    private fun logInUser(username: String, password: String) {
+        logInUseCase.logIn(username, password)
+            .doOnSubscribe { Timber.d("Log in") }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onComplete = {
-                Timber.d("Log in user successful")
+                Timber.d("Log in successful")
                 // TODO
             }, onError = { error ->
-                Timber.e(error, "Log in user failed")
+                Timber.e(error, "Log in failed")
                 // TODO
             })
             .addTo(compositeDisposable)

@@ -1,15 +1,14 @@
 package mg.template.data.anime.network
 
 import io.reactivex.Single
-import mg.template.data.anime.network.models.AnimesEntity
+import mg.template.data.anime.network.models.AnimesWrapper
 import retrofit2.http.GET
 import retrofit2.http.Path
 
 interface AnimeService {
 
-    @GET("season/{year}/{season}")
-    fun getSeasonAnimes(
-        @Path("year") year: String,
-        @Path("season") season: String
-    ): Single<AnimesEntity>
+    @GET("users/{user_id}/animelist")
+    fun getUserAnimes(
+        @Path("user_id") userId: String
+    ): Single<AnimesWrapper>
 }

@@ -1,14 +1,9 @@
 package mg.template.animes
 
-import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import mg.template.core.Lce
 import mg.template.core.viewmodel.BaseViewModel
 import mg.template.core.viewmodel.DefaultNavigationEvent
 import mg.template.core.viewmodel.ErrorActionEvent
 import mg.template.data.anime.AnimeRepository
-import timber.log.Timber
 
 internal class AnimesViewModel(
     animesRepository: AnimeRepository
@@ -17,6 +12,7 @@ internal class AnimesViewModel(
     init {
         pushViewState(AnimesViewState.Loading)
 
+        /*
         animesRepository.getSeasonAnimesStream()
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onNext = { animesLce ->
@@ -37,5 +33,6 @@ internal class AnimesViewModel(
                 pushViewState(AnimesViewState.Error(error))
             })
             .addTo(compositeDisposable)
+         */
     }
 }

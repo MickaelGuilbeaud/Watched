@@ -1,18 +1,10 @@
 package mg.template.data.anime
 
-import io.reactivex.Observable
+import io.reactivex.Single
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.rxkotlin.Observables
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.subjects.BehaviorSubject
-import mg.template.core.Lce
-import mg.template.core.utils.DefaultSchedulerProvider
 import mg.template.core.utils.SchedulerProvider
-import mg.template.data.anime.db.AnimeDao
-import mg.template.data.anime.db.models.Anime
 import mg.template.data.anime.network.AnimeService
-import timber.log.Timber
+import mg.template.data.anime.network.models.Anime
 
 private sealed class NetworkResourceState {
     object None : NetworkResourceState()
@@ -22,9 +14,8 @@ private sealed class NetworkResourceState {
 }
 
 class AnimeRepository(
-    private val animeDao: AnimeDao,
     private val animeService: AnimeService,
-    private val schedulerProvider: SchedulerProvider = DefaultSchedulerProvider()
+    private val schedulerProvider: SchedulerProvider
 ) {
 
     // region Properties
@@ -33,64 +24,7 @@ class AnimeRepository(
 
     // endregion
 
-    // region Data stream
-
-    fun getSeasonAnimesStream(): Observable<Lce<List<Anime>>> = Observables.combineLatest(
-        animeDao.getAllStream(),
-        networkResourceStateSubject
-    ) { animes, networkResourceState ->
-        if (animes.isEmpty() && networkResourceState is NetworkResourceState.None) {
-            retrieveCurrentSeasonAnimes()
-        }
-
-        when (networkResourceState) {
-            NetworkResourceState.None -> Lce.Content(animes)
-            NetworkResourceState.Loading -> Lce.Loading(animes)
-            NetworkResourceState.Success -> Lce.Content(animes)
-            is NetworkResourceState.Error -> Lce.Error(networkResourceState.error, animes)
-        }
-    }
-
-    // endregion
-
-    // region Network
-
-    private val networkResourceStateSubject: BehaviorSubject<NetworkResourceState> =
-        BehaviorSubject.createDefault(NetworkResourceState.None)
-
-    private fun retrieveCurrentSeasonAnimes() {
-        animeService.getSeasonAnimes("2020", "winter")
-            .subscribeOn(schedulerProvider.io())
-            .doOnSubscribe {
-                Timber.d("Retrieve current season animes")
-                networkResourceStateSubject.onNext(NetworkResourceState.Loading)
-            }
-            .map { animesWrapper ->
-                animesWrapper.anime.mapIndexed { index, anime ->
-                    Anime(
-                        anime.malId,
-                        anime.title,
-                        anime.imageUrl,
-                        anime.synopsis,
-                        anime.episodes,
-                        anime.genres.map { genre -> genre.name },
-                        anime.producers.map { producer -> producer.name },
-                        anime.score,
-                        index
-                    )
-                }
-            }
-            .doOnSuccess { animes ->
-                animeDao.deleteAll()
-                animeDao.insert(animes)
-            }
-            .observeOn(schedulerProvider.ui())
-            .subscribeBy(
-                onSuccess = { networkResourceStateSubject.onNext(NetworkResourceState.Success) },
-                onError = { error -> networkResourceStateSubject.onNext(NetworkResourceState.Error(error)) }
-            )
-            .addTo(compositeDisposable)
-    }
-
-    // endregion
+    fun getAnimes(): Single<List<Anime>> = animeService.getUserAnimes("")
+        .subscribeOn(schedulerProvider.io())
+        .map { animesWrapper -> animesWrapper.data }
 }

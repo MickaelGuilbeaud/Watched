@@ -1,8 +1,10 @@
 package mg.template
 
+import mg.template.animes.animesDiModule
 import mg.template.core.base.BaseApplication
 import mg.template.core.build.BuildParams
 import mg.template.data.di.dataDiModule
+import mg.template.data.di.useCasesDiModule
 import mg.template.di.appDiModule
 import mg.template.login.loginDiModule
 import org.koin.android.ext.koin.androidContext
@@ -21,6 +23,8 @@ class TemplateApplication : BaseApplication() {
                 listOf(
                     appDiModule,
                     dataDiModule,
+                    useCasesDiModule,
+                    animesDiModule,
                     loginDiModule
                 )
             )

@@ -3,14 +3,11 @@ package mg.template.animes
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
-import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.listitem_anime.*
-import mg.template.data.anime.db.models.Anime
+import mg.template.data.anime.network.models.Anime
 
 internal typealias AnimeSelectedCallback = (Anime) -> Unit
 
@@ -22,7 +19,7 @@ internal class AnimeAdapter(
         setHasStableIds(true)
     }
 
-    override fun getItemId(position: Int): Long = getItem(position).malId
+    override fun getItemId(position: Int): Long = getItem(position).id
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder =
         AnimeViewHolder.newInstance(parent, onAnimeSelectedCallback)
@@ -32,7 +29,7 @@ internal class AnimeAdapter(
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<Anime>() {
-        override fun areItemsTheSame(oldItem: Anime, newItem: Anime) = oldItem.malId == newItem.malId
+        override fun areItemsTheSame(oldItem: Anime, newItem: Anime) = oldItem.id == newItem.id
         override fun areContentsTheSame(oldItem: Anime, newItem: Anime) = oldItem == newItem
     }
 }
@@ -55,6 +52,7 @@ internal class AnimeViewHolder private constructor(
     fun bindView(anime: Anime) {
         itemView.setOnClickListener { animeSelectedCallback(anime) }
 
+        /*
         Glide.with(ivPicture.context)
             .load(anime.imageUrl)
             .into(ivPicture)
@@ -80,5 +78,6 @@ internal class AnimeViewHolder private constructor(
             tvGenre.text = genre
             vgGenres.addView(tvGenre)
         }
+         */
     }
 }
