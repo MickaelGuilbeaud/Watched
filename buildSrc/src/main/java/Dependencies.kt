@@ -15,8 +15,8 @@ object Versions {
 
     const val kotlin = "1.3.72"
     const val lifecycle = "2.2.0"
-    const val okhttp = "4.5.0"
-    const val retrofit = "2.8.1"
+    const val okhttp = "4.7.2"
+    const val retrofit = "2.9.0"
     const val room = "2.2.5"
     const val moshi = "1.9.2"
     const val glide = "4.11.0"
@@ -29,12 +29,12 @@ object Dependencies {
 
     // AndroidX - General
     const val appcompat = "androidx.appcompat:appcompat:1.1.0"
-    const val core = "androidx.core:core-ktx:1.2.0"
+    const val core = "androidx.core:core-ktx:1.3.0"
     const val activity = "androidx.activity:activity-ktx:1.1.0"
-    const val fragment = "androidx.fragment:fragment-ktx:1.2.2"
+    const val fragment = "androidx.fragment:fragment-ktx:1.2.5"
 
     // AndroidX - UI
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta4"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
 
     // AndroidX - Lifecycle
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
@@ -71,16 +71,16 @@ object Dependencies {
     const val koin = "org.koin:koin-androidx-viewmodel:2.1.5"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.3.0"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.4.3"
     const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Tools
     const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.2"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.3"
 
     // Testing
     const val junit = "junit:junit:4.13"
-    const val assertJ = "org.assertj:assertj-core:3.15.0"
-    const val mockk = "io.mockk:mockk:1.9.3"
+    const val assertJ = "org.assertj:assertj-core:3.16.1"
+    const val mockk = "io.mockk:mockk:1.10.0"
     const val lifecycleTesting = "androidx.arch.core:core-testing:2.1.0"
 }
