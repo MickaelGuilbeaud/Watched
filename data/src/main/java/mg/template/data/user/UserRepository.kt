@@ -12,6 +12,9 @@ class UserRepository(
     private val schedulerProvider: SchedulerProvider
 ) {
 
+    val user: User?
+        get() = preferences.user
+
     fun getUserDetail(): Completable = userService.getUserDetail()
         .subscribeOn(schedulerProvider.io())
         .doOnSubscribe { Timber.d("Get user detail") }

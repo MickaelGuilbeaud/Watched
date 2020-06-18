@@ -37,7 +37,7 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
 
         rvAnimes.setHasFixedSize(true)
         rvAnimes.adapter = animeAdapter
-        rvAnimes.addItemDecoration(MarginItemDecoration(10.toPx(requireContext())))
+        rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
     }
 
     // endregion

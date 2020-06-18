@@ -50,7 +50,7 @@ class LogInViewModel(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onComplete = {
                 Timber.d("Log in successful")
-                // TODO
+                pushNavigationEvent(LogInNavigationEvent.GoToAnimesScreen)
             }, onError = { error ->
                 Timber.e(error, "Log in failed")
                 // TODO

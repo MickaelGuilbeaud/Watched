@@ -14,7 +14,7 @@
         tools:ignore="GoogleAppIndexingWarning">
 
         <activity
-            android:name=".MainActivity"
+            android:name=".main.MainActivity"
             android:theme="@style/Theme.Template.Splash">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

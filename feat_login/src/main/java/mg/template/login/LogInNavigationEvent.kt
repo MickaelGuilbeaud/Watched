@@ -1,4 +1,5 @@
 package mg.template.login
 
-class LogInNavigationEvent {
+sealed class LogInNavigationEvent {
+    object GoToAnimesScreen : LogInNavigationEvent()
 }

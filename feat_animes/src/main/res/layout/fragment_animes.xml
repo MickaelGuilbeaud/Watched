@@ -52,10 +52,9 @@
             android:id="@+id/rvAnimes"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/listitem_anime" />
+            tools:listitem="@layout/listitem_anime_watching" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

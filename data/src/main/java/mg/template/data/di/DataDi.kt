@@ -9,6 +9,7 @@ import mg.template.data.BuildConfig
 import mg.template.data.UltimateListPreferences
 import mg.template.data.anime.AnimeRepository
 import mg.template.data.anime.network.AnimeService
+import mg.template.data.anime.network.models.AnimeMoshiAdapters
 import mg.template.data.authentication.AuthenticationManager
 import mg.template.data.authentication.AuthenticationService
 import mg.template.data.user.UserRepository
@@ -46,6 +47,7 @@ val dataDiModule = module {
     single<Moshi> {
         Moshi.Builder()
             .add(KotlinJsonAdapterFactory())
+            .add(AnimeMoshiAdapters())
             .build()
     }
 
@@ -79,13 +81,19 @@ val dataDiModule = module {
     single<OkHttpClient>(named("authenticated")) {
         val defaultOkHttpClient: OkHttpClient = get(named("default"))
         val authenticationManager: AuthenticationManager = get()
-        defaultOkHttpClient.newBuilder()
-            .addNetworkInterceptor { chain ->
-                // TODO: Handle missing access token
+        val authorizationInterceptor: Interceptor = object : Interceptor {
+            override fun intercept(chain: Interceptor.Chain): Response {
                 val request = chain.request().newBuilder()
                     .header("authorization", "Bearer " + authenticationManager.accessToken!!)
                     .build()
-                chain.proceed(request)
+                return chain.proceed(request)
+            }
+        }
+
+        defaultOkHttpClient.newBuilder()
+            .apply {
+                // Add authorization interceptor before the logging interceptor
+                interceptors().add(interceptors().size - 2, authorizationInterceptor)
             }
             .build()
     }

@@ -5,7 +5,10 @@
     <string name="animes_global_error">An error occurred</string>
 
     <!-- Listitem anime -->
-    <string name="anime_producer_and_episodes">%s - %s eps</string>
-    <string name="anime_episodes">%s eps</string>
+    <string name="anime_add_watched_episode">+1</string>
+    <string name="anime_season">%s %s</string>
+    <string name="anime_kind_season">%s - %s</string>
+    <string name="anime_kind_season_airing">%s - %s - Airing</string>
+    <string name="anime_episode_progress">%s/%s</string>
 
 </resources>

@@ -6,6 +6,8 @@ import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_log_in.*
 import mg.template.core.base.BaseFragment
+import mg.template.core.utils.exhaustive
+import mg.template.core.viewmodel.observeEvents
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
@@ -28,6 +30,7 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
         initUI()
 
         viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
+        viewModel.navigationEvents().observeEvents(viewLifecycleOwner) { handleNavigationEvent(it) }
     }
 
     private fun initUI() {
@@ -67,6 +70,12 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
             ""
         }
         tilPassword.error = passwordFieldError
+    }
+
+    private fun handleNavigationEvent(navigationEvent: LogInNavigationEvent) {
+        when (navigationEvent) {
+            LogInNavigationEvent.GoToAnimesScreen -> requireLoginRouter().routeToAnimesScreen()
+        }.exhaustive
     }
 
     // endregion

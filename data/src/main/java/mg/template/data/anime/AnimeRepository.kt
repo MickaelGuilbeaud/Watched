@@ -24,7 +24,9 @@ class AnimeRepository(
 
     // endregion
 
-    fun getAnimes(): Single<List<Anime>> = animeService.getUserAnimes("")
+    fun getAnimes(): Single<List<Anime>> = animeService.getUserAnimes()
         .subscribeOn(schedulerProvider.io())
-        .map { animesWrapper -> animesWrapper.data }
+        .map { animesWrapper ->
+            animesWrapper.data.map { animeWrapper -> animeWrapper.node }
+        }
 }

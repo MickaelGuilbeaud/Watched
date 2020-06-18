@@ -27,7 +27,7 @@ class UltimateListPreferences(
             return if (userJson != null) moshi.adapter(User::class.java).fromJson(userJson) else null
         }
         set(value) {
-            val userJson: String? = if (value != null) moshi.adapter(User::class.java).toJson(user) else null
+            val userJson: String? = if (value != null) moshi.adapter(User::class.java).toJson(value) else null
             edit { putString(USER, userJson) }
         }
 }
