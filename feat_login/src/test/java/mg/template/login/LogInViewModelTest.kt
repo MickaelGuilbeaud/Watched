@@ -2,6 +2,12 @@ package mg.template.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import io.mockk.MockKAnnotations
+import io.mockk.every
+import io.mockk.mockk
+import io.reactivex.Completable
+import mg.template.core.utils.SchedulerProvider
+import mg.template.core.utils.TrampolineSchedulerProvider
+import mg.template.data.usecases.LogInUseCase
 import org.assertj.core.api.Assertions.assertThat
 import org.junit.Before
 import org.junit.Rule
@@ -13,18 +19,29 @@ class LogInViewModelTest {
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
-    private val validEmail: String = "toto@gmail.com"
-    private val invalidEmail: String = "toto"
+    private val validUsername: String = "AnimeFan"
+    private val emptyUsername: String = ""
     private val emptyPassword: String = ""
     private val wrongPassword: String = "0000"
     private val validPassword: String = "1234"
+
+    private val logInUseCase: LogInUseCase = mockk {
+        every { logIn(any(), any()) } returns Completable.complete()
+        every { logIn(validUsername, wrongPassword) } returns Completable.error(Exception())
+    }
 
     @Before
     fun setUp() {
         MockKAnnotations.init(this, relaxUnitFun = true)
     }
 
-    private fun createViewModel(): LogInViewModel = LogInViewModel()
+    private fun createViewModel(
+        logInUseCase: LogInUseCase = this.logInUseCase,
+        schedulerProvider: SchedulerProvider = TrampolineSchedulerProvider()
+    ): LogInViewModel = LogInViewModel(
+        logInUseCase = logInUseCase,
+        schedulerProvider = schedulerProvider
+    )
 
     @Test
     fun `When screen is opened, then no error is shown`() {
@@ -37,11 +54,11 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `When email is invalid, then email is invalid error is shown`() {
+    fun `When username is empty, then username is empty error is shown`() {
         // Given
         val viewModel = createViewModel()
         // When
-        viewModel.logIn(invalidEmail, validPassword)
+        viewModel.logIn(emptyUsername, validPassword)
         // Then
         assertThat(viewModel.viewStates().value!!.showUsernameIsEmptyError).isTrue()
     }
@@ -51,7 +68,7 @@ class LogInViewModelTest {
         // Given
         val viewModel = createViewModel()
         // When
-        viewModel.logIn(validEmail, emptyPassword)
+        viewModel.logIn(validUsername, emptyPassword)
         // Then
         assertThat(viewModel.viewStates().value!!.showPasswordIsEmptyError).isTrue()
     }
@@ -61,9 +78,10 @@ class LogInViewModelTest {
         // Given
         val viewModel = createViewModel()
         // When
-        viewModel.logIn(validEmail, wrongPassword)
+        viewModel.logIn(validUsername, wrongPassword)
         // Then
-        assert(false)
+        assertThat(viewModel.actionEvents().value!!.peekContent())
+            .isInstanceOf(LogInActionEvent.LogInFailed::class.java)
     }
 
     @Test
@@ -71,8 +89,9 @@ class LogInViewModelTest {
         // Given
         val viewModel = createViewModel()
         // When
-        viewModel.logIn(validEmail, validPassword)
+        viewModel.logIn(validUsername, validPassword)
         // Then
-        assert(false)
+        assertThat(viewModel.navigationEvents().value!!.peekContent())
+            .isInstanceOf(LogInNavigationEvent.GoToAnimesScreen::class.java)
     }
 }

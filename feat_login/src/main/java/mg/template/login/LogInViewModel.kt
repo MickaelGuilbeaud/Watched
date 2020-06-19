@@ -1,14 +1,15 @@
 package mg.template.login
 
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
+import mg.template.core.utils.SchedulerProvider
 import mg.template.core.viewmodel.BaseViewModel
 import mg.template.data.usecases.LogInUseCase
 import timber.log.Timber
 
-class LogInViewModel(
-    private val logInUseCase: LogInUseCase
+internal class LogInViewModel(
+    private val logInUseCase: LogInUseCase,
+    private val schedulerProvider: SchedulerProvider
 ) : BaseViewModel<LogInViewState, LogInNavigationEvent, LogInActionEvent>() {
 
     // region Properties
@@ -51,7 +52,7 @@ class LogInViewModel(
                 Timber.d("Log in")
                 viewState = viewState.copy(loading = true)
             }
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.ui())
             .subscribeBy(onComplete = {
                 Timber.d("Log in successful")
                 viewState = viewState.copy(loading = false)
