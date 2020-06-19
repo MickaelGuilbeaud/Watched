@@ -28,13 +28,13 @@
         app:layout_constraintTop_toBottomOf="@id/ivLogo" />
 
     <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/tilEmail"
+        android:id="@+id/tilUsername"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginStart="20dp"
         android:layout_marginTop="12dp"
         android:layout_marginEnd="20dp"
-        android:hint="@string/log_in_hint_email"
+        android:hint="@string/log_in_hint_username"
         app:boxBackgroundColor="#00000000"
         app:errorEnabled="true"
         app:layout_constraintTop_toBottomOf="@id/tvSubtitle"
@@ -42,10 +42,10 @@
         app:startIconDrawable="@drawable/ic_email">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etUsername"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:inputType="textEmailAddress" />
+            android:inputType="text" />
 
     </com.google.android.material.textfield.TextInputLayout>
 
@@ -59,7 +59,7 @@
         app:boxBackgroundColor="#00000000"
         app:endIconMode="password_toggle"
         app:errorEnabled="true"
-        app:layout_constraintTop_toBottomOf="@id/tilEmail"
+        app:layout_constraintTop_toBottomOf="@id/tilUsername"
         app:startIconContentDescription="@null"
         app:startIconDrawable="@drawable/ic_lock_open">
 

@@ -32,7 +32,7 @@ class LogInViewModelTest {
         // When
         val viewModel = createViewModel()
         // Then
-        assertThat(viewModel.viewStates().value!!.showInvalidEmailError).isFalse()
+        assertThat(viewModel.viewStates().value!!.showUsernameIsEmptyError).isFalse()
         assertThat(viewModel.viewStates().value!!.showPasswordIsEmptyError).isFalse()
     }
 
@@ -43,7 +43,7 @@ class LogInViewModelTest {
         // When
         viewModel.logIn(invalidEmail, validPassword)
         // Then
-        assertThat(viewModel.viewStates().value!!.showInvalidEmailError).isTrue()
+        assertThat(viewModel.viewStates().value!!.showUsernameIsEmptyError).isTrue()
     }
 
     @Test

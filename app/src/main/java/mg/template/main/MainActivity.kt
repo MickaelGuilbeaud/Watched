@@ -1,10 +1,13 @@
 package mg.template.main
 
 import android.os.Bundle
+import androidx.core.view.isVisible
+import kotlinx.android.synthetic.main.activity_main.*
 import mg.template.R
 import mg.template.animes.AnimesFragment
 import mg.template.animes.AnimesRouter
 import mg.template.animes.AnimesRouterProvider
+import mg.template.core.FullScreenLoadingHolder
 import mg.template.core.base.BaseActivity
 import mg.template.data.authentication.AuthenticationManager
 import mg.template.data.user.UserRepository
@@ -15,7 +18,10 @@ import mg.template.routers.AnimesRouterImpl
 import mg.template.routers.LoginRouterImpl
 import org.koin.android.ext.android.get
 
-class MainActivity : BaseActivity(), AnimesRouterProvider, LoginRouterProvider {
+class MainActivity : BaseActivity(),
+    FullScreenLoadingHolder,
+    AnimesRouterProvider,
+    LoginRouterProvider {
 
     override val animesRouter: AnimesRouter = AnimesRouterImpl(this)
     override val loginRouter: LoginRouter = LoginRouterImpl(this)
@@ -39,5 +45,9 @@ class MainActivity : BaseActivity(), AnimesRouterProvider, LoginRouterProvider {
                     .commit()
             }
         }
+    }
+
+    override fun showLoading(show: Boolean) {
+        vgLoading.isVisible = show
     }
 }

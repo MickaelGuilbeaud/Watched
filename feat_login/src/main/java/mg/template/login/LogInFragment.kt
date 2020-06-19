@@ -4,9 +4,12 @@ import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
 import androidx.lifecycle.observe
+import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_log_in.*
 import mg.template.core.base.BaseFragment
+import mg.template.core.requireFullScreenLoadingHolder
 import mg.template.core.utils.exhaustive
+import mg.template.core.utils.hideKeyboard
 import mg.template.core.viewmodel.observeEvents
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
@@ -31,6 +34,7 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
 
         viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
         viewModel.navigationEvents().observeEvents(viewLifecycleOwner) { handleNavigationEvent(it) }
+        viewModel.actionEvents().observeEvents(viewLifecycleOwner) { handleActionEvent(it) }
     }
 
     private fun initUI() {
@@ -47,9 +51,11 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
     }
 
     private fun logIn() {
-        val email: String = etEmail.text.toString().trim()
+        hideKeyboard()
+
+        val username: String = etUsername.text.toString().trim()
         val password: String = etPassword.text.toString().trim()
-        viewModel.logIn(email, password)
+        viewModel.logIn(username, password)
     }
 
     // endregion
@@ -57,12 +63,14 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
     // region ViewStates, NavigationEvents and ActionEvents
 
     private fun bindViewState(viewState: LogInViewState) {
-        val emailFieldError: String = if (viewState.showInvalidEmailError) {
-            requireContext().getString(R.string.log_in_error_invalid_email)
+        requireFullScreenLoadingHolder().showLoading(viewState.loading)
+
+        val usernameFieldError: String = if (viewState.showUsernameIsEmptyError) {
+            requireContext().getString(R.string.log_in_error_empty_username)
         } else {
             ""
         }
-        tilEmail.error = emailFieldError
+        tilUsername.error = usernameFieldError
 
         val passwordFieldError: String = if (viewState.showPasswordIsEmptyError) {
             requireContext().getString(R.string.log_in_error_empty_password)
@@ -75,6 +83,13 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
     private fun handleNavigationEvent(navigationEvent: LogInNavigationEvent) {
         when (navigationEvent) {
             LogInNavigationEvent.GoToAnimesScreen -> requireLoginRouter().routeToAnimesScreen()
+        }.exhaustive
+    }
+
+    private fun handleActionEvent(actionEvent: LogInActionEvent) {
+        when (actionEvent) {
+            LogInActionEvent.LogInFailed ->
+                Snackbar.make(requireView(), R.string.log_in_unknown_error, Snackbar.LENGTH_LONG).show()
         }.exhaustive
     }
 

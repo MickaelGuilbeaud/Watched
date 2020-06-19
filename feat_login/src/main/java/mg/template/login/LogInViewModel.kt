@@ -36,24 +36,30 @@ class LogInViewModel(
         val isPasswordValid: Boolean = isPasswordValid(password)
 
         if (isUsernameValid && isPasswordValid) {
+            viewState = viewState.copy(showUsernameIsEmptyError = false, showPasswordIsEmptyError = false)
             logInUser(username, password)
         } else {
             Timber.d("Username or password are invalid")
             viewState =
-                viewState.copy(showInvalidEmailError = !isUsernameValid, showPasswordIsEmptyError = !isPasswordValid)
+                viewState.copy(showUsernameIsEmptyError = !isUsernameValid, showPasswordIsEmptyError = !isPasswordValid)
         }
     }
 
     private fun logInUser(username: String, password: String) {
         logInUseCase.logIn(username, password)
-            .doOnSubscribe { Timber.d("Log in") }
+            .doOnSubscribe {
+                Timber.d("Log in")
+                viewState = viewState.copy(loading = true)
+            }
             .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onComplete = {
                 Timber.d("Log in successful")
+                viewState = viewState.copy(loading = false)
                 pushNavigationEvent(LogInNavigationEvent.GoToAnimesScreen)
             }, onError = { error ->
                 Timber.e(error, "Log in failed")
-                // TODO
+                viewState = viewState.copy(loading = false)
+                pushActionEvent(LogInActionEvent.LogInFailed)
             })
             .addTo(compositeDisposable)
     }

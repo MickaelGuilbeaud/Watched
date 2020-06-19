@@ -1,4 +1,5 @@
 package mg.template.login
 
-class LogInActionEvent {
+sealed class LogInActionEvent {
+    object LogInFailed : LogInActionEvent()
 }
