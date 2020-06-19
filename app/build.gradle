@@ -9,7 +9,7 @@ android {
     compileSdkVersion Versions.androidCompileSdk
 
     defaultConfig {
-        applicationId "mg.template"
+        applicationId "mg.watched"
 
         minSdkVersion Versions.androidMinSdk
         targetSdkVersion Versions.androidTargetSdk
@@ -43,11 +43,6 @@ android {
         dev {
             dimension "env"
             applicationIdSuffix ".dev"
-            buildConfigField "String", "BASE_URL", "\"https://api.jikan.moe/v3/\""
-        }
-        preprod {
-            dimension "env"
-            applicationIdSuffix ".preprod"
             buildConfigField "String", "BASE_URL", "\"https://api.jikan.moe/v3/\""
         }
         prod {

@@ -11,7 +11,7 @@
 
         <androidx.appcompat.widget.Toolbar
             android:id="@+id/toolbar"
-            style="@style/Style.Template.Toolbar"
+            style="@style/Style.Watched.Toolbar"
             android:layout_width="match_parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_scrollFlags="scroll|enterAlways|snap" />

@@ -1,10 +1,10 @@
 <resources>
 
-    <style name="Base.Style.Template.Toolbar" parent="">
+    <style name="Base.Style.Watched.Toolbar" parent="">
         <item name="android:layout_height">?attr/actionBarSize</item>
     </style>
 
-    <style name="Style.Template.Toolbar" parent="Base.Style.Template.Toolbar">
+    <style name="Style.Watched.Toolbar" parent="Base.Style.Watched.Toolbar">
         <item name="android:theme">@style/ThemeOverlay.MaterialComponents.Dark.ActionBar</item>
         <item name="popupTheme">@style/ThemeOverlay.MaterialComponents.Light</item>
     </style>

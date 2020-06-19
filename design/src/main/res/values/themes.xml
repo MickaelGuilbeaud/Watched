@@ -1,15 +1,15 @@
 <resources>
 
-    <style name="Base.Theme.Template" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+    <style name="Base.Theme.Watched" parent="Theme.MaterialComponents.DayNight.NoActionBar">
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorPrimary</item>
         <item name="android:statusBarColor">@color/statusBar</item>
     </style>
 
-    <style name="Theme.Template" parent="Base.Theme.Template" />
+    <style name="Theme.Watched" parent="Base.Theme.Watched" />
 
-    <style name="Theme.Template.Splash">
+    <style name="Theme.Watched.Splash">
         <item name="android:windowBackground">@drawable/bg_splash</item>
     </style>
 
