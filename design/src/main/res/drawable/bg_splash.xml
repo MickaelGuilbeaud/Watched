@@ -3,13 +3,13 @@
     android:opacity="opaque">
 
     <!-- Splash background color -->
-    <item android:drawable="@color/brand_red" />
+    <item android:drawable="@color/white" />
 
     <!-- App logo -->
     <item>
         <bitmap
             android:gravity="center"
-            android:src="@android:drawable/btn_star_big_on" />
+            android:src="@drawable/illu_myanimelist" />
     </item>
 
 </layer-list>
