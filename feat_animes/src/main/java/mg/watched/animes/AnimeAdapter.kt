@@ -4,8 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
@@ -17,19 +17,19 @@ internal typealias AnimeSelectedCallback = (Anime) -> Unit
 
 internal class AnimeAdapter(
     private val onAnimeSelectedCallback: AnimeSelectedCallback
-) : ListAdapter<Anime, AnimeViewHolder>(DiffCallback()) {
+) : PagedListAdapter<Anime, AnimeViewHolder>(DiffCallback()) {
 
     init {
         setHasStableIds(true)
     }
 
-    override fun getItemId(position: Int): Long = getItem(position).id
+    override fun getItemId(position: Int): Long = getItem(position)!!.id
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder =
         AnimeViewHolder.newInstance(parent, onAnimeSelectedCallback)
 
     override fun onBindViewHolder(holder: AnimeViewHolder, position: Int) {
-        holder.bindView(getItem(position))
+        holder.bindView(getItem(position)!!)
     }
 
     private class DiffCallback : DiffUtil.ItemCallback<Anime>() {

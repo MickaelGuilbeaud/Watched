@@ -1,7 +1,8 @@
 package mg.watched.data.anime
 
-import io.reactivex.Single
-import io.reactivex.disposables.CompositeDisposable
+import androidx.paging.PagedList
+import androidx.paging.toObservable
+import io.reactivex.Observable
 import mg.watched.core.utils.SchedulerProvider
 import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.Anime
@@ -18,15 +19,14 @@ class AnimeRepository(
     private val schedulerProvider: SchedulerProvider
 ) {
 
-    // region Properties
+    // region Animes
 
-    private val compositeDisposable = CompositeDisposable()
+    private val animeDataSourceFactory: AnimeDataSourceFactory = AnimeDataSourceFactory(animeService)
+    private val animePagedListConfig = PagedList.Config.Builder()
+        .setPageSize(10)
+        .setEnablePlaceholders(false)
+        .build()
+    val animePagedListStream: Observable<PagedList<Anime>> = animeDataSourceFactory.toObservable(animePagedListConfig)
 
     // endregion
-
-    fun getAnimes(): Single<List<Anime>> = animeService.getUserAnimes()
-        .subscribeOn(schedulerProvider.io())
-        .map { animesWrapper ->
-            animesWrapper.data.map { animeWrapper -> animeWrapper.node }
-        }
 }

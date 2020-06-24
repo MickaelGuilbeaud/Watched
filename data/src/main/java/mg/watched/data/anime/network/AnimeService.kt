@@ -8,7 +8,9 @@ import retrofit2.http.Query
 interface AnimeService {
 
     @GET("users/@me/animelist")
-    fun getUserAnimes(
-        @Query("fields") fields: String = "media_type,start_season,num_episodes,status,my_list_status"
+    fun getUserAnimesPaginated(
+        @Query("fields") fields: String = "media_type,start_season,num_episodes,status,my_list_status",
+        @Query("limit") pageSize: Int = 10,
+        @Query("offset") offset: Int = 0
     ): Single<AnimesWrapper>
 }

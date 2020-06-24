@@ -31,6 +31,10 @@ dependencies {
     api Dependencies.livedata
     api Dependencies.viewModel
 
+    // AndroidX - Paging
+    api Dependencies.pagingRuntime
+    api Dependencies.pagingRxJava
+
     // UI
     api Dependencies.material
     api Dependencies.glide

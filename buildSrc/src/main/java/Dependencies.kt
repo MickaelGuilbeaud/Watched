@@ -15,6 +15,7 @@ object Versions {
 
     const val kotlin = "1.3.72"
     const val lifecycle = "2.2.0"
+    const val paging = "2.1.2"
     const val okhttp = "4.7.2"
     const val retrofit = "2.9.0"
     const val room = "2.2.5"
@@ -39,6 +40,10 @@ object Dependencies {
     // AndroidX - Lifecycle
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
     const val viewModel = "androidx.lifecycle:lifecycle-viewmodel-ktx:${Versions.lifecycle}"
+
+    // AndroidX - Paging
+    const val pagingRuntime = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
+    const val pagingRxJava = "androidx.paging:paging-rxjava2-ktx:${Versions.paging}"
 
     // UI
     const val material = "com.google.android.material:material:1.1.0"
