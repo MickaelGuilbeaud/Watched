@@ -1,6 +1,6 @@
 package mg.watched.routers
 
-import mg.watched.animes.AnimesRouter
+import mg.watched.animes.animes.AnimesRouter
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.main.MainActivity
 import timber.log.Timber

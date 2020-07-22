@@ -1,6 +1,6 @@
 package mg.watched
 
-import mg.watched.animes.animesDiModule
+import mg.watched.animes.animes.animesDiModule
 import mg.watched.core.base.BaseApplication
 import mg.watched.core.build.BuildParams
 import mg.watched.data.di.dataDiModule

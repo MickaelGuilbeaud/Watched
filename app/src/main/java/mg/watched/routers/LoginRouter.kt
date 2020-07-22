@@ -1,7 +1,7 @@
 package mg.watched.routers
 
 import mg.watched.R
-import mg.watched.animes.AnimesFragment
+import mg.watched.animes.animes.AnimesFragment
 import mg.watched.login.LoginRouter
 import mg.watched.main.MainActivity
 

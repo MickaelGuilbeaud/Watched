@@ -4,9 +4,9 @@ import android.os.Bundle
 import androidx.core.view.isVisible
 import kotlinx.android.synthetic.main.activity_main.*
 import mg.watched.R
-import mg.watched.animes.AnimesFragment
-import mg.watched.animes.AnimesRouter
-import mg.watched.animes.AnimesRouterProvider
+import mg.watched.animes.animes.AnimesFragment
+import mg.watched.animes.animes.AnimesRouter
+import mg.watched.animes.animes.AnimesRouterProvider
 import mg.watched.core.FullScreenLoadingHolder
 import mg.watched.core.base.BaseActivity
 import mg.watched.data.authentication.AuthenticationManager
