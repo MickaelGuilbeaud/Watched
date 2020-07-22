@@ -1,10 +1,11 @@
-package mg.watched.animes
+package mg.watched.animes.animes
 
 import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.observe
 import kotlinx.android.synthetic.main.fragment_animes.*
+import mg.watched.animes.R
 import mg.watched.core.base.BaseFragment
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.toPx

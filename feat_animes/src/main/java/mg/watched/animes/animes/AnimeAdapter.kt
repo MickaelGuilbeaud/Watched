@@ -1,4 +1,4 @@
-package mg.watched.animes
+package mg.watched.animes.animes
 
 import android.content.Context
 import android.view.LayoutInflater
@@ -10,6 +10,7 @@ import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.listitem_anime_watching.*
+import mg.watched.animes.R
 import mg.watched.data.anime.network.models.AiringStatus
 import mg.watched.data.anime.network.models.Anime
 

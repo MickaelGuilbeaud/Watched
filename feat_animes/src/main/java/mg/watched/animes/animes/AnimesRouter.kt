@@ -1,4 +1,4 @@
-package mg.watched.animes
+package mg.watched.animes.animes
 
 import androidx.fragment.app.Fragment
 import mg.watched.core.utils.RouterException

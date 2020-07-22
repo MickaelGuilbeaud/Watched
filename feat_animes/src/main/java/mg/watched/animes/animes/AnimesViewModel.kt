@@ -1,4 +1,4 @@
-package mg.watched.animes
+package mg.watched.animes.animes
 
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo

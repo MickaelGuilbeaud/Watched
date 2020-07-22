@@ -1,4 +1,4 @@
-package mg.watched.animes
+package mg.watched.animes.animes
 
 import androidx.paging.PagedList
 import mg.watched.data.anime.network.models.Anime
