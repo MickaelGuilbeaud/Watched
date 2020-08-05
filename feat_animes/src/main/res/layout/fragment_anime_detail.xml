@@ -1,0 +1,177 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.coordinatorlayout.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:theme="@style/Theme.Watched">
+
+    <com.google.android.material.appbar.AppBarLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:liftOnScroll="true">
+
+        <com.google.android.material.appbar.MaterialToolbar
+            android:id="@+id/toolbar"
+            style="@style/Widget.MaterialComponents.Toolbar.Surface"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            app:layout_constraintTop_toTopOf="parent"
+            app:navigationIcon="@drawable/ic_navigation_arrow_back_24" />
+
+    </com.google.android.material.appbar.AppBarLayout>
+
+    <androidx.core.widget.NestedScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:clipToPadding="false"
+        android:paddingTop="16dp"
+        android:paddingBottom="32dp"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:id="@+id/tvTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline5"
+                app:layout_constraintTop_toTopOf="parent"
+                tools:text="Japan Sinks: 2020" />
+
+            <TextView
+                android:id="@+id/tvKindSeasonAiring"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                android:textColor="@color/anime_text_secondary"
+                app:layout_constraintTop_toBottomOf="@id/tvTitle"
+                tools:text="ONA . Summer 2020 . Finished airing" />
+
+            <ImageView
+                android:id="@+id/ivIllustration"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:contentDescription="@null"
+                android:scaleType="centerCrop"
+                app:layout_constraintDimensionRatio="W,1.35"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/tvKindSeasonAiring"
+                app:layout_constraintWidth_percent=".5"
+                tools:background="#44FF0000" />
+
+            <View
+                android:id="@+id/vWatchStatus"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:background="@drawable/bg_watch_status"
+                app:layout_constraintBottom_toBottomOf="@id/ivIllustration"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivIllustration"
+                app:layout_constraintTop_toTopOf="@id/ivIllustration" />
+
+            <TextView
+                android:id="@+id/tvWatchStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toTopOf="@id/tvEpisodeProgress"
+                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
+                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
+                app:layout_constraintTop_toTopOf="@id/vWatchStatus"
+                tools:drawableTop="@drawable/ic_play_arrow_24_color_on_background"
+                tools:text="Watching" />
+
+            <TextView
+                android:id="@+id/tvEpisodeProgress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_trending_flat_24_color_on_background"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toTopOf="@id/tvRating"
+                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
+                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
+                app:layout_constraintTop_toBottomOf="@id/tvWatchStatus"
+                tools:text="12/24 episodes" />
+
+            <TextView
+                android:id="@+id/tvRating"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_star_24_color_on_background"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toTopOf="@id/tvEpisodeProgress"
+                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
+                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
+                app:layout_constraintTop_toBottomOf="@id/tvEditWatchStatus"
+                tools:text="10 - Masterpiece" />
+
+            <TextView
+                android:id="@+id/tvEditWatchStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:drawableTop="@drawable/ic_edit_24_color_on_background"
+                android:text="@string/anime_detail_edit_watch_status"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
+                app:layout_constraintBottom_toBottomOf="@id/vWatchStatus"
+                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
+                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
+                app:layout_constraintTop_toBottomOf="@id/tvRating" />
+
+            <TextView
+                android:id="@+id/tvAlternativeTitlesTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/anime_detail_alternative_titles_title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintTop_toBottomOf="@id/ivIllustration" />
+
+            <TextView
+                android:id="@+id/tvAlternativeTitlesBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintTop_toBottomOf="@id/tvAlternativeTitlesTitle"
+                tools:text="Nihon Chinbotsu 2020,\n日本沈没2020" />
+
+            <TextView
+                android:id="@+id/tvSynopsisTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginTop="16dp"
+                android:layout_marginEnd="16dp"
+                android:text="@string/anime_detail_synopsis_title"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                app:layout_constraintTop_toBottomOf="@id/tvAlternativeTitlesBody" />
+
+            <TextView
+                android:id="@+id/tvSynopsisBody"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Body1"
+                app:layout_constraintTop_toBottomOf="@id/tvSynopsisTitle"
+                tools:text="Shortly after the Tokyo Olympics in 2020, a major earthquake hits Japan. Amidst the chaos, siblings Ayumu and Gou of the Mutou household, begin to escape the city with their family of four. The sinking Japanese archipelagos, however, relentlessly pursue the family.\n\nPlunged into extreme conditions, life and death, and the choice of meeting and parting—in the face of dreadful reality, the Mutou siblings believe in the future and acquire the strength to survive with utmost effort.\n\n(Source: MAL News)" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </androidx.core.widget.NestedScrollView>
+
+</androidx.coordinatorlayout.widget.CoordinatorLayout>

@@ -11,4 +11,27 @@
     <string name="anime_kind_season_airing">%s - %s - Airing</string>
     <string name="anime_episode_progress">%s/%s</string>
 
+    <!-- Anime detail -->
+    <string name="anime_detail_edit_watch_status">Edit</string>
+    <string name="anime_detail_watch_status_completed">Completed</string>
+    <string name="anime_detail_watch_status_dropped">Dropped</string>
+    <string name="anime_detail_watch_status_on_hold">On hold</string>
+    <string name="anime_detail_watch_status_plan_to_watch">Plan to watch</string>
+    <string name="anime_detail_watch_status_watching">Watching</string>
+    <string name="anime_detail_episodes_progress">%s/%s episodes</string>
+    <string name="anime_detail_alternative_titles_title">Alternative titles</string>
+    <string name="anime_detail_synopsis_title">Synopsis</string>
+
+    <!-- Anime rating -->
+    <string name="anime_rating_one">1 - Appalling</string>
+    <string name="anime_rating_two">2 - Horrible</string>
+    <string name="anime_rating_three">3 - Very Bad</string>
+    <string name="anime_rating_four">4 - Bad</string>
+    <string name="anime_rating_five">5 - Average</string>
+    <string name="anime_rating_six">6 - Fine</string>
+    <string name="anime_rating_seven">7 - Good</string>
+    <string name="anime_rating_eight">8 - Very Good</string>
+    <string name="anime_rating_nine">9 - Great</string>
+    <string name="anime_rating_ten">10 - Masterpiece</string>
+
 </resources>

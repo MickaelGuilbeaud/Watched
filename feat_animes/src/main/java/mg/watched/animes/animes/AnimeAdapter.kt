@@ -11,7 +11,7 @@ import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.listitem_anime_watching.*
 import mg.watched.animes.R
-import mg.watched.data.anime.network.models.AiringStatus
+import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.data.anime.network.models.Anime
 
 internal typealias AnimeSelectedCallback = (Anime) -> Unit
@@ -64,24 +64,7 @@ internal class AnimeViewHolder private constructor(
             .into(ivPicture)
 
         tvTitle.text = anime.title
-
-        val strSeason = context.getString(
-            R.string.anime_season,
-            anime.startSeason.season.capitalize(),
-            anime.startSeason.year.toString()
-        )
-        tvKindSeasonAiring.text = when (anime.airingStatus) {
-            AiringStatus.CURRENTLY_AIRING -> context.getString(
-                R.string.anime_kind_season_airing,
-                anime.mediaType.toString(),
-                strSeason
-            )
-            else -> context.getString(
-                R.string.anime_kind_season,
-                anime.mediaType.toString(),
-                strSeason
-            )
-        }
+        tvKindSeasonAiring.text = anime.formatKindSeasonAiring(context)
 
         tvEpisodeProgress.text = context.getString(
             R.string.anime_episode_progress,

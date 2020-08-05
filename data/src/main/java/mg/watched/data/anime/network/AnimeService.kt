@@ -9,7 +9,7 @@ interface AnimeService {
 
     @GET("users/@me/animelist")
     fun getUserAnimesPaginated(
-        @Query("fields") fields: String = "media_type,start_season,num_episodes,status,my_list_status",
+        @Query("fields") fields: String = "alternative_titles,synopsis,media_type,start_season,num_episodes,status,my_list_status",
         @Query("limit") pageSize: Int = 10,
         @Query("offset") offset: Int = 0
     ): Single<AnimesWrapper>

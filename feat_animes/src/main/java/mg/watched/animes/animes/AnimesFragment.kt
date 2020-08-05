@@ -15,7 +15,7 @@ import org.koin.androidx.viewmodel.ext.android.viewModel
 class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
 
     companion object {
-        fun newInstance() = AnimesFragment()
+        fun newInstance(): AnimesFragment = AnimesFragment()
     }
 
     private val viewModel: AnimesViewModel by viewModel()
@@ -39,6 +39,11 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
         rvAnimes.setHasFixedSize(true)
         rvAnimes.adapter = animeAdapter
         rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
+    }
+
+    override fun onDestroyView() {
+        rvAnimes.adapter = null
+        super.onDestroyView()
     }
 
     // endregion
