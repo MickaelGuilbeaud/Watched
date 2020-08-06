@@ -54,7 +54,7 @@
                 app:layout_constraintTop_toBottomOf="@id/tvTitle"
                 tools:text="ONA . Summer 2020 . Finished airing" />
 
-            <ImageView
+            <com.google.android.material.imageview.ShapeableImageView
                 android:id="@+id/ivIllustration"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
@@ -66,6 +66,7 @@
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@id/tvKindSeasonAiring"
                 app:layout_constraintWidth_percent=".5"
+                app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Watched.CornerRadius4dp"
                 tools:background="#44FF0000" />
 
             <include

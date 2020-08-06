@@ -46,7 +46,7 @@ object Dependencies {
     const val pagingRxJava = "androidx.paging:paging-rxjava2-ktx:${Versions.paging}"
 
     // UI
-    const val material = "com.google.android.material:material:1.1.0"
+    const val material = "com.google.android.material:material:1.2.0"
     const val flexbox = "com.google.android:flexbox:2.0.1"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"

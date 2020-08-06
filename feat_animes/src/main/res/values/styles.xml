@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <style name="ShapeAppearanceOverlay.Watched.CornerRadius1dp" parent="">
+        <item name="cornerRadius">1dp</item>
+    </style>
+
+    <style name="ShapeAppearanceOverlay.Watched.CornerRadius4dp" parent="">
+        <item name="cornerRadius">4dp</item>
+    </style>
+
+</resources>

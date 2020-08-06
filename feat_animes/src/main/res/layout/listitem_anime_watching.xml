@@ -7,7 +7,7 @@
     android:paddingStart="16dp"
     android:paddingEnd="16dp">
 
-    <ImageView
+    <com.google.android.material.imageview.ShapeableImageView
         android:id="@+id/ivPicture"
         android:layout_width="0dp"
         android:layout_height="80dp"
@@ -16,6 +16,7 @@
         app:layout_constraintDimensionRatio="H,.74"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:shapeAppearanceOverlay="@style/ShapeAppearanceOverlay.Watched.CornerRadius1dp"
         tools:background="#44FF0000" />
 
     <TextView
