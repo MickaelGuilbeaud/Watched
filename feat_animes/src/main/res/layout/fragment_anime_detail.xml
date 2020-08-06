@@ -68,65 +68,17 @@
                 app:layout_constraintWidth_percent=".5"
                 tools:background="#44FF0000" />
 
-            <View
-                android:id="@+id/vWatchStatus"
+            <include
+                android:id="@+id/vgWatchStatus"
+                layout="@layout/anime_detail_watch_status"
                 android:layout_width="0dp"
                 android:layout_height="0dp"
                 android:layout_marginStart="16dp"
                 android:layout_marginEnd="16dp"
-                android:background="@drawable/bg_watch_status"
                 app:layout_constraintBottom_toBottomOf="@id/ivIllustration"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toEndOf="@id/ivIllustration"
                 app:layout_constraintTop_toTopOf="@id/ivIllustration" />
-
-            <TextView
-                android:id="@+id/tvWatchStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintBottom_toTopOf="@id/tvEpisodeProgress"
-                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
-                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
-                app:layout_constraintTop_toTopOf="@id/vWatchStatus"
-                tools:drawableTop="@drawable/ic_play_arrow_24_color_on_background"
-                tools:text="Watching" />
-
-            <TextView
-                android:id="@+id/tvEpisodeProgress"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_trending_flat_24_color_on_background"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintBottom_toTopOf="@id/tvRating"
-                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
-                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
-                app:layout_constraintTop_toBottomOf="@id/tvWatchStatus"
-                tools:text="12/24 episodes" />
-
-            <TextView
-                android:id="@+id/tvRating"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_star_24_color_on_background"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintBottom_toTopOf="@id/tvEpisodeProgress"
-                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
-                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
-                app:layout_constraintTop_toBottomOf="@id/tvEditWatchStatus"
-                tools:text="10 - Masterpiece" />
-
-            <TextView
-                android:id="@+id/tvEditWatchStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:drawableTop="@drawable/ic_edit_24_color_on_background"
-                android:text="@string/anime_detail_edit_watch_status"
-                android:textAppearance="@style/TextAppearance.MaterialComponents.Body2"
-                app:layout_constraintBottom_toBottomOf="@id/vWatchStatus"
-                app:layout_constraintEnd_toEndOf="@id/vWatchStatus"
-                app:layout_constraintStart_toStartOf="@id/vWatchStatus"
-                app:layout_constraintTop_toBottomOf="@id/tvRating" />
 
             <TextView
                 android:id="@+id/tvAlternativeTitlesTitle"

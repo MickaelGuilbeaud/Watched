@@ -5,6 +5,7 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.bumptech.glide.Glide
+import kotlinx.android.synthetic.main.anime_detail_watch_status.*
 import kotlinx.android.synthetic.main.fragment_anime_detail.*
 import mg.watched.animes.R
 import mg.watched.animes.utils.formatKindSeasonAiring
