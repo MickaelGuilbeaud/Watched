@@ -13,29 +13,29 @@ object Versions {
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.3.72"
+    const val kotlin = "1.4.0"
     const val lifecycle = "2.2.0"
     const val paging = "2.1.2"
-    const val okhttp = "4.7.2"
+    const val okhttp = "4.8.1"
     const val retrofit = "2.9.0"
     const val room = "2.2.5"
-    const val moshi = "1.9.2"
+    const val moshi = "1.9.3"
     const val glide = "4.11.0"
 }
 
 object Dependencies {
     // Kotlin
     const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.3"
+    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
 
     // AndroidX - General
-    const val appcompat = "androidx.appcompat:appcompat:1.1.0"
-    const val core = "androidx.core:core-ktx:1.3.0"
+    const val appcompat = "androidx.appcompat:appcompat:1.2.0"
+    const val core = "androidx.core:core-ktx:1.3.1"
     const val activity = "androidx.activity:activity-ktx:1.1.0"
     const val fragment = "androidx.fragment:fragment-ktx:1.2.5"
 
     // AndroidX - UI
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-beta6"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-rc1"
 
     // AndroidX - Lifecycle
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
@@ -76,12 +76,12 @@ object Dependencies {
     const val koin = "org.koin:koin-androidx-viewmodel:2.1.5"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.4.3"
+    const val firebaseCore = "com.google.firebase:firebase-core:17.5.0"
     const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
 
     // Tools
     const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.3"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.4"
 
     // Testing
     const val junit = "junit:junit:4.13"
