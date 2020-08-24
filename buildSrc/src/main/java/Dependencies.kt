@@ -35,7 +35,7 @@ object Dependencies {
     const val fragment = "androidx.fragment:fragment-ktx:1.2.5"
 
     // AndroidX - UI
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0-rc1"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0"
 
     // AndroidX - Lifecycle
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
@@ -73,7 +73,7 @@ object Dependencies {
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     // DI
-    const val koin = "org.koin:koin-androidx-viewmodel:2.1.5"
+    const val koin = "org.koin:koin-androidx-viewmodel:2.1.6"
 
     // Firebase
     const val firebaseCore = "com.google.firebase:firebase-core:17.5.0"
