@@ -4,7 +4,7 @@
     <!-- Theme -->
     <color name="colorPrimary">@color/brand_blue</color>
     <color name="colorPrimaryDark">@color/brand_blue_dark</color>
-    <color name="colorAccent">@color/brand_blue</color>
+    <color name="colorSecondary">@color/brand_blue</color>
     <color name="statusBar">@color/brand_blue_dark</color>
     <color name="divider">#22000000</color>
 </resources>

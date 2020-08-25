@@ -49,6 +49,10 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
         rvAnimes.setHasFixedSize(true)
         rvAnimes.adapter = animeAdapter
         rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
+
+        fabAddAnime.setOnClickListener {
+            // TODO
+        }
     }
 
     override fun onDestroyView() {
@@ -66,16 +70,19 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
                 pbLoading.isVisible = true
                 tvError.isVisible = false
                 rvAnimes.isVisible = false
+                fabAddAnime.isVisible = false
             }
             is AnimesViewState.Error -> {
                 pbLoading.isVisible = false
                 tvError.isVisible = true
                 rvAnimes.isVisible = false
+                fabAddAnime.isVisible = false
             }
             is AnimesViewState.Animes -> {
                 pbLoading.isVisible = false
                 tvError.isVisible = false
                 rvAnimes.isVisible = true
+                fabAddAnime.isVisible = true
 
                 animeAdapter.submitList(viewState.animes)
             }
