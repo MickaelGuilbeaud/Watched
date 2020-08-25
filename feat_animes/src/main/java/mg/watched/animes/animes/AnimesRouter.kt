@@ -1,11 +1,12 @@
 package mg.watched.animes.animes
 
+import android.view.View
 import androidx.fragment.app.Fragment
 import mg.watched.core.utils.RouterException
 import mg.watched.data.anime.network.models.Anime
 
 interface AnimesRouter {
-    fun routeToAnimeDetailScreen(anime: Anime)
+    fun routeToAnimeDetailScreen(anime: Anime, startAnimationView: View)
 }
 
 interface AnimesRouterProvider {

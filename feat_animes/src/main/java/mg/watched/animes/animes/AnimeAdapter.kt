@@ -11,10 +11,11 @@ import com.bumptech.glide.Glide
 import kotlinx.android.extensions.LayoutContainer
 import kotlinx.android.synthetic.main.listitem_anime_watching.*
 import mg.watched.animes.R
+import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.data.anime.network.models.Anime
 
-internal typealias AnimeSelectedCallback = (Anime) -> Unit
+internal typealias AnimeSelectedCallback = (Anime, View) -> Unit
 
 internal class AnimeAdapter(
     private val onAnimeSelectedCallback: AnimeSelectedCallback
@@ -57,7 +58,8 @@ internal class AnimeViewHolder private constructor(
     fun bindView(anime: Anime) {
         val context: Context = itemView.context
 
-        itemView.setOnClickListener { animeSelectedCallback(anime) }
+        itemView.transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
+        itemView.setOnClickListener { animeSelectedCallback(anime, itemView) }
 
         Glide.with(ivPicture.context)
             .load(anime.mainPicture.mediumUrl)

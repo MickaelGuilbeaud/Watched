@@ -4,6 +4,7 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.lifecycle.observe
+import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_animes.*
 import mg.watched.animes.R
 import mg.watched.core.base.BaseFragment
@@ -18,13 +19,22 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
         fun newInstance(): AnimesFragment = AnimesFragment()
     }
 
+    // region Properties
+
     private val viewModel: AnimesViewModel by viewModel()
 
-    private val animeAdapter = AnimeAdapter { anime ->
-        requireAnimesRouter().routeToAnimeDetailScreen(anime)
+    private val animeAdapter = AnimeAdapter { anime, view ->
+        requireAnimesRouter().routeToAnimeDetailScreen(anime, view)
     }
 
+    // endregion
+
     // region Lifecycle
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+        exitTransition = Hold()
+    }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)

@@ -1,13 +1,17 @@
 package mg.watched.animes.animedetail
 
 import android.os.Bundle
+import android.util.TypedValue
 import android.view.View
+import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.bumptech.glide.Glide
+import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.anime_detail_watch_status.*
 import kotlinx.android.synthetic.main.fragment_anime_detail.*
 import mg.watched.animes.R
+import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.animes.utils.formatRating
 import mg.watched.core.base.BaseFragment
@@ -29,12 +33,31 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
     private val anime: Anime
         get() = requireArguments().getParcelable(ARG_ANIME)!!
 
+    // region Lifecycle
+
+    override fun onCreate(savedInstanceState: Bundle?) {
+        super.onCreate(savedInstanceState)
+
+        sharedElementEnterTransition = MaterialContainerTransform().apply {
+            fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
+            containerColor = getWindowBackgroundColor()
+        }
+    }
+
+    @ColorInt
+    private fun getWindowBackgroundColor(): Int {
+        val typedValue = TypedValue()
+        requireContext().theme.resolveAttribute(android.R.attr.windowBackground, typedValue, true)
+        return typedValue.data
+    }
+
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
-
         val anime: Anime = anime
+        requireView().transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
+
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
         tvTitle.text = anime.title
         tvKindSeasonAiring.text = anime.formatKindSeasonAiring(requireContext())
@@ -93,4 +116,6 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
 
         tvSynopsisBody.text = anime.synopsis
     }
+
+    // endregion
 }
