@@ -1,12 +1,11 @@
 package mg.watched.animes.animedetail
 
 import android.os.Bundle
-import android.util.TypedValue
 import android.view.View
-import androidx.annotation.ColorInt
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import com.bumptech.glide.Glide
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.anime_detail_watch_status.*
 import kotlinx.android.synthetic.main.fragment_anime_detail.*
@@ -40,15 +39,8 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
-            containerColor = getWindowBackgroundColor()
+            containerColor = MaterialColors.getColor(requireActivity(), android.R.attr.windowBackground, "")
         }
-    }
-
-    @ColorInt
-    private fun getWindowBackgroundColor(): Int {
-        val typedValue = TypedValue()
-        requireContext().theme.resolveAttribute(android.R.attr.windowBackground, typedValue, true)
-        return typedValue.data
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
