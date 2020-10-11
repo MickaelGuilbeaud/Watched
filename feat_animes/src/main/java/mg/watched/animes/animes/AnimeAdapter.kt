@@ -70,10 +70,11 @@ internal class AnimeViewHolder private constructor(
 
         tvEpisodeProgress.text = context.getString(
             R.string.anime_episode_progress,
-            anime.myListStatus.nbEpisodesWatched.toString(),
+            anime.myListStatus?.nbEpisodesWatched?.toString() ?: "",
             anime.nbEpisodes.toString()
         )
-        val progressPercent: Int = ((anime.myListStatus.nbEpisodesWatched.toFloat() / anime.nbEpisodes) * 100).toInt()
+        val progressPercent: Int =
+            ((anime.myListStatus?.nbEpisodesWatched?.toFloat() ?: .0f / anime.nbEpisodes) * 100).toInt()
         pbEpisodeProgress.progress = progressPercent
 
         // TODO: Bind Add watched episode action

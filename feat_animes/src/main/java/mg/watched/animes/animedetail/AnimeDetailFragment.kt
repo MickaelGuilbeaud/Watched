@@ -68,7 +68,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
 
         @StringRes val watchStatusTextResId: Int
         @DrawableRes val watchStatusDrawableResId: Int
-        when (anime.myListStatus.status) {
+        when (anime.myListStatus!!.status) {
             WatchStatus.COMPLETED -> {
                 watchStatusTextResId = R.string.anime_detail_watch_status_completed
                 watchStatusDrawableResId = R.drawable.ic_check_24_color_on_background
@@ -93,11 +93,11 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
         tvWatchStatus.setText(watchStatusTextResId)
         tvWatchStatus.setCompoundDrawablesWithIntrinsicBounds(0, watchStatusDrawableResId, 0, 0)
 
-        tvRating.text = anime.myListStatus.formatRating(requireContext())
+        tvRating.text = anime.myListStatus!!.formatRating(requireContext())
 
         tvEpisodeProgress.text = getString(
             R.string.anime_detail_episodes_progress,
-            anime.myListStatus.nbEpisodesWatched.toString(),
+            anime.myListStatus!!.nbEpisodesWatched.toString(),
             anime.nbEpisodes.toString()
         )
 

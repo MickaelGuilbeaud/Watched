@@ -13,4 +13,12 @@ interface AnimeService {
         @Query("limit") pageSize: Int = 10,
         @Query("offset") offset: Int = 0
     ): Single<AnimesWrapper>
+
+    @GET("anime")
+    fun searchAnimes(
+        @Query("q") searchTerm: String,
+        @Query("fields") fields: String = "alternative_titles,synopsis,media_type,start_season,num_episodes,status,my_list_status",
+        @Query("limit") pageSize: Int = 10,
+        @Query("offset") offset: Int = 0
+    ): Single<AnimesWrapper>
 }

@@ -9,6 +9,7 @@
     <string name="anime_season">%s %s</string>
     <string name="anime_kind_season">%s - %s</string>
     <string name="anime_kind_season_airing">%s - %s - Airing</string>
+    <string name="anime_airing">Airing</string>
     <string name="anime_episode_progress">%s/%s</string>
 
     <!-- Anime detail -->
@@ -35,5 +36,10 @@
     <string name="anime_rating_eight">8 - Very Good</string>
     <string name="anime_rating_nine">9 - Great</string>
     <string name="anime_rating_ten">10 - Masterpiece</string>
+
+    <!-- Anime search -->
+    <string name="anime_search_hint">Search an anime…</string>
+    <string name="anime_search_no_search">Search an anime to see its detail or add it to your watchlist</string>
+    <string name="anime_search_no_search_result">No result. Try something else!</string>
 
 </resources>
