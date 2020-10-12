@@ -54,6 +54,7 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
 
         fabAddAnime.setOnClickListener {
             parentFragmentManager.commit {
+                addSharedElement(fabAddAnime, "transition_anime_search")
                 replace(requireFragmentContainerProvider().getFragmentContainerId(), AnimeSearchFragment.newInstance())
                 addToBackStack(null)
             }
