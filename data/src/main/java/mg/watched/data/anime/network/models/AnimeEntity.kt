@@ -53,6 +53,7 @@ data class Season(
 enum class AiringStatus {
     CURRENTLY_AIRING,
     FINISHED_AIRING,
+    NOT_YET_AIRED,
 }
 
 @Parcelize

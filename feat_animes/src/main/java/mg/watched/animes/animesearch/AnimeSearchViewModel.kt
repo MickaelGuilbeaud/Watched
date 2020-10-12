@@ -1,8 +1,8 @@
 package mg.watched.animes.animesearch
 
 import androidx.paging.toObservable
+import io.reactivex.Observable
 import io.reactivex.android.schedulers.AndroidSchedulers
-import io.reactivex.disposables.Disposable
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
@@ -19,10 +19,8 @@ internal class AnimeSearchViewModel(
     // region Properties
 
     private val searchTermSubject = PublishSubject.create<String>()
-
     private val animeSearchDataSourceFactory: AnimeSearchDataSourceFactory =
         animesRepository.createAnimeSearchDaTaSourceFactory()
-    private var animeSearchDisposable: Disposable? = null
 
     // endregion
 
@@ -32,28 +30,19 @@ internal class AnimeSearchViewModel(
         searchTermSubject.debounce(500, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribe { searchTerm ->
+            .switchMap { searchTerm ->
                 if (searchTerm.length < 3) {
                     pushViewState(AnimeSearchViewState.NoSearch)
+                    Observable.never()
                 } else {
                     Timber.d("Search animes with search term $searchTerm")
+
                     pushViewState(AnimeSearchViewState.Loading)
-                    performSearch(searchTerm)
+
+                    animeSearchDataSourceFactory.search(searchTerm)
+                    animeSearchDataSourceFactory.toObservable(animesRepository.defaultAnimePagedListConfig)
                 }
             }
-            .addTo(compositeDisposable)
-    }
-
-    fun searchAnimes(searchTerm: String) {
-        searchTermSubject.onNext(searchTerm)
-    }
-
-    private fun performSearch(searchTerm: String) {
-        animeSearchDisposable?.dispose()
-
-        animeSearchDataSourceFactory.search(searchTerm)
-        animeSearchDisposable = animeSearchDataSourceFactory.toObservable(animesRepository.defaultAnimePagedListConfig)
-            .observeOn(AndroidSchedulers.mainThread())
             .subscribeBy(onNext = { animes ->
                 if (animes.isEmpty()) {
                     pushViewState(AnimeSearchViewState.NoSearchResult)
@@ -62,8 +51,12 @@ internal class AnimeSearchViewModel(
                 }
             }, onError = { error ->
                 Timber.e(error)
-                // TODO
+                // TODO: Handle errors
             })
             .addTo(compositeDisposable)
+    }
+
+    fun searchAnimes(searchTerm: String) {
+        searchTermSubject.onNext(searchTerm)
     }
 }
