@@ -77,11 +77,15 @@
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rvAnimes"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="0dp"
+        android:clipToPadding="false"
         android:overScrollMode="never"
+        android:paddingTop="8dp"
         android:scrollbars="none"
         app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
         app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/vgSearch"
         tools:listitem="@layout/listitem_anime_watching" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
