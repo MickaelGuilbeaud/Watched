@@ -21,6 +21,11 @@
     <string name="anime_detail_watch_status_watching">Watching</string>
     <string name="anime_detail_episodes_progress">%s/%s episodes</string>
     <string name="anime_detail_not_in_watchlist">Not in watchlist</string>
+    <plurals name="anime_detail_nb_episodes">
+        <item quantity="zero">%s episode</item>
+        <item quantity="one">%s episode</item>
+        <item quantity="other">%s episodes</item>
+    </plurals>
     <string name="anime_detail_add_to_watchlist">Add to watchlist</string>
     <string name="anime_detail_alternative_titles_title">Alternative titles</string>
     <string name="anime_detail_synopsis_title">Synopsis</string>

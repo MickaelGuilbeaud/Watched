@@ -70,6 +70,19 @@
                 tools:background="#44FF0000" />
 
             <include
+                android:id="@+id/vgAddToWatchlist"
+                layout="@layout/anime_detail_add_to_watchlist"
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_marginStart="16dp"
+                android:layout_marginEnd="16dp"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/ivIllustration"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/ivIllustration"
+                app:layout_constraintTop_toTopOf="@id/ivIllustration" />
+
+            <include
                 android:id="@+id/vgWatchStatus"
                 layout="@layout/anime_detail_watch_status"
                 android:layout_width="0dp"

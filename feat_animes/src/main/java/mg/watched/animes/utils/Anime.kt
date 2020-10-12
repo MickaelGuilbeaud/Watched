@@ -10,10 +10,10 @@ import java.security.InvalidParameterException
 fun Anime.formatKindSeasonAiring(context: Context): String = StringBuilder().apply {
     append(mediaType.toString())
     if (startSeason != null) {
-        append("- ${startSeason!!.season.capitalize()} ${startSeason!!.year}")
+        append(" - ${startSeason!!.season.capitalize()} ${startSeason!!.year}")
     }
     if (airingStatus == AiringStatus.CURRENTLY_AIRING) {
-        append("- ${context.getString(R.string.anime_airing)}")
+        append(" - ${context.getString(R.string.anime_airing)}")
     }
 }.toString()
 

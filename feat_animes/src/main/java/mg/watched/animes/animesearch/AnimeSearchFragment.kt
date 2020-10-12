@@ -4,12 +4,15 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
+import androidx.fragment.app.commit
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_anime_search.*
 import mg.watched.animes.R
+import mg.watched.animes.animedetail.AnimeDetailFragment
 import mg.watched.animes.animes.AnimeAdapter
-import mg.watched.animes.animes.requireAnimesRouter
+import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.core.base.BaseFragment
+import mg.watched.core.requireFragmentContainerProvider
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.getWindowBackgroundColor
 import mg.watched.core.utils.toPx
@@ -27,7 +30,12 @@ class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
     private val viewModel: AnimeSearchViewModel by viewModel()
 
     private val animeAdapter = AnimeAdapter { anime, view ->
-        requireAnimesRouter().routeToAnimeDetailScreen(anime, view)
+        val fragment = AnimeDetailFragment.newInstance(anime)
+        parentFragmentManager.commit {
+            addSharedElement(view, AnimeAnimations.getAnimeMasterDetailTransitionName(anime))
+            addToBackStack(null)
+            replace(requireFragmentContainerProvider().getFragmentContainerId(), fragment)
+        }
     }
 
     // endregion
@@ -51,6 +59,8 @@ class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
     }
 
     private fun initUI() {
+        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+
         etSearch.doOnTextChanged { text, _, _, _ -> viewModel.searchAnimes(text.toString().trim()) }
 
         rvAnimes.setHasFixedSize(true)

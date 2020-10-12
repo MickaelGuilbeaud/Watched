@@ -7,7 +7,9 @@ import androidx.fragment.app.commit
 import com.google.android.material.transition.Hold
 import kotlinx.android.synthetic.main.fragment_animes.*
 import mg.watched.animes.R
+import mg.watched.animes.animedetail.AnimeDetailFragment
 import mg.watched.animes.animesearch.AnimeSearchFragment
+import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.core.base.BaseFragment
 import mg.watched.core.requireFragmentContainerProvider
 import mg.watched.core.utils.exhaustive
@@ -26,7 +28,12 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
     private val viewModel: AnimesViewModel by viewModel()
 
     private val animeAdapter = AnimeAdapter { anime, view ->
-        requireAnimesRouter().routeToAnimeDetailScreen(anime, view)
+        val fragment = AnimeDetailFragment.newInstance(anime)
+        parentFragmentManager.commit {
+            addSharedElement(view, AnimeAnimations.getAnimeMasterDetailTransitionName(anime))
+            addToBackStack(null)
+            replace(requireFragmentContainerProvider().getFragmentContainerId(), fragment)
+        }
     }
 
     // endregion
