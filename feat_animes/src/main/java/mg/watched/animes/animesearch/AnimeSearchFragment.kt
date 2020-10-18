@@ -5,6 +5,7 @@ import android.view.View
 import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.commit
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_anime_search.*
 import mg.watched.animes.R
@@ -15,6 +16,7 @@ import mg.watched.core.base.BaseFragment
 import mg.watched.core.requireFragmentContainerProvider
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.getWindowBackgroundColor
+import mg.watched.core.utils.hideKeyboard
 import mg.watched.core.utils.toPx
 import mg.watched.design.MarginItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
@@ -66,6 +68,11 @@ class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
         rvAnimes.setHasFixedSize(true)
         rvAnimes.adapter = animeAdapter
         rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
+        rvAnimes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+            override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
+                hideKeyboard()
+            }
+        })
     }
 
     // endregion
