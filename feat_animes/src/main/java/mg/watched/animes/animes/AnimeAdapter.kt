@@ -4,6 +4,8 @@ import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import androidx.core.view.isInvisible
+import androidx.core.view.isVisible
 import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
@@ -68,14 +70,25 @@ internal class AnimeViewHolder private constructor(
         tvTitle.text = anime.title
         tvKindSeasonAiring.text = anime.formatKindSeasonAiring(context)
 
-        tvEpisodeProgress.text = context.getString(
-            R.string.anime_episode_progress,
-            anime.myListStatus?.nbEpisodesWatched?.toString() ?: "",
-            anime.nbEpisodes.toString()
-        )
-        val progressPercent: Int =
-            ((anime.myListStatus?.nbEpisodesWatched?.toFloat() ?: .0f / anime.nbEpisodes) * 100).toInt()
-        pbEpisodeProgress.progress = progressPercent
+        val isAnimeInWatchlist: Boolean = anime.myListStatus != null
+        if (isAnimeInWatchlist) {
+            tvEpisodeProgress.text = context.getString(
+                R.string.anime_episode_progress,
+                anime.myListStatus?.nbEpisodesWatched!!.toString(),
+                anime.nbEpisodes.toString()
+            )
+
+            pbEpisodeProgress.isVisible = true
+            val progressPercent: Int =
+                ((anime.myListStatus?.nbEpisodesWatched?.toFloat() ?: .0f / anime.nbEpisodes) * 100).toInt()
+            pbEpisodeProgress.progress = progressPercent
+        } else {
+            tvEpisodeProgress.text = context.resources.getQuantityString(
+                R.plurals.anime_nb_episodes,
+                anime.nbEpisodes, anime.nbEpisodes
+            )
+            pbEpisodeProgress.isInvisible = true
+        }
 
         // TODO: Bind Add watched episode action
     }

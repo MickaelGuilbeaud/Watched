@@ -11,6 +11,11 @@
     <string name="anime_kind_season_airing">%s - %s - Airing</string>
     <string name="anime_airing">Airing</string>
     <string name="anime_episode_progress">%s/%s</string>
+    <plurals name="anime_nb_episodes">
+        <item quantity="zero">%s episode</item>
+        <item quantity="one">%s episode</item>
+        <item quantity="other">%s episodes</item>
+    </plurals>
 
     <!-- Anime detail -->
     <string name="anime_detail_edit_watch_status">Edit</string>
