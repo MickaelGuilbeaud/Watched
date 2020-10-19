@@ -6,6 +6,7 @@ import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
 import com.bumptech.glide.Glide
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.anime_detail_add_to_watchlist.*
 import kotlinx.android.synthetic.main.anime_detail_watch_status.*
@@ -41,7 +42,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
-            containerColor = requireContext().getWindowBackgroundColor()
+            containerColor = MaterialColors.getColor(requireActivity(), android.R.attr.windowBackground, "")
         }
     }
 
