@@ -7,6 +7,7 @@ import mg.watched.R
 import mg.watched.animes.animes.AnimesFragment
 import mg.watched.animes.animes.AnimesRouter
 import mg.watched.animes.animes.AnimesRouterProvider
+import mg.watched.core.FragmentContainerProvider
 import mg.watched.core.FullScreenLoadingHolder
 import mg.watched.core.base.BaseActivity
 import mg.watched.data.authentication.AuthenticationManager
@@ -20,6 +21,7 @@ import org.koin.android.ext.android.get
 
 class MainActivity : BaseActivity(),
     FullScreenLoadingHolder,
+    FragmentContainerProvider,
     AnimesRouterProvider,
     LoginRouterProvider {
 
@@ -50,4 +52,6 @@ class MainActivity : BaseActivity(),
     override fun showLoading(show: Boolean) {
         vgLoading.isVisible = show
     }
+
+    override fun getFragmentContainerId(): Int = R.id.fragmentContainer
 }

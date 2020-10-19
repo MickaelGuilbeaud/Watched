@@ -7,21 +7,15 @@ import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.MyListStatus
 import java.security.InvalidParameterException
 
-fun Anime.formatKindSeasonAiring(context: Context): String {
-    val strSeason = context.getString(
-        R.string.anime_season,
-        startSeason.season.capitalize(),
-        startSeason.year.toString()
-    )
-    return when (airingStatus) {
-        AiringStatus.CURRENTLY_AIRING -> context.getString(
-            R.string.anime_kind_season_airing,
-            mediaType.toString(),
-            strSeason
-        )
-        else -> context.getString(R.string.anime_kind_season, mediaType.toString(), strSeason)
+fun Anime.formatKindSeasonAiring(context: Context): String = StringBuilder().apply {
+    append(mediaType.toString())
+    if (startSeason != null) {
+        append(" - ${startSeason!!.season.capitalize()} ${startSeason!!.year}")
     }
-}
+    if (airingStatus == AiringStatus.CURRENTLY_AIRING) {
+        append(" - ${context.getString(R.string.anime_airing)}")
+    }
+}.toString()
 
 fun MyListStatus.formatRating(context: Context): String {
     return when (score.toInt()) {
