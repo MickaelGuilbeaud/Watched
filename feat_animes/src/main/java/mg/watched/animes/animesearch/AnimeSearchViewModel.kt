@@ -2,10 +2,11 @@ package mg.watched.animes.animesearch
 
 import androidx.paging.toObservable
 import io.reactivex.Observable
-import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.rxkotlin.addTo
 import io.reactivex.rxkotlin.subscribeBy
 import io.reactivex.subjects.PublishSubject
+import mg.watched.core.utils.DefaultSchedulerProvider
+import mg.watched.core.utils.SchedulerProvider
 import mg.watched.core.viewmodel.BaseViewModel
 import mg.watched.data.anime.AnimeRepository
 import mg.watched.data.anime.AnimeSearchDataSourceFactory
@@ -13,7 +14,8 @@ import timber.log.Timber
 import java.util.concurrent.TimeUnit
 
 internal class AnimeSearchViewModel(
-    private val animesRepository: AnimeRepository
+    private val animesRepository: AnimeRepository,
+    private val schedulerProvider: SchedulerProvider = DefaultSchedulerProvider()
 ) : BaseViewModel<AnimeSearchViewState, Unit, Unit>() {
 
     // region Properties
@@ -29,7 +31,7 @@ internal class AnimeSearchViewModel(
 
         searchTermSubject.debounce(500, TimeUnit.MILLISECONDS)
             .distinctUntilChanged()
-            .observeOn(AndroidSchedulers.mainThread())
+            .observeOn(schedulerProvider.ui())
             .switchMap { searchTerm ->
                 if (searchTerm.length < 3) {
                     pushViewState(AnimeSearchViewState.NoSearch)
