@@ -16,7 +16,6 @@ import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.animes.utils.formatRating
 import mg.watched.core.base.BaseFragment
-import mg.watched.core.utils.getWindowBackgroundColor
 import mg.watched.core.utils.withArguments
 import mg.watched.data.anime.network.models.AlternativeTitles
 import mg.watched.data.anime.network.models.Anime
