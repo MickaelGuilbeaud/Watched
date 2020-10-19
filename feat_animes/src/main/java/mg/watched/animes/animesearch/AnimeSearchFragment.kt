@@ -6,6 +6,7 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
+import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import kotlinx.android.synthetic.main.fragment_anime_search.*
 import mg.watched.animes.R
@@ -15,7 +16,6 @@ import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.core.base.BaseFragment
 import mg.watched.core.requireFragmentContainerProvider
 import mg.watched.core.utils.exhaustive
-import mg.watched.core.utils.getWindowBackgroundColor
 import mg.watched.core.utils.hideKeyboard
 import mg.watched.core.utils.toPx
 import mg.watched.design.MarginItemDecoration
@@ -49,7 +49,7 @@ class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
 
         sharedElementEnterTransition = MaterialContainerTransform().apply {
             fadeMode = MaterialContainerTransform.FADE_MODE_CROSS
-            containerColor = requireContext().getWindowBackgroundColor()
+            containerColor = MaterialColors.getColor(requireActivity(), android.R.attr.windowBackground, "")
         }
     }
 
