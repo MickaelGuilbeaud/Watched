@@ -2,7 +2,6 @@ package mg.watched.core.viewmodel
 
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.LiveData
-import androidx.lifecycle.Observer
 
 open class Event<out T>(private val content: T) {
 
@@ -31,7 +30,10 @@ inline fun <EventContent> LiveData<Event<EventContent>>.observeEvents(
     owner: LifecycleOwner,
     crossinline eventContentHandler: (EventContent) -> Unit
 ) {
-    observe(owner, Observer { event ->
-        event?.getContentIfNotHandled()?.let { eventContent -> eventContentHandler(eventContent) }
-    })
+    observe(
+        owner,
+        { event ->
+            event?.getContentIfNotHandled()?.let { eventContent -> eventContentHandler(eventContent) }
+        }
+    )
 }

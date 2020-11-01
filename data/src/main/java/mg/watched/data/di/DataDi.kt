@@ -52,11 +52,13 @@ val dataDiModule = module {
     }
 
     single<OkHttpClient>(named("default")) {
-        val httpLoggingInterceptor = HttpLoggingInterceptor(object : HttpLoggingInterceptor.Logger {
-            override fun log(message: String) {
-                Timber.tag("OkHttp").log(Log.INFO, message)
+        val httpLoggingInterceptor = HttpLoggingInterceptor(
+            object : HttpLoggingInterceptor.Logger {
+                override fun log(message: String) {
+                    Timber.tag("OkHttp").log(Log.INFO, message)
+                }
             }
-        }).apply {
+        ).apply {
             level = HttpLoggingInterceptor.Level.BODY
 
             if (!BuildConfig.DEBUG) {
