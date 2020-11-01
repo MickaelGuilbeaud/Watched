@@ -19,7 +19,7 @@ class WatchedApplication : BaseApplication() {
     override fun initDI() {
         startKoin {
             // There is a bug in Koin 2.1.5 + Kotlin 1.4 that prevent the use of the generic logger
-            //androidLogger()
+            // androidLogger()
             androidLogger(Level.ERROR)
             androidContext(this@WatchedApplication)
             modules(
