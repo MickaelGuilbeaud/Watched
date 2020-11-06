@@ -14,6 +14,10 @@ jobs:
       uses: actions/setup-java@v1
       with:
         java-version: 1.8
+    - name: Decode google-services.json
+      env:
+        FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
+      run: echo $FIREBASE_SECRET > app/google-services.json
     - name: Run unit tests
       run: ./gradlew testDevDebugUnitTest
     - name: Android Test Report
