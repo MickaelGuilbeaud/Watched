@@ -63,7 +63,8 @@ dependencies {
     api Dependencies.koin
 
     // Firebase
-    api Dependencies.firebaseCore
+    api platform(Dependencies.firebaseBom)
+    api Dependencies.firebaseAnalytics
     api Dependencies.firebaseCrashlytics
 
     // Tools
