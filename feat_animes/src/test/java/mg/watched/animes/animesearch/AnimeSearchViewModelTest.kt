@@ -94,4 +94,9 @@ class AnimeSearchViewModelTest {
         // assertThat(viewModel.viewStates().value!!).isInstanceOf(AnimeSearchViewState.SearchResults::class.java)
         assert(true)
     }
+
+    @Test
+    fun `This is a failing test`() {
+        assert(false)
+    }
 }
