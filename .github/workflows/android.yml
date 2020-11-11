@@ -20,9 +20,6 @@ jobs:
       run: echo $FIREBASE_SECRET > app/google-services.json
     - name: Run unit tests
       run: ./gradlew testDevDebugUnitTest
-    - name: Android Test Report
-      uses: asadmansr/android-test-report-action@v1.2.0
-      if: ${{ always() }} # IMPORTANT: run Android Test Report regardless   
      
   build:
     name: Build
@@ -39,4 +36,4 @@ jobs:
         FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
       run: echo $FIREBASE_SECRET > app/google-services.json
     - name: Build with Gradle
-      run: ./gradlew build
+      run: ./gradlew assembleDevDebug
