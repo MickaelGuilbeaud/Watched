@@ -85,7 +85,8 @@ internal class AnimeViewHolder private constructor(
         } else {
             tvEpisodeProgress.text = context.resources.getQuantityString(
                 R.plurals.anime_nb_episodes,
-                anime.nbEpisodes, anime.nbEpisodes
+                anime.nbEpisodes,
+                anime.nbEpisodes
             )
             pbEpisodeProgress.isInvisible = true
         }

@@ -53,15 +53,18 @@ internal class LogInViewModel(
                 viewState = viewState.copy(loading = true)
             }
             .observeOn(schedulerProvider.ui())
-            .subscribeBy(onComplete = {
-                Timber.d("Log in successful")
-                viewState = viewState.copy(loading = false)
-                pushNavigationEvent(LogInNavigationEvent.GoToAnimesScreen)
-            }, onError = { error ->
-                Timber.e(error, "Log in failed")
-                viewState = viewState.copy(loading = false)
-                pushActionEvent(LogInActionEvent.LogInFailed)
-            })
+            .subscribeBy(
+                onComplete = {
+                    Timber.d("Log in successful")
+                    viewState = viewState.copy(loading = false)
+                    pushNavigationEvent(LogInNavigationEvent.GoToAnimesScreen)
+                },
+                onError = { error ->
+                    Timber.e(error, "Log in failed")
+                    viewState = viewState.copy(loading = false)
+                    pushActionEvent(LogInActionEvent.LogInFailed)
+                }
+            )
             .addTo(compositeDisposable)
     }
 }

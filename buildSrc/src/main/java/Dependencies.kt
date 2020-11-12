@@ -76,8 +76,9 @@ object Dependencies {
     const val koin = "org.koin:koin-androidx-viewmodel:2.1.6"
 
     // Firebase
-    const val firebaseCore = "com.google.firebase:firebase-core:17.5.1"
-    const val firebaseCrashlytics = "com.crashlytics.sdk.android:crashlytics:2.10.1"
+    const val firebaseBom = "com.google.firebase:firebase-bom:26.0.0"
+    const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
+    const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
     // Tools
     const val timber = "com.jakewharton.timber:timber:4.7.1"

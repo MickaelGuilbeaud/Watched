@@ -6,7 +6,6 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.annotation.LayoutRes
 import androidx.fragment.app.Fragment
-import com.google.firebase.analytics.FirebaseAnalytics
 import timber.log.Timber
 
 fun BaseFragment.requireBaseActivity() = requireActivity() as BaseActivity
@@ -43,9 +42,6 @@ abstract class BaseFragment(@LayoutRes contentLayoutId: Int) : Fragment(contentL
 
         Timber.tag(this::class.java.simpleName)
         Timber.v("onResume")
-
-        FirebaseAnalytics.getInstance(requireContext())
-            .setCurrentScreen(requireActivity(), this::class.java.simpleName, this::class.java.simpleName)
     }
 
     override fun onPause() {
