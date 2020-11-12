@@ -3,7 +3,6 @@ package mg.watched.login
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import androidx.lifecycle.observe
 import com.google.android.material.snackbar.Snackbar
 import kotlinx.android.synthetic.main.fragment_log_in.*
 import mg.watched.core.base.BaseFragment
@@ -38,7 +37,7 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
     }
 
     private fun initUI() {
-        etPassword.setOnEditorActionListener { v, actionId, event ->
+        etPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 logIn()
                 true

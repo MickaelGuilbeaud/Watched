@@ -18,13 +18,16 @@ internal class AnimesViewModel(
 
         animesRepository.animePagedListStream
             .observeOn(AndroidSchedulers.mainThread())
-            .subscribeBy(onNext = { animes ->
-                Timber.d("Retrieved paged animes")
-                pushViewState(AnimesViewState.Animes(animes))
-            }, onError = { error ->
-                Timber.e(error, "Failed to retrieve animes")
-                pushViewState(AnimesViewState.Error(error))
-            })
+            .subscribeBy(
+                onNext = { animes ->
+                    Timber.d("Retrieved paged animes")
+                    pushViewState(AnimesViewState.Animes(animes))
+                },
+                onError = { error ->
+                    Timber.e(error, "Failed to retrieve animes")
+                    pushViewState(AnimesViewState.Error(error))
+                }
+            )
             .addTo(compositeDisposable)
     }
 }

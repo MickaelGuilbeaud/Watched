@@ -6,11 +6,11 @@
 
     <!-- Listitem anime -->
     <string name="anime_add_watched_episode">+1</string>
-    <string name="anime_season">%s %s</string>
-    <string name="anime_kind_season">%s - %s</string>
-    <string name="anime_kind_season_airing">%s - %s - Airing</string>
+    <string name="anime_season">%1$s %2$s</string>
+    <string name="anime_kind_season">%1$s - %2$s</string>
+    <string name="anime_kind_season_airing">%1$s - %2$s - Airing</string>
     <string name="anime_airing">Airing</string>
-    <string name="anime_episode_progress">%s/%s</string>
+    <string name="anime_episode_progress">%1$s/%2$s</string>
     <plurals name="anime_nb_episodes">
         <item quantity="zero">%s episode</item>
         <item quantity="one">%s episode</item>

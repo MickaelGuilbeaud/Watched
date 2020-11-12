@@ -19,7 +19,8 @@ import mg.watched.routers.AnimesRouterImpl
 import mg.watched.routers.LoginRouterImpl
 import org.koin.android.ext.android.get
 
-class MainActivity : BaseActivity(),
+class MainActivity :
+    BaseActivity(),
     FullScreenLoadingHolder,
     FragmentContainerProvider,
     AnimesRouterProvider,
