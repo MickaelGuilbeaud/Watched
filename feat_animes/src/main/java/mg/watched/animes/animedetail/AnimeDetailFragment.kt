@@ -59,7 +59,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
         binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
-        binding.vgWatchStatus.setOnClickListener {
+        binding.vgWatchStatus.root.setOnClickListener {
             val bottomSheet: EditAnimeListStatusFragment = EditAnimeListStatusFragment.newInstance(anime)
             bottomSheet.show(parentFragmentManager, null)
         }

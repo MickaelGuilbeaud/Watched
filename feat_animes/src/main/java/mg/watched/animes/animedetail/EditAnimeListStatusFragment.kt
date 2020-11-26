@@ -5,9 +5,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
-import kotlinx.android.synthetic.main.fragment_edit_anime_list_status.*
 import mg.watched.animes.R
+import mg.watched.animes.databinding.EditAnimeListStatusFragmentBinding
 import mg.watched.core.utils.withArguments
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.WatchStatus
@@ -22,6 +23,8 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         )
     }
 
+    private val binding: EditAnimeListStatusFragmentBinding by viewBinding()
+
     private val anime: Anime
         get() = requireArguments().getParcelable(ARG_ANIME)!!
 
@@ -29,7 +32,7 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         super.onCreateView(inflater, container, savedInstanceState)
-        return inflater.inflate(R.layout.fragment_edit_anime_list_status, container, false)
+        return inflater.inflate(R.layout.edit_anime_list_status_fragment, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -53,7 +56,7 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
-        spWatchStatus.adapter = watchStatusesAdapter
+        binding.spWatchStatus.adapter = watchStatusesAdapter
 
         val ratings: List<String> = listOf(
             getString(R.string.anime_rating_ten),
@@ -75,11 +78,11 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         ).also { adapter ->
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
         }
-        spRating.adapter = ratingsAdapter
+        binding.spRating.adapter = ratingsAdapter
 
-        btnApplyChanges.setOnClickListener { /* TODO */ }
-        btnRemoveEpisode.setOnClickListener { /* TODO */ }
-        btnAddEpisode.setOnClickListener { /* TODO */ }
+        binding.btnApplyChanges.setOnClickListener { /* TODO */ }
+        binding.btnRemoveEpisode.setOnClickListener { /* TODO */ }
+        binding.btnAddEpisode.setOnClickListener { /* TODO */ }
     }
 
     private fun bindAnime(anime: Anime) {
@@ -90,9 +93,9 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
             WatchStatus.PLAN_TO_WATCH -> 4
             WatchStatus.WATCHING -> 0
         }
-        spWatchStatus.setSelection(watchStatusPosition)
+        binding.spWatchStatus.setSelection(watchStatusPosition)
 
-        tvEpisodeProgress.text = resources.getQuantityString(
+        binding.tvEpisodeProgress.text = resources.getQuantityString(
             R.plurals.edit_anime_list_status_episode_progress,
             anime.nbEpisodes,
             anime.myListStatus!!.nbEpisodesWatched,
@@ -100,7 +103,7 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         )
 
         val ratingPosition: Int = 10 - anime.myListStatus!!.score.toInt()
-        spRating.setSelection(ratingPosition)
+        binding.spRating.setSelection(ratingPosition)
     }
 
     // endregion
