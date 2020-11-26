@@ -4,11 +4,12 @@ import android.os.Bundle
 import android.view.View
 import androidx.core.view.isVisible
 import androidx.fragment.app.commit
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.transition.Hold
-import kotlinx.android.synthetic.main.fragment_animes.*
 import mg.watched.animes.R
 import mg.watched.animes.animedetail.AnimeDetailFragment
 import mg.watched.animes.animesearch.AnimeSearchFragment
+import mg.watched.animes.databinding.AnimesFragmentBinding
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.core.base.BaseFragment
 import mg.watched.core.requireFragmentContainerProvider
@@ -17,7 +18,7 @@ import mg.watched.core.utils.toPx
 import mg.watched.design.MarginItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
+class AnimesFragment : BaseFragment(R.layout.animes_fragment) {
 
     companion object {
         fun newInstance(): AnimesFragment = AnimesFragment()
@@ -25,6 +26,7 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
 
     // region Properties
 
+    private val binding: AnimesFragmentBinding by viewBinding()
     private val viewModel: AnimesViewModel by viewModel()
 
     private val animeAdapter = AnimeAdapter { anime, view ->
@@ -53,15 +55,15 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
     }
 
     private fun initUI() {
-        toolbar.title = getString(R.string.animes_title)
+        binding.toolbar.title = getString(R.string.animes_title)
 
-        rvAnimes.setHasFixedSize(true)
-        rvAnimes.adapter = animeAdapter
-        rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
+        binding.rvAnimes.setHasFixedSize(true)
+        binding.rvAnimes.adapter = animeAdapter
+        binding.rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
 
-        fabAddAnime.setOnClickListener {
+        binding.fabAddAnime.setOnClickListener {
             parentFragmentManager.commit {
-                addSharedElement(fabAddAnime, "transition_anime_search")
+                addSharedElement(binding.fabAddAnime, "transition_anime_search")
                 replace(requireFragmentContainerProvider().getFragmentContainerId(), AnimeSearchFragment.newInstance())
                 addToBackStack(null)
             }
@@ -69,7 +71,7 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
     }
 
     override fun onDestroyView() {
-        rvAnimes.adapter = null
+        binding.rvAnimes.adapter = null
         super.onDestroyView()
     }
 
@@ -80,22 +82,22 @@ class AnimesFragment : BaseFragment(R.layout.fragment_animes) {
     private fun bindViewState(viewState: AnimesViewState) {
         when (viewState) {
             AnimesViewState.Loading -> {
-                pbLoading.isVisible = true
-                tvError.isVisible = false
-                rvAnimes.isVisible = false
-                fabAddAnime.isVisible = false
+                binding.pbLoading.isVisible = true
+                binding.tvError.isVisible = false
+                binding.rvAnimes.isVisible = false
+                binding.fabAddAnime.isVisible = false
             }
             is AnimesViewState.Error -> {
-                pbLoading.isVisible = false
-                tvError.isVisible = true
-                rvAnimes.isVisible = false
-                fabAddAnime.isVisible = false
+                binding.pbLoading.isVisible = false
+                binding.tvError.isVisible = true
+                binding.rvAnimes.isVisible = false
+                binding.fabAddAnime.isVisible = false
             }
             is AnimesViewState.Animes -> {
-                pbLoading.isVisible = false
-                tvError.isVisible = false
-                rvAnimes.isVisible = true
-                fabAddAnime.isVisible = true
+                binding.pbLoading.isVisible = false
+                binding.tvError.isVisible = false
+                binding.rvAnimes.isVisible = true
+                binding.fabAddAnime.isVisible = true
 
                 animeAdapter.submitList(viewState.animes)
             }

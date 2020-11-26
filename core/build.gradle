@@ -39,6 +39,7 @@ dependencies {
     api Dependencies.material
     api Dependencies.glide
     api Dependencies.glideOkhttp3
+    api Dependencies.viewBindingPropertyDelegate
 
     // Network
     api Dependencies.okHttpClient

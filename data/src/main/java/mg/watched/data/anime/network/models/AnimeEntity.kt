@@ -2,7 +2,7 @@ package mg.watched.data.anime.network.models
 
 import android.os.Parcelable
 import com.squareup.moshi.Json
-import kotlinx.android.parcel.Parcelize
+import kotlinx.parcelize.Parcelize
 
 data class AnimesWrapper(val data: List<AnimeWrapper> = emptyList())
 

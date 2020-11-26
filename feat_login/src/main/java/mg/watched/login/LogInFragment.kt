@@ -3,16 +3,17 @@ package mg.watched.login
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
-import kotlinx.android.synthetic.main.fragment_log_in.*
 import mg.watched.core.base.BaseFragment
 import mg.watched.core.requireFullScreenLoadingHolder
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.hideKeyboard
 import mg.watched.core.viewmodel.observeEvents
+import mg.watched.login.databinding.LogInFragmentBinding
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
+class LogInFragment : BaseFragment(R.layout.log_in_fragment) {
 
     companion object {
         fun newInstance(): LogInFragment = LogInFragment()
@@ -20,6 +21,7 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
 
     // region Properties
 
+    private val binding: LogInFragmentBinding by viewBinding()
     private val viewModel: LogInViewModel by viewModel()
 
     // endregion
@@ -37,7 +39,7 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
     }
 
     private fun initUI() {
-        etPassword.setOnEditorActionListener { _, actionId, _ ->
+        binding.etPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
                 logIn()
                 true
@@ -46,14 +48,14 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
             }
         }
 
-        btnLogIn.setOnClickListener { logIn() }
+        binding.btnLogIn.setOnClickListener { logIn() }
     }
 
     private fun logIn() {
         hideKeyboard()
 
-        val username: String = etUsername.text.toString().trim()
-        val password: String = etPassword.text.toString().trim()
+        val username: String = binding.etUsername.text.toString().trim()
+        val password: String = binding.etPassword.text.toString().trim()
         viewModel.logIn(username, password)
     }
 
@@ -69,14 +71,14 @@ class LogInFragment : BaseFragment(R.layout.fragment_log_in) {
         } else {
             ""
         }
-        tilUsername.error = usernameFieldError
+        binding.tilUsername.error = usernameFieldError
 
         val passwordFieldError: String = if (viewState.showPasswordIsEmptyError) {
             requireContext().getString(R.string.log_in_error_empty_password)
         } else {
             ""
         }
-        tilPassword.error = passwordFieldError
+        binding.tilPassword.error = passwordFieldError
     }
 
     private fun handleNavigationEvent(navigationEvent: LogInNavigationEvent) {

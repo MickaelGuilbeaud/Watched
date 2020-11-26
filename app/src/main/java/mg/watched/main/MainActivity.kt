@@ -2,7 +2,7 @@ package mg.watched.main
 
 import android.os.Bundle
 import androidx.core.view.isVisible
-import kotlinx.android.synthetic.main.activity_main.*
+import by.kirich1409.viewbindingdelegate.viewBinding
 import mg.watched.R
 import mg.watched.animes.animes.AnimesFragment
 import mg.watched.animes.animes.AnimesRouter
@@ -12,6 +12,7 @@ import mg.watched.core.FullScreenLoadingHolder
 import mg.watched.core.base.BaseActivity
 import mg.watched.data.authentication.AuthenticationManager
 import mg.watched.data.user.UserRepository
+import mg.watched.databinding.MainActivityBinding
 import mg.watched.login.LogInFragment
 import mg.watched.login.LoginRouter
 import mg.watched.login.LoginRouterProvider
@@ -20,11 +21,13 @@ import mg.watched.routers.LoginRouterImpl
 import org.koin.android.ext.android.get
 
 class MainActivity :
-    BaseActivity(),
+    BaseActivity(R.layout.main_activity),
     FullScreenLoadingHolder,
     FragmentContainerProvider,
     AnimesRouterProvider,
     LoginRouterProvider {
+
+    private val binding: MainActivityBinding by viewBinding(R.id.container)
 
     override val animesRouter: AnimesRouter = AnimesRouterImpl(this)
     override val loginRouter: LoginRouter = LoginRouterImpl(this)
@@ -32,8 +35,6 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Watched)
         super.onCreate(savedInstanceState)
-
-        setContentView(R.layout.activity_main)
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
             val authenticationManager: AuthenticationManager = get()
@@ -51,7 +52,7 @@ class MainActivity :
     }
 
     override fun showLoading(show: Boolean) {
-        vgLoading.isVisible = show
+        binding.vgLoading.isVisible = show
     }
 
     override fun getFragmentContainerId(): Int = R.id.fragmentContainer
