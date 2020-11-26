@@ -36,6 +36,7 @@
     <string name="anime_detail_synopsis_title">Synopsis</string>
 
     <!-- Anime rating -->
+    <string name="anime_rating_none">No rating</string>
     <string name="anime_rating_one">1 - Appalling</string>
     <string name="anime_rating_two">2 - Horrible</string>
     <string name="anime_rating_three">3 - Very Bad</string>
@@ -47,9 +48,30 @@
     <string name="anime_rating_nine">9 - Great</string>
     <string name="anime_rating_ten">10 - Masterpiece</string>
 
+    <!-- Watch statuses -->
+    <string name="watch_status_completed">Completed</string>
+    <string name="watch_status_dropped">Dropped</string>
+    <string name="watch_status_on_hold">On Hold</string>
+    <string name="watch_status_plan_to_watch">Plan to Watch</string>
+    <string name="watch_status_watching">Watching</string>
+
     <!-- Anime search -->
     <string name="anime_search_hint">Search an anime…</string>
     <string name="anime_search_no_search">Search an anime to see its detail or add it to your watchlist</string>
     <string name="anime_search_no_search_result">No result. Try something else!</string>
+
+    <!-- Edit anime list status -->
+    <string name="edit_anime_list_status_title">Edit list status</string>
+    <string name="edit_anime_list_status_watch_status_section">Watch status</string>
+    <string name="edit_anime_list_status_episode_progress_section">Episodes watched</string>
+    <plurals name="edit_anime_list_status_episode_progress">
+        <item quantity="zero">%1$s/%2$s episode</item>
+        <item quantity="one">%1$s/%2$s episode</item>
+        <item quantity="other">%1$s/%2$s episodes</item>
+    </plurals>
+    <string name="edit_anime_list_status_add_episode">+1</string>
+    <string name="edit_anime_list_status_remove_episode">-1</string>
+    <string name="edit_anime_list_status_rating">Rating</string>
+    <string name="edit_anime_list_status_apply">Apply</string>
 
 </resources>

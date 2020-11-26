@@ -57,6 +57,11 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
         requireView().transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
 
         toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+
+        vgWatchStatus.setOnClickListener {
+            val bottomSheet: EditAnimeListStatusFragment = EditAnimeListStatusFragment.newInstance(anime)
+            bottomSheet.show(parentFragmentManager, null)
+        }
     }
 
     private fun bindAnime(anime: Anime) {
