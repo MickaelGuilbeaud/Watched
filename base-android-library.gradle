@@ -1,6 +1,6 @@
 apply plugin: "com.android.library"
 apply plugin: "kotlin-android"
-apply plugin: "kotlin-android-extensions"
+apply plugin: "kotlin-parcelize"
 
 android {
     compileSdkVersion Versions.androidCompileSdk
@@ -34,10 +34,6 @@ android {
 
     buildFeatures {
         viewBinding true
-    }
-
-    androidExtensions {
-        experimental = true
     }
 }
 
