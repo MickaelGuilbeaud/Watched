@@ -7,13 +7,13 @@ import org.gradle.api.JavaVersion
 
 object Versions {
     const val androidMinSdk = 21
-    const val androidCompileSdk = 28
+    const val androidCompileSdk = 30
     const val androidTargetSdk = androidCompileSdk
 
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.4.10"
+    const val kotlin = "1.4.20"
     const val lifecycle = "2.2.0"
     const val paging = "2.1.2"
     const val okhttp = "4.9.0"
@@ -26,7 +26,7 @@ object Versions {
 object Dependencies {
     // Kotlin
     const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.3.9"
+    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
 
     // AndroidX - General
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
@@ -35,7 +35,7 @@ object Dependencies {
     const val fragment = "androidx.fragment:fragment-ktx:1.2.5"
 
     // AndroidX - UI
-    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.0"
+    const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
 
     // AndroidX - Lifecycle
     const val livedata = "androidx.lifecycle:lifecycle-livedata-ktx:${Versions.lifecycle}"
@@ -46,7 +46,7 @@ object Dependencies {
     const val pagingRxJava = "androidx.paging:paging-rxjava2-ktx:${Versions.paging}"
 
     // UI
-    const val material = "com.google.android.material:material:1.2.0"
+    const val material = "com.google.android.material:material:1.2.1"
     const val flexbox = "com.google.android:flexbox:2.0.1"
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
@@ -73,10 +73,10 @@ object Dependencies {
     const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     // DI
-    const val koin = "org.koin:koin-androidx-viewmodel:2.1.6"
+    const val koin = "org.koin:koin-androidx-viewmodel:2.2.1"
 
     // Firebase
-    const val firebaseBom = "com.google.firebase:firebase-bom:26.0.0"
+    const val firebaseBom = "com.google.firebase:firebase-bom:26.1.0"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
@@ -86,7 +86,7 @@ object Dependencies {
 
     // Testing
     const val junit = "junit:junit:4.13.1"
-    const val assertJ = "org.assertj:assertj-core:3.17.2"
+    const val assertJ = "org.assertj:assertj-core:3.18.1"
     const val mockk = "io.mockk:mockk:1.10.2"
     const val lifecycleTesting = "androidx.arch.core:core-testing:2.1.0"
 }
