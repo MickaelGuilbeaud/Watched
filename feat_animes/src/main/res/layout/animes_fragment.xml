@@ -55,7 +55,7 @@
             android:layout_height="match_parent"
             android:scrollbars="none"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            tools:listitem="@layout/listitem_anime_watching" />
+            tools:listitem="@layout/anime_item" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 

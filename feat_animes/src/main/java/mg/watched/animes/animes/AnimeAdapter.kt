@@ -10,9 +10,8 @@ import androidx.paging.PagedListAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import kotlinx.android.extensions.LayoutContainer
-import kotlinx.android.synthetic.main.listitem_anime_watching.*
 import mg.watched.animes.R
+import mg.watched.animes.databinding.AnimeItemBinding
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.data.anime.network.models.Anime
@@ -22,12 +21,6 @@ internal typealias AnimeSelectedCallback = (Anime, View) -> Unit
 internal class AnimeAdapter(
     private val onAnimeSelectedCallback: AnimeSelectedCallback
 ) : PagedListAdapter<Anime, AnimeViewHolder>(DiffCallback()) {
-
-    init {
-        setHasStableIds(true)
-    }
-
-    override fun getItemId(position: Int): Long = getItem(position)!!.id
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): AnimeViewHolder =
         AnimeViewHolder.newInstance(parent, onAnimeSelectedCallback)
@@ -43,19 +36,16 @@ internal class AnimeAdapter(
 }
 
 internal class AnimeViewHolder private constructor(
-    view: View,
+    private val binding: AnimeItemBinding,
     private val animeSelectedCallback: AnimeSelectedCallback
-) : RecyclerView.ViewHolder(view), LayoutContainer {
+) : RecyclerView.ViewHolder(binding.root) {
 
     companion object {
         fun newInstance(parent: ViewGroup, animeSelectedCallback: AnimeSelectedCallback): AnimeViewHolder {
-            val view = LayoutInflater.from(parent.context).inflate(R.layout.listitem_anime_watching, parent, false)
-            return AnimeViewHolder(view, animeSelectedCallback)
+            val binding = AnimeItemBinding.inflate(LayoutInflater.from(parent.context), parent, false)
+            return AnimeViewHolder(binding, animeSelectedCallback)
         }
     }
-
-    override val containerView: View?
-        get() = itemView
 
     fun bindView(anime: Anime) {
         val context: Context = itemView.context
@@ -63,32 +53,32 @@ internal class AnimeViewHolder private constructor(
         itemView.transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
         itemView.setOnClickListener { animeSelectedCallback(anime, itemView) }
 
-        Glide.with(ivPicture.context)
+        Glide.with(binding.ivPicture.context)
             .load(anime.mainPicture.mediumUrl)
-            .into(ivPicture)
+            .into(binding.ivPicture)
 
-        tvTitle.text = anime.title
-        tvKindSeasonAiring.text = anime.formatKindSeasonAiring(context)
+        binding.tvTitle.text = anime.title
+        binding.tvKindSeasonAiring.text = anime.formatKindSeasonAiring(context)
 
         val isAnimeInWatchlist: Boolean = anime.myListStatus != null
         if (isAnimeInWatchlist) {
-            tvEpisodeProgress.text = context.getString(
+            binding.tvEpisodeProgress.text = context.getString(
                 R.string.anime_episode_progress,
                 anime.myListStatus?.nbEpisodesWatched!!.toString(),
                 anime.nbEpisodes.toString()
             )
 
-            pbEpisodeProgress.isVisible = true
+            binding.pbEpisodeProgress.isVisible = true
             val progressPercent: Int =
                 ((anime.myListStatus?.nbEpisodesWatched?.toFloat() ?: .0f / anime.nbEpisodes) * 100).toInt()
-            pbEpisodeProgress.progress = progressPercent
+            binding.pbEpisodeProgress.progress = progressPercent
         } else {
-            tvEpisodeProgress.text = context.resources.getQuantityString(
+            binding.tvEpisodeProgress.text = context.resources.getQuantityString(
                 R.plurals.anime_nb_episodes,
                 anime.nbEpisodes,
                 anime.nbEpisodes
             )
-            pbEpisodeProgress.isInvisible = true
+            binding.pbEpisodeProgress.isInvisible = true
         }
 
         // TODO: Bind Add watched episode action
