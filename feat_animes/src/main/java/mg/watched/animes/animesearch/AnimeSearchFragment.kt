@@ -6,12 +6,13 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
-import kotlinx.android.synthetic.main.fragment_anime_search.*
 import mg.watched.animes.R
 import mg.watched.animes.animedetail.AnimeDetailFragment
 import mg.watched.animes.animes.AnimeAdapter
+import mg.watched.animes.databinding.AnimeSearchFragmentBinding
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.core.base.BaseFragment
 import mg.watched.core.requireFragmentContainerProvider
@@ -21,7 +22,7 @@ import mg.watched.core.utils.toPx
 import mg.watched.design.MarginItemDecoration
 import org.koin.androidx.viewmodel.ext.android.viewModel
 
-class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
+class AnimeSearchFragment : BaseFragment(R.layout.anime_search_fragment) {
 
     companion object {
         fun newInstance(): AnimeSearchFragment = AnimeSearchFragment()
@@ -29,6 +30,7 @@ class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
 
     // region Properties
 
+    private val binding: AnimeSearchFragmentBinding by viewBinding()
     private val viewModel: AnimeSearchViewModel by viewModel()
 
     private val animeAdapter = AnimeAdapter { anime, view ->
@@ -61,14 +63,14 @@ class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
     }
 
     private fun initUI() {
-        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
-        etSearch.doOnTextChanged { text, _, _, _ -> viewModel.searchAnimes(text.toString().trim()) }
+        binding.etSearch.doOnTextChanged { text, _, _, _ -> viewModel.searchAnimes(text.toString().trim()) }
 
-        rvAnimes.setHasFixedSize(true)
-        rvAnimes.adapter = animeAdapter
-        rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
-        rvAnimes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
+        binding.rvAnimes.setHasFixedSize(true)
+        binding.rvAnimes.adapter = animeAdapter
+        binding.rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
+        binding.rvAnimes.addOnScrollListener(object : RecyclerView.OnScrollListener() {
             override fun onScrollStateChanged(recyclerView: RecyclerView, newState: Int) {
                 hideKeyboard()
             }
@@ -82,28 +84,28 @@ class AnimeSearchFragment : BaseFragment(R.layout.fragment_anime_search) {
     private fun bindViewState(viewState: AnimeSearchViewState) {
         when (viewState) {
             AnimeSearchViewState.NoSearch -> {
-                tvNoSearch.isVisible = true
-                pbLoading.isVisible = false
-                tvNoSearchResult.isVisible = false
-                rvAnimes.isVisible = false
+                binding.tvNoSearch.isVisible = true
+                binding.pbLoading.isVisible = false
+                binding.tvNoSearchResult.isVisible = false
+                binding.rvAnimes.isVisible = false
             }
             AnimeSearchViewState.Loading -> {
-                tvNoSearch.isVisible = false
-                pbLoading.isVisible = true
-                tvNoSearchResult.isVisible = false
-                rvAnimes.isVisible = false
+                binding.tvNoSearch.isVisible = false
+                binding.pbLoading.isVisible = true
+                binding.tvNoSearchResult.isVisible = false
+                binding.rvAnimes.isVisible = false
             }
             AnimeSearchViewState.NoSearchResult -> {
-                tvNoSearch.isVisible = false
-                pbLoading.isVisible = false
-                tvNoSearchResult.isVisible = true
-                rvAnimes.isVisible = false
+                binding.tvNoSearch.isVisible = false
+                binding.pbLoading.isVisible = false
+                binding.tvNoSearchResult.isVisible = true
+                binding.rvAnimes.isVisible = false
             }
             is AnimeSearchViewState.SearchResults -> {
-                tvNoSearch.isVisible = false
-                pbLoading.isVisible = false
-                tvNoSearchResult.isVisible = false
-                rvAnimes.isVisible = true
+                binding.tvNoSearch.isVisible = false
+                binding.pbLoading.isVisible = false
+                binding.tvNoSearchResult.isVisible = false
+                binding.rvAnimes.isVisible = true
 
                 animeAdapter.submitList(viewState.animes)
             }

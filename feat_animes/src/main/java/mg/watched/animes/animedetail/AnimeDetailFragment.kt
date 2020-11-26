@@ -5,13 +5,12 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
+import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
-import kotlinx.android.synthetic.main.anime_detail_add_to_watchlist.*
-import kotlinx.android.synthetic.main.anime_detail_watch_status.*
-import kotlinx.android.synthetic.main.fragment_anime_detail.*
 import mg.watched.animes.R
+import mg.watched.animes.databinding.AnimeDetailFragmentBinding
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.animes.utils.formatRating
@@ -21,7 +20,7 @@ import mg.watched.data.anime.network.models.AlternativeTitles
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.WatchStatus
 
-class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
+class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
     companion object {
         private const val ARG_ANIME: String = "arg_anime"
@@ -30,6 +29,8 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
             ARG_ANIME to anime
         )
     }
+
+    private val binding: AnimeDetailFragmentBinding by viewBinding()
 
     private val anime: Anime
         get() = requireArguments().getParcelable(ARG_ANIME)!!
@@ -56,30 +57,30 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
     private fun initUI(anime: Anime) {
         requireView().transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
 
-        toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+        binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
-        vgWatchStatus.setOnClickListener {
+        binding.vgWatchStatus.setOnClickListener {
             val bottomSheet: EditAnimeListStatusFragment = EditAnimeListStatusFragment.newInstance(anime)
             bottomSheet.show(parentFragmentManager, null)
         }
     }
 
     private fun bindAnime(anime: Anime) {
-        tvTitle.text = anime.title
-        tvKindSeasonAiring.text = anime.formatKindSeasonAiring(requireContext())
+        binding.tvTitle.text = anime.title
+        binding.tvKindSeasonAiring.text = anime.formatKindSeasonAiring(requireContext())
 
-        Glide.with(ivIllustration)
+        Glide.with(binding.ivIllustration)
             .load(anime.mainPicture.mediumUrl)
-            .into(ivIllustration)
+            .into(binding.ivIllustration)
 
         if (anime.myListStatus == null) {
-            vgAddToWatchlist.isVisible = true
-            vgWatchStatus.isVisible = false
+            binding.vgAddToWatchlist.root.isVisible = true
+            binding.vgWatchStatus.root.isVisible = false
 
             bindAddToWatchlist(anime)
         } else {
-            vgAddToWatchlist.isVisible = false
-            vgWatchStatus.isVisible = true
+            binding.vgAddToWatchlist.root.isVisible = false
+            binding.vgWatchStatus.root.isVisible = true
 
             bindWatchStatus(anime)
         }
@@ -95,13 +96,13 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
         val alternativeTitlesText: String = anime.alternativeTitles.synonyms.fold(enAndJaTitlesText) { acc, synonym ->
             if (acc.isNotBlank()) "$acc,\n$synonym" else synonym
         }
-        tvAlternativeTitlesBody.text = alternativeTitlesText
+        binding.tvAlternativeTitlesBody.text = alternativeTitlesText
 
-        tvSynopsisBody.text = anime.synopsis
+        binding.tvSynopsisBody.text = anime.synopsis
     }
 
     private fun bindAddToWatchlist(anime: Anime) {
-        tvEpisodes.text = resources.getQuantityString(
+        binding.vgAddToWatchlist.tvEpisodes.text = resources.getQuantityString(
             R.plurals.anime_detail_nb_episodes,
             anime.nbEpisodes,
             anime.nbEpisodes.toString()
@@ -133,12 +134,12 @@ class AnimeDetailFragment : BaseFragment(R.layout.fragment_anime_detail) {
                 watchStatusDrawableResId = R.drawable.ic_play_arrow_24_color_on_background
             }
         }
-        tvWatchStatus.setText(watchStatusTextResId)
-        tvWatchStatus.setCompoundDrawablesWithIntrinsicBounds(0, watchStatusDrawableResId, 0, 0)
+        binding.vgWatchStatus.tvWatchStatus.setText(watchStatusTextResId)
+        binding.vgWatchStatus.tvWatchStatus.setCompoundDrawablesWithIntrinsicBounds(0, watchStatusDrawableResId, 0, 0)
 
-        tvRating.text = anime.myListStatus!!.formatRating(requireContext())
+        binding.vgWatchStatus.tvRating.text = anime.myListStatus!!.formatRating(requireContext())
 
-        tvEpisodeProgress.text = getString(
+        binding.vgWatchStatus.tvEpisodeProgress.text = getString(
             R.string.anime_detail_episodes_progress,
             anime.myListStatus!!.nbEpisodesWatched.toString(),
             anime.nbEpisodes.toString()
