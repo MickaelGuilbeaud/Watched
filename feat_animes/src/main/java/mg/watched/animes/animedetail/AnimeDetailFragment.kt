@@ -11,6 +11,7 @@ import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import mg.watched.animes.R
 import mg.watched.animes.databinding.AnimeDetailFragmentBinding
+import mg.watched.animes.editanimeliststatus.EditAnimeListStatusFragment
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.animes.utils.formatRating

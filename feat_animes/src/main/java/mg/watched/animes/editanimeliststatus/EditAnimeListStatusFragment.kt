@@ -1,4 +1,4 @@
-package mg.watched.animes.animedetail
+package mg.watched.animes.editanimeliststatus
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,9 +9,14 @@ import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import mg.watched.animes.R
 import mg.watched.animes.databinding.EditAnimeListStatusFragmentBinding
+import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.withArguments
+import mg.watched.core.viewmodel.observeEvents
 import mg.watched.data.anime.network.models.Anime
+import mg.watched.data.anime.network.models.MyListStatus
 import mg.watched.data.anime.network.models.WatchStatus
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import java.security.InvalidParameterException
 
 class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
 
@@ -23,10 +28,13 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         )
     }
 
+    private val viewModel: EditAnimeListStatusViewModel by viewModel()
     private val binding: EditAnimeListStatusFragmentBinding by viewBinding()
 
     private val anime: Anime
         get() = requireArguments().getParcelable(ARG_ANIME)!!
+
+    var callback: ((MyListStatus) -> Unit)? = null
 
     // region Lifecycle
 
@@ -37,8 +45,12 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
         initUI()
         bindAnime(anime)
+
+        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
+        viewModel.navigationEvents().observeEvents(viewLifecycleOwner) { handleNavigationEvent(it) }
     }
 
     private fun initUI() {
@@ -80,10 +92,66 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         }
         binding.spRating.adapter = ratingsAdapter
 
-        binding.btnApplyChanges.setOnClickListener { /* TODO */ }
-        binding.btnRemoveEpisode.setOnClickListener { /* TODO */ }
-        binding.btnAddEpisode.setOnClickListener { /* TODO */ }
+        binding.btnApplyChanges.setOnClickListener { applyChanges() }
+        binding.btnRemoveEpisode.setOnClickListener { viewModel.removeWatchedEpisode(1) }
+        binding.btnAddEpisode.setOnClickListener { viewModel.addWatchedEpisode(1) }
     }
+
+    private fun applyChanges() {
+        val selectedWatchStatus: WatchStatus = when (binding.spWatchStatus.selectedItemPosition) {
+            0 -> WatchStatus.WATCHING
+            1 -> WatchStatus.COMPLETED
+            2 -> WatchStatus.ON_HOLD
+            3 -> WatchStatus.DROPPED
+            4 -> WatchStatus.PLAN_TO_WATCH
+            else -> throw InvalidParameterException(
+                "Invalid watch status spinner position: ${binding.spWatchStatus.selectedItemPosition}"
+            )
+        }
+        val selectedRating: Double = when (binding.spRating.selectedItemPosition) {
+            0 -> 10.0
+            1 -> 9.0
+            2 -> 8.0
+            3 -> 7.0
+            4 -> 6.0
+            5 -> 5.0
+            6 -> 4.0
+            7 -> 3.0
+            8 -> 2.0
+            9 -> 1.0
+            10 -> 0.0
+            else -> throw InvalidParameterException(
+                "Invalid rating spinner position: ${binding.spRating.selectedItemPosition}"
+            )
+        }
+        viewModel.applyChanges(selectedWatchStatus, selectedRating)
+    }
+
+    // endregion
+
+    // region ViewStates, NavigationEvents and ActionEvents
+
+    private fun bindViewState(viewState: EditAnimeListStatusViewState) {
+        binding.tvEpisodeProgress.text = resources.getQuantityString(
+            R.plurals.edit_anime_list_status_episode_progress,
+            viewState.nbEpisodesTotal,
+            viewState.nbEpisodesWatched,
+            viewState.nbEpisodesTotal
+        )
+    }
+
+    private fun handleNavigationEvent(navigationEvent: EditAnimeListStatusNavigationEvent) {
+        when (navigationEvent) {
+            is EditAnimeListStatusNavigationEvent.GoToAnimeDetailScreen -> {
+                callback?.invoke(navigationEvent.updatedListStatus)
+                requireActivity().onBackPressed()
+            }
+        }.exhaustive
+    }
+
+    // endregion
+
+    // region Anime
 
     private fun bindAnime(anime: Anime) {
         val watchStatusPosition: Int = when (anime.myListStatus!!.status) {
@@ -94,13 +162,6 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
             WatchStatus.WATCHING -> 0
         }
         binding.spWatchStatus.setSelection(watchStatusPosition)
-
-        binding.tvEpisodeProgress.text = resources.getQuantityString(
-            R.plurals.edit_anime_list_status_episode_progress,
-            anime.nbEpisodes,
-            anime.myListStatus!!.nbEpisodesWatched,
-            anime.nbEpisodes
-        )
 
         val ratingPosition: Int = 10 - anime.myListStatus!!.score.toInt()
         binding.spRating.setSelection(ratingPosition)
