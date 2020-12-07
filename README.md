@@ -18,7 +18,6 @@ It aims to be a fully functional application, but also a showcase of modern Andr
 
 As an ever evolving project, here's some of the planned improvements:
 
-- Add possibility to update an anime rating and to add an anime to our watchlist
 - Implement a Settings screen, allowing the user to disconnect, customize the app theme and choose the anime title language
 - Updated to the Paging 3.X version (from 2.X)
 - Migrate to coroutines (from RxJava 2)
@@ -26,4 +25,4 @@ As an ever evolving project, here's some of the planned improvements:
 - Offline mode
 - Properly manage authentication tokens
 - More tests
-- Configure a nice CI
+- Improve the CI
