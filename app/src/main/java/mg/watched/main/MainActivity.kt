@@ -2,7 +2,6 @@ package mg.watched.main
 
 import android.os.Bundle
 import androidx.core.view.isVisible
-import by.kirich1409.viewbindingdelegate.viewBinding
 import mg.watched.R
 import mg.watched.animes.animes.AnimesFragment
 import mg.watched.animes.animes.AnimesRouter
@@ -21,13 +20,13 @@ import mg.watched.routers.LoginRouterImpl
 import org.koin.android.ext.android.get
 
 class MainActivity :
-    BaseActivity(R.layout.main_activity),
+    BaseActivity(),
     FullScreenLoadingHolder,
     FragmentContainerProvider,
     AnimesRouterProvider,
     LoginRouterProvider {
 
-    private val binding: MainActivityBinding by viewBinding(R.id.container)
+    private lateinit var binding: MainActivityBinding
 
     override val animesRouter: AnimesRouter = AnimesRouterImpl(this)
     override val loginRouter: LoginRouter = LoginRouterImpl(this)
@@ -35,6 +34,9 @@ class MainActivity :
     override fun onCreate(savedInstanceState: Bundle?) {
         setTheme(R.style.Theme_Watched)
         super.onCreate(savedInstanceState)
+
+        binding = MainActivityBinding.inflate(layoutInflater)
+        setContentView(binding.root)
 
         if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
             val authenticationManager: AuthenticationManager = get()
