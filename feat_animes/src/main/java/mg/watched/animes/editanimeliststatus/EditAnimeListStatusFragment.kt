@@ -16,6 +16,7 @@ import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.MyListStatus
 import mg.watched.data.anime.network.models.WatchStatus
 import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 import java.security.InvalidParameterException
 
 class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
@@ -28,7 +29,7 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         )
     }
 
-    private val viewModel: EditAnimeListStatusViewModel by viewModel()
+    private val viewModel: EditAnimeListStatusViewModel by viewModel { parametersOf(anime) }
     private val binding: EditAnimeListStatusFragmentBinding by viewBinding()
 
     private val anime: Anime
@@ -144,7 +145,7 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         when (navigationEvent) {
             is EditAnimeListStatusNavigationEvent.GoToAnimeDetailScreen -> {
                 callback?.invoke(navigationEvent.updatedListStatus)
-                requireActivity().onBackPressed()
+                dismiss()
             }
         }.exhaustive
     }

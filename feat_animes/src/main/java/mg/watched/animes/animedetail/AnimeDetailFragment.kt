@@ -20,6 +20,8 @@ import mg.watched.core.utils.withArguments
 import mg.watched.data.anime.network.models.AlternativeTitles
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.WatchStatus
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
@@ -31,6 +33,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
         )
     }
 
+    private val viewModel: AnimeDetailViewModel by viewModel { parametersOf(anime) }
     private val binding: AnimeDetailFragmentBinding by viewBinding()
 
     private val anime: Anime
@@ -52,18 +55,25 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
         val anime: Anime = anime
         initUI(anime)
-        bindAnime(anime)
+
+        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
     }
 
     private fun initUI(anime: Anime) {
         requireView().transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
 
         binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+    }
 
+    // region ViewStates, NavigationEvents and ActionEvents
+
+    private fun bindViewState(viewState: AnimeDetailViewState) {
         binding.vgWatchStatus.root.setOnClickListener {
             val bottomSheet: EditAnimeListStatusFragment = EditAnimeListStatusFragment.newInstance(anime)
             bottomSheet.show(parentFragmentManager, null)
         }
+
+        bindAnime(viewState.anime)
     }
 
     private fun bindAnime(anime: Anime) {
