@@ -119,6 +119,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
             anime.nbEpisodes,
             anime.nbEpisodes.toString()
         )
+        binding.vgAddToWatchlist.root.setOnClickListener { viewModel.addToWatchlist() }
     }
 
     private fun bindWatchStatus(anime: Anime) {
@@ -166,6 +167,11 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
     private fun handleActionEvent(actionEvent: AnimeDetailActionEvent) {
         when (actionEvent) {
+            AnimeDetailActionEvent.AddToWatchlistFailed -> Snackbar.make(
+                requireView(),
+                R.string.anime_detail_error_add_to_watchlist_failed,
+                Snackbar.LENGTH_LONG
+            ).show()
             AnimeDetailActionEvent.UpdateListStatusFailed -> Snackbar.make(
                 requireView(),
                 R.string.anime_detail_error_update_list_status_failed,

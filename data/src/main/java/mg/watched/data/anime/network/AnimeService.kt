@@ -27,6 +27,13 @@ interface AnimeService {
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
+    fun addToWatchList(
+        @Path("anime_id") animeId: Long,
+        @Field("status") watchStatus: String,
+    ): Single<MyListStatus>
+
+    @FormUrlEncoded
+    @PATCH("anime/{anime_id}/my_list_status")
     fun updateListStatus(
         @Path("anime_id") animeId: Long,
         @Field("num_watched_episodes") nbWatchedEpisodes: Int,

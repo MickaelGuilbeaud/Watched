@@ -9,6 +9,7 @@ import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.AnimeMoshiAdapters
 import mg.watched.data.anime.network.models.MyListStatus
+import mg.watched.data.anime.network.models.WatchStatus
 
 class AnimeRepository(
     private val service: AnimeService,
@@ -26,15 +27,15 @@ class AnimeRepository(
     val animePagedListStream: Observable<PagedList<Anime>> =
         animeDataSourceFactory.toObservable(defaultAnimePagedListConfig)
 
-    // endregion
-
-    // region Animes search
-
     fun createSearchDataSourceFactory(): AnimeSearchDataSourceFactory = AnimeSearchDataSourceFactory(service)
 
     // endregion
 
     // region Anime detail
+
+    fun addToWatchlist(animeId: Long): Single<MyListStatus> =
+        service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
+            .subscribeOn(schedulerProvider.io())
 
     fun updateListStatus(animeId: Long, listStatus: MyListStatus): Single<MyListStatus> =
         service.updateListStatus(

@@ -19,6 +19,7 @@ fun Anime.formatKindSeasonAiring(context: Context): String = StringBuilder().app
 
 fun MyListStatus.formatRating(context: Context): String {
     return when (score.toInt()) {
+        0 -> context.getString(R.string.anime_rating_none)
         1 -> context.getString(R.string.anime_rating_one)
         2 -> context.getString(R.string.anime_rating_two)
         3 -> context.getString(R.string.anime_rating_three)
@@ -29,6 +30,6 @@ fun MyListStatus.formatRating(context: Context): String {
         8 -> context.getString(R.string.anime_rating_eight)
         9 -> context.getString(R.string.anime_rating_nine)
         10 -> context.getString(R.string.anime_rating_ten)
-        else -> throw InvalidParameterException("Status score should be comprised between 1 and 10")
+        else -> throw InvalidParameterException("Status score should be comprised between 0 and 10")
     }
 }
