@@ -8,7 +8,7 @@ import org.koin.androidx.viewmodel.dsl.viewModel
 import org.koin.dsl.module
 
 val animesDiModule = module {
-    viewModel { (anime: Anime) -> AnimeDetailViewModel(anime) }
+    viewModel { (anime: Anime) -> AnimeDetailViewModel(get(), anime, get()) }
     viewModel { AnimesViewModel(get()) }
     viewModel { AnimeSearchViewModel(get()) }
     viewModel { (anime: Anime) -> EditAnimeListStatusViewModel(anime) }

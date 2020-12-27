@@ -22,7 +22,7 @@ internal class AnimeSearchViewModel(
 
     private val searchTermSubject = PublishSubject.create<String>()
     private val animeSearchDataSourceFactory: AnimeSearchDataSourceFactory =
-        animesRepository.createAnimeSearchDaTaSourceFactory()
+        animesRepository.createSearchDataSourceFactory()
 
     // endregion
 

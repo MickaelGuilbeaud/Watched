@@ -34,6 +34,7 @@
     <string name="anime_detail_add_to_watchlist">Add to watchlist</string>
     <string name="anime_detail_alternative_titles_title">Alternative titles</string>
     <string name="anime_detail_synopsis_title">Synopsis</string>
+    <string name="anime_detail_error_update_list_status_failed">List status update failed</string>
 
     <!-- Anime rating -->
     <string name="anime_rating_none">No rating</string>

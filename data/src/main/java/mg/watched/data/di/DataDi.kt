@@ -46,19 +46,15 @@ val dataDiModule = module {
 
     single<Moshi> {
         Moshi.Builder()
-            .add(KotlinJsonAdapterFactory())
+            .addLast(KotlinJsonAdapterFactory())
             .add(AnimeMoshiAdapters())
             .build()
     }
 
     single<OkHttpClient>(named("default")) {
-        val httpLoggingInterceptor = HttpLoggingInterceptor(
-            object : HttpLoggingInterceptor.Logger {
-                override fun log(message: String) {
-                    Timber.tag("OkHttp").log(Log.INFO, message)
-                }
-            }
-        ).apply {
+        val httpLoggingInterceptor = HttpLoggingInterceptor { message ->
+            Timber.tag("OkHttp").log(Log.INFO, message)
+        }.apply {
             level = HttpLoggingInterceptor.Level.BODY
 
             if (!BuildConfig.DEBUG) {

@@ -48,7 +48,7 @@ class AnimeSearchViewModelTest {
         // every { toObservable(any<PagedList.Config>()) } returns Observable.just(mockedPagedList)
     }
     private val animeRepository: AnimeRepository = mockk {
-        every { createAnimeSearchDaTaSourceFactory() } returns animeSearchDataSourceFactory
+        every { createSearchDataSourceFactory() } returns animeSearchDataSourceFactory
     }
 
     private fun createViewModel(
