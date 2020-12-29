@@ -15,6 +15,7 @@ import mg.watched.data.authentication.AuthenticationManager
 import mg.watched.data.user.UserRepository
 import mg.watched.databinding.MainActivityBinding
 import mg.watched.feat_mangas.list.MangasFragment
+import mg.watched.feat_settings.SettingsFragment
 import mg.watched.login.LogInFragment
 import mg.watched.login.LoginRouter
 import mg.watched.login.LoginRouterProvider
@@ -70,7 +71,7 @@ class MainActivity :
 
     private fun initBottomNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
-            supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
             when (menuItem.itemId) {
                 R.id.navigation_animes -> {
@@ -83,7 +84,7 @@ class MainActivity :
                 }
                 R.id.navigation_settings -> {
                     Timber.d("Switch to Settings screen")
-                    // TODO
+                    supportFragmentManager.commit { replace(getFragmentContainerId(), SettingsFragment.newInstance()) }
                 }
                 else -> throw InvalidParameterException("Bottom navigation menu item not handled")
             }

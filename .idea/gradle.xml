@@ -19,6 +19,7 @@
             <option value="$PROJECT_DIR$/feat_animes" />
             <option value="$PROJECT_DIR$/feat_login" />
             <option value="$PROJECT_DIR$/feat_mangas" />
+            <option value="$PROJECT_DIR$/feat_settings" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

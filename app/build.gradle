@@ -60,6 +60,7 @@ dependencies {
     api project(":feat_animes")
     api project(":feat_login")
     api project(":feat_mangas")
+    api project(":feat_settings")
 
     // UI
     kapt Dependencies.glideProcessor
