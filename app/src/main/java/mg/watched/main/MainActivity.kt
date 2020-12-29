@@ -14,6 +14,7 @@ import mg.watched.core.base.BaseActivity
 import mg.watched.data.authentication.AuthenticationManager
 import mg.watched.data.user.UserRepository
 import mg.watched.databinding.MainActivityBinding
+import mg.watched.feat_mangas.list.MangasFragment
 import mg.watched.login.LogInFragment
 import mg.watched.login.LoginRouter
 import mg.watched.login.LoginRouterProvider
@@ -69,15 +70,16 @@ class MainActivity :
 
     private fun initBottomNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
             when (menuItem.itemId) {
                 R.id.navigation_animes -> {
                     Timber.d("Switch to Animes screen")
-                    supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
                     supportFragmentManager.commit { replace(getFragmentContainerId(), AnimesFragment.newInstance()) }
                 }
                 R.id.navigation_mangas -> {
                     Timber.d("Switch to Mangas screen")
-                    // TODO
+                    supportFragmentManager.commit { replace(getFragmentContainerId(), MangasFragment.newInstance()) }
                 }
                 R.id.navigation_settings -> {
                     Timber.d("Switch to Settings screen")
