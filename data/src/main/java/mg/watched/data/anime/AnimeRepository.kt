@@ -3,13 +3,17 @@ package mg.watched.data.anime
 import androidx.paging.PagedList
 import androidx.paging.toObservable
 import io.reactivex.Observable
+import io.reactivex.Single
 import mg.watched.core.utils.SchedulerProvider
 import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.Anime
+import mg.watched.data.anime.network.models.AnimeMoshiAdapters
+import mg.watched.data.anime.network.models.MyListStatus
+import mg.watched.data.anime.network.models.WatchStatus
 
 class AnimeRepository(
-    private val animeService: AnimeService,
-    private val schedulerProvider: SchedulerProvider
+    private val service: AnimeService,
+    private val schedulerProvider: SchedulerProvider,
 ) {
 
     val defaultAnimePagedListConfig = PagedList.Config.Builder()
@@ -19,15 +23,28 @@ class AnimeRepository(
 
     // region Animes
 
-    private val animeDataSourceFactory: AnimeDataSourceFactory = AnimeDataSourceFactory(animeService)
+    private val animeDataSourceFactory: AnimeDataSourceFactory = AnimeDataSourceFactory(service)
     val animePagedListStream: Observable<PagedList<Anime>> =
         animeDataSourceFactory.toObservable(defaultAnimePagedListConfig)
 
+    fun createSearchDataSourceFactory(): AnimeSearchDataSourceFactory = AnimeSearchDataSourceFactory(service)
+
     // endregion
 
-    // region Animes search
+    // region Anime detail
 
-    fun createAnimeSearchDaTaSourceFactory(): AnimeSearchDataSourceFactory = AnimeSearchDataSourceFactory(animeService)
+    fun addToWatchlist(animeId: Long): Single<MyListStatus> =
+        service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
+            .subscribeOn(schedulerProvider.io())
+
+    fun updateListStatus(animeId: Long, listStatus: MyListStatus): Single<MyListStatus> =
+        service.updateListStatus(
+            animeId,
+            listStatus.nbEpisodesWatched,
+            listStatus.score,
+            AnimeMoshiAdapters().watchStatusToJson(listStatus.status),
+        )
+            .subscribeOn(schedulerProvider.io())
 
     // endregion
 }

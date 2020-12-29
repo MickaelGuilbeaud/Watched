@@ -8,17 +8,23 @@ import androidx.core.view.isVisible
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
+import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.transition.MaterialContainerTransform
 import mg.watched.animes.R
 import mg.watched.animes.databinding.AnimeDetailFragmentBinding
+import mg.watched.animes.editanimeliststatus.EditAnimeListStatusFragment
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.animes.utils.formatKindSeasonAiring
 import mg.watched.animes.utils.formatRating
 import mg.watched.core.base.BaseFragment
+import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.withArguments
+import mg.watched.core.viewmodel.observeEvents
 import mg.watched.data.anime.network.models.AlternativeTitles
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.WatchStatus
+import org.koin.androidx.viewmodel.ext.android.viewModel
+import org.koin.core.parameter.parametersOf
 
 class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
@@ -30,6 +36,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
         )
     }
 
+    private val viewModel: AnimeDetailViewModel by viewModel { parametersOf(anime) }
     private val binding: AnimeDetailFragmentBinding by viewBinding()
 
     private val anime: Anime
@@ -51,13 +58,23 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
         val anime: Anime = anime
         initUI(anime)
-        bindAnime(anime)
+
+        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
+        viewModel.actionEvents().observeEvents(viewLifecycleOwner) { handleActionEvent(it) }
     }
 
     private fun initUI(anime: Anime) {
         requireView().transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
 
         binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
+    }
+
+    // endregion
+
+    // region ViewStates, NavigationEvents and ActionEvents
+
+    private fun bindViewState(viewState: AnimeDetailViewState) {
+        bindAnime(viewState.anime)
     }
 
     private fun bindAnime(anime: Anime) {
@@ -102,6 +119,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
             anime.nbEpisodes,
             anime.nbEpisodes.toString()
         )
+        binding.vgAddToWatchlist.root.setOnClickListener { viewModel.addToWatchlist() }
     }
 
     private fun bindWatchStatus(anime: Anime) {
@@ -139,6 +157,27 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
             anime.myListStatus!!.nbEpisodesWatched.toString(),
             anime.nbEpisodes.toString()
         )
+
+        binding.vgWatchStatus.root.setOnClickListener {
+            val bottomSheet: EditAnimeListStatusFragment = EditAnimeListStatusFragment.newInstance(anime)
+            bottomSheet.callback = viewModel::updateListStatus
+            bottomSheet.show(parentFragmentManager, null)
+        }
+    }
+
+    private fun handleActionEvent(actionEvent: AnimeDetailActionEvent) {
+        when (actionEvent) {
+            AnimeDetailActionEvent.AddToWatchlistFailed -> Snackbar.make(
+                requireView(),
+                R.string.anime_detail_error_add_to_watchlist_failed,
+                Snackbar.LENGTH_LONG
+            ).show()
+            AnimeDetailActionEvent.UpdateListStatusFailed -> Snackbar.make(
+                requireView(),
+                R.string.anime_detail_error_update_list_status_failed,
+                Snackbar.LENGTH_LONG
+            ).show()
+        }.exhaustive
     }
 
     // endregion
