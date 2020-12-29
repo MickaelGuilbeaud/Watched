@@ -13,7 +13,7 @@ object Versions {
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.4.20"
+    const val kotlin = "1.4.21"
     const val lifecycle = "2.2.0"
     const val paging = "2.1.2"
     const val okhttp = "4.9.0"
@@ -26,7 +26,7 @@ object Versions {
 object Dependencies {
     // Kotlin
     const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.1"
+    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
 
     // AndroidX - General
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
@@ -78,7 +78,7 @@ object Dependencies {
     const val koin = "org.koin:koin-androidx-viewmodel:2.2.1"
 
     // Firebase
-    const val firebaseBom = "com.google.firebase:firebase-bom:26.1.0"
+    const val firebaseBom = "com.google.firebase:firebase-bom:26.2.0"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
