@@ -2,6 +2,8 @@ package mg.watched.main
 
 import android.os.Bundle
 import androidx.core.view.isVisible
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import mg.watched.R
 import mg.watched.animes.animes.AnimesFragment
 import mg.watched.animes.animes.AnimesRouter
@@ -18,6 +20,8 @@ import mg.watched.login.LoginRouterProvider
 import mg.watched.routers.AnimesRouterImpl
 import mg.watched.routers.LoginRouterImpl
 import org.koin.android.ext.android.get
+import timber.log.Timber
+import java.security.InvalidParameterException
 
 class MainActivity :
     BaseActivity(),
@@ -38,16 +42,18 @@ class MainActivity :
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
+        initBottomNavigation()
+
+        if (supportFragmentManager.findFragmentById(getFragmentContainerId()) == null) {
             val authenticationManager: AuthenticationManager = get()
             val userRepository: UserRepository = get()
             if (authenticationManager.accessToken != null && userRepository.user != null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, AnimesFragment.newInstance())
+                    .replace(getFragmentContainerId(), AnimesFragment.newInstance())
                     .commit()
             } else {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, LogInFragment.newInstance())
+                    .replace(getFragmentContainerId(), LogInFragment.newInstance())
                     .commit()
             }
         }
@@ -58,4 +64,30 @@ class MainActivity :
     }
 
     override fun getFragmentContainerId(): Int = R.id.fragmentContainer
+
+    // region Bottom navigation
+
+    private fun initBottomNavigation() {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            when (menuItem.itemId) {
+                R.id.navigation_animes -> {
+                    Timber.d("Switch to Animes screen")
+                    supportFragmentManager.popBackStackImmediate(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                    supportFragmentManager.commit { replace(getFragmentContainerId(), AnimesFragment.newInstance()) }
+                }
+                R.id.navigation_mangas -> {
+                    Timber.d("Switch to Mangas screen")
+                    // TODO
+                }
+                R.id.navigation_settings -> {
+                    Timber.d("Switch to Settings screen")
+                    // TODO
+                }
+                else -> throw InvalidParameterException("Bottom navigation menu item not handled")
+            }
+            true
+        }
+    }
+
+    // endregion
 }
