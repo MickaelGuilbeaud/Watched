@@ -2,6 +2,9 @@ package mg.watched.main
 
 import android.os.Bundle
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentManager
+import androidx.fragment.app.commit
 import mg.watched.R
 import mg.watched.animes.animes.AnimesFragment
 import mg.watched.animes.animes.AnimesRouter
@@ -12,12 +15,16 @@ import mg.watched.core.base.BaseActivity
 import mg.watched.data.authentication.AuthenticationManager
 import mg.watched.data.user.UserRepository
 import mg.watched.databinding.MainActivityBinding
+import mg.watched.feat_mangas.list.MangasFragment
+import mg.watched.feat_settings.SettingsFragment
 import mg.watched.login.LogInFragment
 import mg.watched.login.LoginRouter
 import mg.watched.login.LoginRouterProvider
 import mg.watched.routers.AnimesRouterImpl
 import mg.watched.routers.LoginRouterImpl
 import org.koin.android.ext.android.get
+import timber.log.Timber
+import java.security.InvalidParameterException
 
 class MainActivity :
     BaseActivity(),
@@ -38,16 +45,18 @@ class MainActivity :
         binding = MainActivityBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        if (supportFragmentManager.findFragmentById(R.id.fragmentContainer) == null) {
+        initBottomNavigation()
+
+        if (supportFragmentManager.findFragmentById(getFragmentContainerId()) == null) {
             val authenticationManager: AuthenticationManager = get()
             val userRepository: UserRepository = get()
             if (authenticationManager.accessToken != null && userRepository.user != null) {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, AnimesFragment.newInstance())
+                    .replace(getFragmentContainerId(), AnimesFragment.newInstance())
                     .commit()
             } else {
                 supportFragmentManager.beginTransaction()
-                    .replace(R.id.fragmentContainer, LogInFragment.newInstance())
+                    .replace(getFragmentContainerId(), LogInFragment.newInstance())
                     .commit()
             }
         }
@@ -58,4 +67,34 @@ class MainActivity :
     }
 
     override fun getFragmentContainerId(): Int = R.id.fragmentContainer
+
+    // region Bottom navigation
+
+    private fun initBottomNavigation() {
+        binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            val currentFragment: Fragment? = supportFragmentManager.findFragmentById(getFragmentContainerId())
+            currentFragment?.exitTransition = null
+
+            supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+
+            when (menuItem.itemId) {
+                R.id.navigation_animes -> {
+                    Timber.d("Switch to Animes screen")
+                    supportFragmentManager.commit { replace(getFragmentContainerId(), AnimesFragment.newInstance()) }
+                }
+                R.id.navigation_mangas -> {
+                    Timber.d("Switch to Mangas screen")
+                    supportFragmentManager.commit { replace(getFragmentContainerId(), MangasFragment.newInstance()) }
+                }
+                R.id.navigation_settings -> {
+                    Timber.d("Switch to Settings screen")
+                    supportFragmentManager.commit { replace(getFragmentContainerId(), SettingsFragment.newInstance()) }
+                }
+                else -> throw InvalidParameterException("Bottom navigation menu item not handled")
+            }
+            true
+        }
+    }
+
+    // endregion
 }

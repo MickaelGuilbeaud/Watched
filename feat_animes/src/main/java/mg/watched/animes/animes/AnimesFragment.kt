@@ -55,11 +55,9 @@ class AnimesFragment : BaseFragment(R.layout.animes_fragment) {
     }
 
     private fun initUI() {
-        binding.toolbar.title = getString(R.string.animes_title)
-
         binding.rvAnimes.setHasFixedSize(true)
         binding.rvAnimes.adapter = animeAdapter
-        binding.rvAnimes.addItemDecoration(MarginItemDecoration(12.toPx(requireContext())))
+        binding.rvAnimes.addItemDecoration(MarginItemDecoration(24.toPx(requireContext())))
 
         binding.fabAddAnime.setOnClickListener {
             parentFragmentManager.commit {

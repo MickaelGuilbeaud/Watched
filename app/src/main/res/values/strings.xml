@@ -1,3 +1,8 @@
 <resources>
     <string name="app_name">Watched</string>
+
+    <!-- Main -->
+    <string name="main_navigation_animes">Animes</string>
+    <string name="main_navigation_mangas">Mangas</string>
+    <string name="main_navigation_settings">Settings</string>
 </resources>

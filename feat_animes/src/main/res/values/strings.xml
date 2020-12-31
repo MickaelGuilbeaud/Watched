@@ -1,7 +1,6 @@
 <resources>
 
     <!-- Animes -->
-    <string name="animes_title">Animes</string>
     <string name="animes_global_error">An error occurred</string>
 
     <!-- Listitem anime -->
