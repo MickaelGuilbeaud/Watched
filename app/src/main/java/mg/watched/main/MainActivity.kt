@@ -2,6 +2,7 @@ package mg.watched.main
 
 import android.os.Bundle
 import androidx.core.view.isVisible
+import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.commit
 import mg.watched.R
@@ -71,6 +72,9 @@ class MainActivity :
 
     private fun initBottomNavigation() {
         binding.bottomNavigation.setOnNavigationItemSelectedListener { menuItem ->
+            val currentFragment: Fragment? = supportFragmentManager.findFragmentById(getFragmentContainerId())
+            currentFragment?.exitTransition = null
+
             supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
 
             when (menuItem.itemId) {
