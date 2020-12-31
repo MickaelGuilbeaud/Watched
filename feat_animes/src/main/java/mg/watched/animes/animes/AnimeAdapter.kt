@@ -70,7 +70,7 @@ internal class AnimeViewHolder private constructor(
 
             binding.pbEpisodeProgress.isVisible = true
             val progressPercent: Int =
-                ((anime.myListStatus?.nbEpisodesWatched?.toFloat() ?: .0f / anime.nbEpisodes) * 100).toInt()
+                ((anime.myListStatus?.nbEpisodesWatched!!.toFloat() / anime.nbEpisodes) * 100).toInt()
             binding.pbEpisodeProgress.progress = progressPercent
         } else {
             binding.tvEpisodeProgress.text = context.resources.getQuantityString(
