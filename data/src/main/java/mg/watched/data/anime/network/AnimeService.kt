@@ -27,17 +27,17 @@ interface AnimeService {
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
-    fun addToWatchList(
+    suspend fun addToWatchList(
         @Path("anime_id") animeId: Long,
         @Field("status") watchStatus: String,
-    ): Single<MyListStatus>
+    ): MyListStatus
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
-    fun updateListStatus(
+    suspend fun updateListStatus(
         @Path("anime_id") animeId: Long,
         @Field("num_watched_episodes") nbWatchedEpisodes: Int,
         @Field("score") score: Double,
         @Field("status") watchStatus: String,
-    ): Single<MyListStatus>
+    ): MyListStatus
 }

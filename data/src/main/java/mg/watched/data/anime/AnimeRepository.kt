@@ -3,8 +3,7 @@ package mg.watched.data.anime
 import androidx.paging.PagedList
 import androidx.paging.toObservable
 import io.reactivex.Observable
-import io.reactivex.Single
-import mg.watched.core.utils.SchedulerProvider
+import mg.watched.core.utils.RResult
 import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.AnimeMoshiAdapters
@@ -13,7 +12,6 @@ import mg.watched.data.anime.network.models.WatchStatus
 
 class AnimeRepository(
     private val service: AnimeService,
-    private val schedulerProvider: SchedulerProvider,
 ) {
 
     val defaultAnimePagedListConfig = PagedList.Config.Builder()
@@ -33,18 +31,30 @@ class AnimeRepository(
 
     // region Anime detail
 
-    fun addToWatchlist(animeId: Long): Single<MyListStatus> =
-        service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
-            .subscribeOn(schedulerProvider.io())
+    suspend fun addToWatchlist(animeId: Long): RResult<MyListStatus> {
+        return try {
+            val listStatus: MyListStatus =
+                service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
+            RResult.Success(listStatus)
+        } catch (e: Exception) {
+            RResult.Failure(e)
+        }
+    }
 
-    fun updateListStatus(animeId: Long, listStatus: MyListStatus): Single<MyListStatus> =
-        service.updateListStatus(
-            animeId,
-            listStatus.nbEpisodesWatched,
-            listStatus.score,
-            AnimeMoshiAdapters().watchStatusToJson(listStatus.status),
-        )
-            .subscribeOn(schedulerProvider.io())
+    suspend fun updateListStatus(animeId: Long, listStatus: MyListStatus): RResult<MyListStatus> {
+        return try {
+            val updatedListStatus: MyListStatus = service.updateListStatus(
+                animeId,
+                listStatus.nbEpisodesWatched,
+                listStatus.score,
+                AnimeMoshiAdapters().watchStatusToJson(listStatus.status),
+            )
+            RResult.Success(updatedListStatus)
+        } catch (e: Exception) {
+            RResult.Failure(e)
+        }
+    }
 
     // endregion
 }
+

@@ -34,7 +34,7 @@ val dataDiModule = module {
 
     factory<UltimateListPreferences> { UltimateListPreferences(get(), get()) }
 
-    single<AnimeRepository> { AnimeRepository(get(), get()) }
+    single<AnimeRepository> { AnimeRepository(get()) }
 
     single<AuthenticationManager> { AuthenticationManager(get(), get(), get()) }
 
