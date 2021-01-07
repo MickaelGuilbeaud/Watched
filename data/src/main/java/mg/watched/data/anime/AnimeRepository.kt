@@ -33,20 +33,18 @@ class AnimeRepository(
 
     // region Anime detail
 
-    suspend fun addToWatchlist(animeId: Long): WResult<MyListStatus> {
-        return withContext(Dispatchers.IO) {
-            try {
-                val listStatus: MyListStatus =
-                    service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
-                WResult.Success(listStatus)
-            } catch (e: Exception) {
-                WResult.Failure(e)
-            }
+    suspend fun addToWatchlist(animeId: Long): WResult<MyListStatus> = withContext(Dispatchers.IO) {
+        try {
+            val listStatus: MyListStatus =
+                service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
+            WResult.Success(listStatus)
+        } catch (e: Exception) {
+            WResult.Failure(e)
         }
     }
 
-    suspend fun updateListStatus(animeId: Long, listStatus: MyListStatus): WResult<MyListStatus> {
-        return withContext(Dispatchers.IO) {
+    suspend fun updateListStatus(animeId: Long, listStatus: MyListStatus): WResult<MyListStatus> =
+        withContext(Dispatchers.IO) {
             try {
                 val updatedListStatus: MyListStatus = service.updateListStatus(
                     animeId,
@@ -59,7 +57,6 @@ class AnimeRepository(
                 WResult.Failure(e)
             }
         }
-    }
 
     // endregion
 }

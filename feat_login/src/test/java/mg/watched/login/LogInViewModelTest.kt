@@ -2,22 +2,31 @@ package mg.watched.login
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import io.mockk.MockKAnnotations
-import io.mockk.every
+import io.mockk.coEvery
 import io.mockk.mockk
-import io.reactivex.Completable
-import mg.watched.core.utils.SchedulerProvider
-import mg.watched.core.utils.TrampolineSchedulerProvider
-import mg.watched.data.usecases.LogInUseCase
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
+import kotlinx.coroutines.test.resetMain
+import kotlinx.coroutines.test.runBlockingTest
+import kotlinx.coroutines.test.setMain
+import mg.watched.core.utils.WResult
+import mg.watched.data.authentication.AuthenticationManager
 import org.assertj.core.api.Assertions.assertThat
+import org.junit.After
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 
+@ExperimentalCoroutinesApi
 class LogInViewModelTest {
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
+
+    private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val validUsername: String = "AnimeFan"
     private val emptyUsername: String = ""
@@ -25,26 +34,33 @@ class LogInViewModelTest {
     private val wrongPassword: String = "0000"
     private val validPassword: String = "1234"
 
-    private val logInUseCase: LogInUseCase = mockk {
-        every { logIn(any(), any()) } returns Completable.complete()
-        every { logIn(validUsername, wrongPassword) } returns Completable.error(Exception())
+    private val authenticationManager: AuthenticationManager = mockk {
+        coEvery { authenticateUser(any(), any()) } returns WResult.Success(Unit)
+        coEvery { authenticateUser(validUsername, wrongPassword) } returns WResult.Failure(Exception())
     }
 
     @Before
     fun setUp() {
+        Dispatchers.setMain(testDispatcher)
         MockKAnnotations.init(this, relaxUnitFun = true)
     }
 
+    @After
+    fun tearDown() {
+        Dispatchers.resetMain()
+        testDispatcher.cleanupTestCoroutines()
+    }
+
     private fun createViewModel(
-        logInUseCase: LogInUseCase = this.logInUseCase,
-        schedulerProvider: SchedulerProvider = TrampolineSchedulerProvider()
+        authenticationManager: AuthenticationManager = this.authenticationManager,
+        defaultDispatcher: CoroutineDispatcher = this.testDispatcher,
     ): LogInViewModel = LogInViewModel(
-        logInUseCase = logInUseCase,
-        schedulerProvider = schedulerProvider
+        authenticationManager = authenticationManager,
+        defaultDispatcher = defaultDispatcher,
     )
 
     @Test
-    fun `When screen is opened, then no error is shown`() {
+    fun `When screen is opened, then no error is shown`() = runBlockingTest {
         // Given
         // When
         val viewModel = createViewModel()
@@ -54,7 +70,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `When username is empty, then username is empty error is shown`() {
+    fun `When username is empty, then username is empty error is shown`() = runBlockingTest {
         // Given
         val viewModel = createViewModel()
         // When
@@ -64,7 +80,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `When password is empty, then the password is empty error is shown`() {
+    fun `When password is empty, then the password is empty error is shown`() = runBlockingTest {
         // Given
         val viewModel = createViewModel()
         // When
@@ -74,7 +90,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `When credentials are wrong, then the wrong credential error is shown`() {
+    fun `When credentials are wrong, then the wrong credential error is shown`() = runBlockingTest {
         // Given
         val viewModel = createViewModel()
         // When
@@ -85,7 +101,7 @@ class LogInViewModelTest {
     }
 
     @Test
-    fun `When credentials are valid, then Go to next screen is called`() {
+    fun `When credentials are valid, then Go to next screen is called`() = runBlockingTest {
         // Given
         val viewModel = createViewModel()
         // When

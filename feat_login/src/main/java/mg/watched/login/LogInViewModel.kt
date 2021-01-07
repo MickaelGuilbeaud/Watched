@@ -1,15 +1,18 @@
 package mg.watched.login
 
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import mg.watched.core.utils.SchedulerProvider
+import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import mg.watched.core.utils.WResult
+import mg.watched.core.utils.exhaustive
 import mg.watched.core.viewmodel.BaseViewModel
-import mg.watched.data.usecases.LogInUseCase
+import mg.watched.data.authentication.AuthenticationManager
 import timber.log.Timber
 
 internal class LogInViewModel(
-    private val logInUseCase: LogInUseCase,
-    private val schedulerProvider: SchedulerProvider
+    private val authenticationManager: AuthenticationManager,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : BaseViewModel<LogInViewState, LogInNavigationEvent, LogInActionEvent>() {
 
     // region Properties
@@ -47,24 +50,23 @@ internal class LogInViewModel(
     }
 
     private fun logInUser(username: String, password: String) {
-        logInUseCase.logIn(username, password)
-            .doOnSubscribe {
-                Timber.d("Log in")
-                viewState = viewState.copy(loading = true)
-            }
-            .observeOn(schedulerProvider.ui())
-            .subscribeBy(
-                onComplete = {
+        viewModelScope.launch(defaultDispatcher) {
+            Timber.d("Log in")
+            viewState = viewState.copy(loading = true)
+
+            val result: WResult<Unit> = authenticationManager.authenticateUser(username, password)
+            when (result) {
+                is WResult.Success -> {
                     Timber.d("Log in successful")
                     viewState = viewState.copy(loading = false)
                     pushNavigationEvent(LogInNavigationEvent.GoToAnimesScreen)
-                },
-                onError = { error ->
-                    Timber.e(error, "Log in failed")
+                }
+                is WResult.Failure -> {
+                    Timber.e(result.error, "Log in failed")
                     viewState = viewState.copy(loading = false)
                     pushActionEvent(LogInActionEvent.LogInFailed)
                 }
-            )
-            .addTo(compositeDisposable)
+            }.exhaustive
+        }
     }
 }

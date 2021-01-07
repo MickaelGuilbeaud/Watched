@@ -4,7 +4,6 @@ import mg.watched.animes.animes.animesDiModule
 import mg.watched.core.base.BaseApplication
 import mg.watched.core.build.BuildParams
 import mg.watched.data.di.dataDiModule
-import mg.watched.data.di.useCasesDiModule
 import mg.watched.di.appDiModule
 import mg.watched.login.loginDiModule
 import org.koin.android.ext.koin.androidContext
@@ -26,7 +25,6 @@ class WatchedApplication : BaseApplication() {
                 listOf(
                     appDiModule,
                     dataDiModule,
-                    useCasesDiModule,
                     animesDiModule,
                     loginDiModule
                 )

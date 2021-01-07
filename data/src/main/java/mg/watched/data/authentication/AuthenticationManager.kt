@@ -1,21 +1,25 @@
 package mg.watched.data.authentication
 
-import io.reactivex.Completable
-import mg.watched.core.utils.SchedulerProvider
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
+import mg.watched.core.utils.WResult
 import mg.watched.data.UltimateListPreferences
 
 class AuthenticationManager(
     private val preferences: UltimateListPreferences,
     private val authenticationService: AuthenticationService,
-    private val schedulerProvider: SchedulerProvider
 ) {
 
     val accessToken: String?
         get() = preferences.accessToken
 
-    fun authenticateUser(username: String, password: String): Completable =
-        authenticationService.authenticate(username, password)
-            .subscribeOn(schedulerProvider.io())
-            .doOnSuccess { authResponse -> preferences.accessToken = authResponse.accessToken }
-            .ignoreElement()
+    suspend fun authenticateUser(username: String, password: String): WResult<Unit> = withContext(Dispatchers.IO) {
+        try {
+            val authResponse: AuthenticationResponse = authenticationService.authenticate(username, password)
+            preferences.accessToken = authResponse.accessToken
+            WResult.Success(Unit)
+        } catch (e: Exception) {
+            WResult.Failure(e)
+        }
+    }
 }

@@ -36,7 +36,7 @@ val dataDiModule = module {
 
     single<AnimeRepository> { AnimeRepository(get()) }
 
-    single<AuthenticationManager> { AuthenticationManager(get(), get(), get()) }
+    single<AuthenticationManager> { AuthenticationManager(get(), get()) }
 
     single<UserRepository> { UserRepository(get(), get(), get()) }
 

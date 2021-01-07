@@ -14,6 +14,7 @@ object Versions {
     const val kotlinJvmTarget = "1.8"
 
     const val kotlin = "1.4.21"
+    const val coroutines = "1.4.2"
     const val lifecycle = "2.2.0"
     const val paging = "2.1.2"
     const val okhttp = "4.9.0"
@@ -26,7 +27,7 @@ object Versions {
 object Dependencies {
     // Kotlin
     const val kotlinStandardLibrary = "org.jetbrains.kotlin:kotlin-stdlib-jdk7:${Versions.kotlin}"
-    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:1.4.2"
+    const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
     // AndroidX - General
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
@@ -91,4 +92,5 @@ object Dependencies {
     const val assertJ = "org.assertj:assertj-core:3.18.1"
     const val mockk = "io.mockk:mockk:1.10.2"
     const val lifecycleTesting = "androidx.arch.core:core-testing:2.1.0"
+    const val coroutinesTesting = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 }

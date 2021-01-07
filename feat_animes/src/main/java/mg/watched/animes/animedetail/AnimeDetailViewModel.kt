@@ -1,6 +1,7 @@
 package mg.watched.animes.animedetail
 
 import androidx.lifecycle.viewModelScope
+import kotlinx.coroutines.launch
 import mg.watched.core.utils.WResult
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.viewmodel.BaseViewModel
