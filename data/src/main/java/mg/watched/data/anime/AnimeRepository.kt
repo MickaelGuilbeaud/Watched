@@ -5,7 +5,7 @@ import androidx.paging.toObservable
 import io.reactivex.Observable
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
-import mg.watched.core.utils.RResult
+import mg.watched.core.utils.WResult
 import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.AnimeMoshiAdapters
@@ -33,19 +33,19 @@ class AnimeRepository(
 
     // region Anime detail
 
-    suspend fun addToWatchlist(animeId: Long): RResult<MyListStatus> {
+    suspend fun addToWatchlist(animeId: Long): WResult<MyListStatus> {
         return withContext(Dispatchers.IO) {
             try {
                 val listStatus: MyListStatus =
                     service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
-                RResult.Success(listStatus)
+                WResult.Success(listStatus)
             } catch (e: Exception) {
-                RResult.Failure(e)
+                WResult.Failure(e)
             }
         }
     }
 
-    suspend fun updateListStatus(animeId: Long, listStatus: MyListStatus): RResult<MyListStatus> {
+    suspend fun updateListStatus(animeId: Long, listStatus: MyListStatus): WResult<MyListStatus> {
         return withContext(Dispatchers.IO) {
             try {
                 val updatedListStatus: MyListStatus = service.updateListStatus(
@@ -54,9 +54,9 @@ class AnimeRepository(
                     listStatus.score,
                     AnimeMoshiAdapters().watchStatusToJson(listStatus.status),
                 )
-                RResult.Success(updatedListStatus)
+                WResult.Success(updatedListStatus)
             } catch (e: Exception) {
-                RResult.Failure(e)
+                WResult.Failure(e)
             }
         }
     }

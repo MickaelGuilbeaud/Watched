@@ -1,7 +1,7 @@
 package mg.watched.animes.animedetail
 
 import androidx.lifecycle.viewModelScope
-import mg.watched.core.utils.RResult
+import mg.watched.core.utils.WResult
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.viewmodel.BaseViewModel
 import mg.watched.data.anime.AnimeRepository
@@ -27,14 +27,14 @@ class AnimeDetailViewModel(
             val tempAnime: Anime = anime.copy(myListStatus = MyListStatus(0, .0, WatchStatus.PLAN_TO_WATCH))
             pushViewState(AnimeDetailViewState(tempAnime))
 
-            val result: RResult<MyListStatus> = animeRepository.addToWatchlist(anime.id)
+            val result: WResult<MyListStatus> = animeRepository.addToWatchlist(anime.id)
             when (result) {
-                is RResult.Success -> {
+                is WResult.Success -> {
                     Timber.d("Add to watch list successful")
                     anime = anime.copy(myListStatus = result.value)
                     pushViewState(AnimeDetailViewState(anime))
                 }
-                is RResult.Failure -> {
+                is WResult.Failure -> {
                     Timber.e(result.error, "Add to watch list failed")
                     pushViewState(AnimeDetailViewState(anime))
                     pushActionEvent(AnimeDetailActionEvent.AddToWatchlistFailed)
@@ -49,14 +49,14 @@ class AnimeDetailViewModel(
             val tempAnime: Anime = anime.copy(myListStatus = listStatusToUpdate)
             pushViewState(AnimeDetailViewState(tempAnime))
 
-            val result: RResult<MyListStatus> = animeRepository.updateListStatus(anime.id, listStatusToUpdate)
+            val result: WResult<MyListStatus> = animeRepository.updateListStatus(anime.id, listStatusToUpdate)
             when (result) {
-                is RResult.Success -> {
+                is WResult.Success -> {
                     Timber.d("Update list status successful")
                     anime = anime.copy(myListStatus = result.value)
                     pushViewState(AnimeDetailViewState(anime))
                 }
-                is RResult.Failure -> {
+                is WResult.Failure -> {
                     Timber.e(result.error, "Update list status failed")
                     pushViewState(AnimeDetailViewState(anime))
                     pushActionEvent(AnimeDetailActionEvent.UpdateListStatusFailed)
