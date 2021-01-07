@@ -1,8 +1,6 @@
 package mg.watched.animes.animedetail
 
 import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import mg.watched.core.utils.RResult
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.viewmodel.BaseViewModel
@@ -24,7 +22,7 @@ class AnimeDetailViewModel(
     }
 
     fun addToWatchlist() {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             Timber.d("Add to watch list")
             val tempAnime: Anime = anime.copy(myListStatus = MyListStatus(0, .0, WatchStatus.PLAN_TO_WATCH))
             pushViewState(AnimeDetailViewState(tempAnime))
@@ -46,7 +44,7 @@ class AnimeDetailViewModel(
     }
 
     fun updateListStatus(listStatusToUpdate: MyListStatus) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             Timber.d("Update list status")
             val tempAnime: Anime = anime.copy(myListStatus = listStatusToUpdate)
             pushViewState(AnimeDetailViewState(tempAnime))
