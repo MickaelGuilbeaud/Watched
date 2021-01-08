@@ -5,12 +5,9 @@ import io.mockk.MockKAnnotations
 import io.mockk.coEvery
 import io.mockk.mockk
 import kotlinx.coroutines.CoroutineDispatcher
-import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.test.TestCoroutineDispatcher
-import kotlinx.coroutines.test.resetMain
 import kotlinx.coroutines.test.runBlockingTest
-import kotlinx.coroutines.test.setMain
 import mg.watched.core.utils.WResult
 import mg.watched.data.authentication.AuthenticationManager
 import org.assertj.core.api.Assertions.assertThat
@@ -41,13 +38,11 @@ class LogInViewModelTest {
 
     @Before
     fun setUp() {
-        Dispatchers.setMain(testDispatcher)
         MockKAnnotations.init(this, relaxUnitFun = true)
     }
 
     @After
     fun tearDown() {
-        Dispatchers.resetMain()
         testDispatcher.cleanupTestCoroutines()
     }
 
