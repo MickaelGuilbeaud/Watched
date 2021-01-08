@@ -13,7 +13,6 @@ import mg.watched.core.FragmentContainerProvider
 import mg.watched.core.FullScreenLoadingHolder
 import mg.watched.core.base.BaseActivity
 import mg.watched.data.authentication.AuthenticationManager
-import mg.watched.data.user.UserRepository
 import mg.watched.databinding.MainActivityBinding
 import mg.watched.feat_mangas.list.MangasFragment
 import mg.watched.feat_settings.SettingsFragment
@@ -49,8 +48,7 @@ class MainActivity :
 
         if (supportFragmentManager.findFragmentById(getFragmentContainerId()) == null) {
             val authenticationManager: AuthenticationManager = get()
-            val userRepository: UserRepository = get()
-            if (authenticationManager.accessToken != null && userRepository.user != null) {
+            if (authenticationManager.accessToken != null) {
                 supportFragmentManager.beginTransaction()
                     .replace(getFragmentContainerId(), AnimesFragment.newInstance())
                     .commit()

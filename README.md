@@ -12,17 +12,17 @@ It aims to be a fully functional application, but also a showcase of modern Andr
 - Single Activity
 - Day/Night theme
 - Multi-modules
-- Common libraries: Architecture components ViewModel and LiveData, Retrofit/OkHttp, RxJava2, Glide.
+- Common libraries: Architecture components ViewModel and LiveData, Retrofit/OkHttp, Coroutines, Glide.
 
 ### TODOs
 
 As an ever evolving project, here's some of the planned improvements:
 
+- Update to Paging 3.X version (from 2.X)
+- Implement a Manga feature with the same capabilities than the Anime feature
 - Implement a Settings screen, allowing the user to disconnect, customize the app theme and choose the anime title language
-- Updated to the Paging 3.X version (from 2.X)
-- Migrate to coroutines (from RxJava 2)
-- Migrate to kotlinx.serialization (from Moshi)
-- Offline mode
 - Properly manage authentication tokens
+- Offline mode
+- Migrate to kotlinx.serialization (from Moshi)
 - More tests
 - Improve the CI

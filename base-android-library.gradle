@@ -43,4 +43,5 @@ dependencies {
     testImplementation Dependencies.assertJ
     testImplementation Dependencies.mockk
     testImplementation Dependencies.lifecycleTesting
+    testImplementation Dependencies.coroutinesTesting
 }

@@ -21,8 +21,7 @@ class AnimeDataSource(private val animeService: AnimeService) : PositionalDataSo
         val paginatedAnimes: AnimesWrapper = animeService.getUserAnimesPaginated(
             pageSize = params.loadSize,
             offset = params.startPosition
-        )
-            .blockingGet()
+        ).blockingGet()
         val animes: List<Anime> = paginatedAnimes.data.map { it.node }
         callback.onResult(animes)
     }

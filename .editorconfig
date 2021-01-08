@@ -1,6 +1,9 @@
 [*.{kt, kts}]
-disabled_rules = no-wildcard-imports
+# Line
 indent_size = 4
-insert_final_newline = true
-kotlin_imports_layout = idea
 max_line_length = 120
+# File
+insert_final_newline = true
+# Ktlint
+disabled_rules = no-wildcard-imports
+kotlin_imports_layout = idea
