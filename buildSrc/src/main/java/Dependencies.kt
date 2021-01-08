@@ -53,7 +53,7 @@ object Dependencies {
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
     const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
     const val viewBindingPropertyDelegate =
-        "com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.3.0"
+        "com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.4.0"
 
     // Network
     const val okHttpClient = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
@@ -90,7 +90,7 @@ object Dependencies {
     // Testing
     const val junit = "junit:junit:4.13.1"
     const val assertJ = "org.assertj:assertj-core:3.18.1"
-    const val mockk = "io.mockk:mockk:1.10.2"
+    const val mockk = "io.mockk:mockk:1.10.4"
     const val lifecycleTesting = "androidx.arch.core:core-testing:2.1.0"
     const val coroutinesTesting = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 }
