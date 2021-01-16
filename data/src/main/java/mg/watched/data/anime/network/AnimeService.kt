@@ -12,16 +12,16 @@ interface AnimeService {
     @GET("users/@me/animelist")
     suspend fun getUserAnimesPaginated(
         @Query("fields") fields: String = additionalFields,
-        @Query("limit") pageSize: Int = 10,
-        @Query("offset") offset: Int = 0,
+        @Query("limit") pageSize: Int,
+        @Query("offset") offset: Int,
     ): AnimesWrapper
 
     @GET("anime")
     suspend fun searchAnimes(
         @Query("q") searchTerm: String,
         @Query("fields") fields: String = additionalFields,
-        @Query("limit") pageSize: Int = 10,
-        @Query("offset") offset: Int = 0,
+        @Query("limit") pageSize: Int,
+        @Query("offset") offset: Int,
     ): AnimesWrapper
 
     @FormUrlEncoded

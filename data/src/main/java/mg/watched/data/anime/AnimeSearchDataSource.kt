@@ -4,6 +4,7 @@ import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.Anime
@@ -16,11 +17,12 @@ class AnimeSearchDataSource(
 ) : PositionalDataSource<Anime>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Anime>) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val animes: List<Anime> = animeService.searchAnimes(
                     searchTerm = searchTerm,
                     pageSize = params.pageSize,
+                    offset = 0,
                 )
                     .data
                     .map { it.node }
@@ -34,7 +36,7 @@ class AnimeSearchDataSource(
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Anime>) {
-        viewModelScope.launch {
+        viewModelScope.launch(Dispatchers.IO) {
             try {
                 val animes: List<Anime> = animeService.searchAnimes(
                     searchTerm = searchTerm,

@@ -18,7 +18,10 @@ class AnimeDataSource(
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Anime>) {
         viewModelScope.launch(Dispatchers.IO) {
             try {
-                val animes: List<Anime> = animeService.getUserAnimesPaginated(pageSize = params.pageSize)
+                val animes: List<Anime> = animeService.getUserAnimesPaginated(
+                    pageSize = params.pageSize,
+                    offset = 0,
+                )
                     .data
                     .map { it.node }
                 callback.onResult(animes, 0)
