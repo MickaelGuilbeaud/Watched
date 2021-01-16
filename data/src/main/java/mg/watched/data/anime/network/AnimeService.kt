@@ -18,12 +18,12 @@ interface AnimeService {
     ): Call<AnimesWrapper>
 
     @GET("anime")
-    suspend fun searchAnimes(
+    fun searchAnimes(
         @Query("q") searchTerm: String,
         @Query("fields") fields: String = additionalFields,
         @Query("limit") pageSize: Int,
         @Query("offset") offset: Int,
-    ): AnimesWrapper
+    ): Call<AnimesWrapper>
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")

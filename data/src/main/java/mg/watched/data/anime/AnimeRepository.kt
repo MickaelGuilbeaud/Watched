@@ -4,7 +4,6 @@ import androidx.lifecycle.asFlow
 import androidx.paging.PagedList
 import androidx.paging.toLiveData
 import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
@@ -30,8 +29,7 @@ class AnimeRepository(
     val animePagedListStream: Flow<PagedList<Anime>> = animeDataSourceFactory.toLiveData(defaultAnimePagedListConfig)
         .asFlow()
 
-    fun createSearchDataSourceFactory(viewModelScope: CoroutineScope): AnimeSearchDataSourceFactory =
-        AnimeSearchDataSourceFactory(service, viewModelScope)
+    fun createSearchDataSourceFactory(): AnimeSearchDataSourceFactory = AnimeSearchDataSourceFactory(service)
 
     // endregion
 

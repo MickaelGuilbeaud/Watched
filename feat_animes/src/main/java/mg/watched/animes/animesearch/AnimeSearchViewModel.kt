@@ -25,7 +25,7 @@ internal class AnimeSearchViewModel(
     private val searchChannel: BroadcastChannel<String> = BroadcastChannel(Channel.CONFLATED)
 
     private val animeSearchDataSourceFactory: AnimeSearchDataSourceFactory =
-        animesRepository.createSearchDataSourceFactory(viewModelScope)
+        animesRepository.createSearchDataSourceFactory()
 
     // endregion
 
