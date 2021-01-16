@@ -1,13 +1,12 @@
 package mg.watched.data.anime
 
 import androidx.paging.PagedList
-import androidx.paging.toObservable
-import io.reactivex.Observable
+import kotlinx.coroutines.CancellationException
+import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mg.watched.core.utils.WResult
 import mg.watched.data.anime.network.AnimeService
-import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.AnimeMoshiAdapters
 import mg.watched.data.anime.network.models.MyListStatus
 import mg.watched.data.anime.network.models.WatchStatus
@@ -23,11 +22,11 @@ class AnimeRepository(
 
     // region Animes
 
-    private val animeDataSourceFactory: AnimeDataSourceFactory = AnimeDataSourceFactory(service)
-    val animePagedListStream: Observable<PagedList<Anime>> =
-        animeDataSourceFactory.toObservable(defaultAnimePagedListConfig)
+    fun createUserAnimesDataSourceFactory(viewModelScope: CoroutineScope): AnimeDataSourceFactory =
+        AnimeDataSourceFactory(service, viewModelScope)
 
-    fun createSearchDataSourceFactory(): AnimeSearchDataSourceFactory = AnimeSearchDataSourceFactory(service)
+    fun createSearchDataSourceFactory(viewModelScope: CoroutineScope): AnimeSearchDataSourceFactory =
+        AnimeSearchDataSourceFactory(service, viewModelScope)
 
     // endregion
 
@@ -38,6 +37,8 @@ class AnimeRepository(
             val listStatus: MyListStatus =
                 service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
             WResult.Success(listStatus)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             WResult.Failure(e)
         }
@@ -53,6 +54,8 @@ class AnimeRepository(
                     AnimeMoshiAdapters().watchStatusToJson(listStatus.status),
                 )
                 WResult.Success(updatedListStatus)
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 WResult.Failure(e)
             }
@@ -60,4 +63,3 @@ class AnimeRepository(
 
     // endregion
 }
-

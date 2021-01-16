@@ -33,7 +33,6 @@ dependencies {
 
     // AndroidX - Paging
     api Dependencies.pagingRuntime
-    api Dependencies.pagingRxJava
 
     // UI
     api Dependencies.material
@@ -50,15 +49,9 @@ dependencies {
 
     // Database
     api Dependencies.room
-    api Dependencies.roomRxJava
 
     // JSON
     api Dependencies.moshi
-
-    // Rx
-    api Dependencies.rxJava
-    api Dependencies.rxAndroid
-    api Dependencies.rxKotlin
 
     // DI
     api Dependencies.koin

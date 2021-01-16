@@ -38,7 +38,7 @@ val dataDiModule = module {
 
     single<AuthenticationManager> { AuthenticationManager(get(), get()) }
 
-    single<UserRepository> { UserRepository(get(), get(), get()) }
+    single<UserRepository> { UserRepository(get(), get()) }
 
     // endregion
 

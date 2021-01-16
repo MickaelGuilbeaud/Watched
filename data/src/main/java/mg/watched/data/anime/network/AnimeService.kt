@@ -1,6 +1,5 @@
 package mg.watched.data.anime.network
 
-import io.reactivex.Single
 import mg.watched.data.anime.network.models.AnimesWrapper
 import mg.watched.data.anime.network.models.MyListStatus
 import retrofit2.http.*
@@ -11,19 +10,19 @@ private const val additionalFields: String = "alternative_titles,synopsis,media_
 interface AnimeService {
 
     @GET("users/@me/animelist")
-    fun getUserAnimesPaginated(
+    suspend fun getUserAnimesPaginated(
         @Query("fields") fields: String = additionalFields,
         @Query("limit") pageSize: Int = 10,
         @Query("offset") offset: Int = 0,
-    ): Single<AnimesWrapper>
+    ): AnimesWrapper
 
     @GET("anime")
-    fun searchAnimes(
+    suspend fun searchAnimes(
         @Query("q") searchTerm: String,
         @Query("fields") fields: String = additionalFields,
         @Query("limit") pageSize: Int = 10,
         @Query("offset") offset: Int = 0,
-    ): Single<AnimesWrapper>
+    ): AnimesWrapper
 
     @FormUrlEncoded
     @PATCH("anime/{anime_id}/my_list_status")
