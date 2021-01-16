@@ -1,8 +1,6 @@
 package mg.watched.animes.animes
 
-import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
-import androidx.paging.toLiveData
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 import mg.watched.core.viewmodel.BaseViewModel
@@ -18,9 +16,7 @@ internal class AnimesViewModel(
         pushViewState(AnimesViewState.Loading)
 
         viewModelScope.launch {
-            animesRepository.createUserAnimesDataSourceFactory(this)
-                .toLiveData(animesRepository.defaultAnimePagedListConfig)
-                .asFlow()
+            animesRepository.animePagedListStream
                 .collectLatest { animes ->
                     pushViewState(AnimesViewState.Animes(animes))
                 }

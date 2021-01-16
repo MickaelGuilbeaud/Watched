@@ -1,12 +1,16 @@
 package mg.watched.data.anime
 
+import androidx.lifecycle.asFlow
 import androidx.paging.PagedList
+import androidx.paging.toLiveData
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import mg.watched.core.utils.WResult
 import mg.watched.data.anime.network.AnimeService
+import mg.watched.data.anime.network.models.Anime
 import mg.watched.data.anime.network.models.AnimeMoshiAdapters
 import mg.watched.data.anime.network.models.MyListStatus
 import mg.watched.data.anime.network.models.WatchStatus
@@ -22,8 +26,9 @@ class AnimeRepository(
 
     // region Animes
 
-    fun createUserAnimesDataSourceFactory(viewModelScope: CoroutineScope): AnimeDataSourceFactory =
-        AnimeDataSourceFactory(service, viewModelScope)
+    private val animeDataSourceFactory: AnimeDataSourceFactory = AnimeDataSourceFactory(service)
+    val animePagedListStream: Flow<PagedList<Anime>> = animeDataSourceFactory.toLiveData(defaultAnimePagedListConfig)
+        .asFlow()
 
     fun createSearchDataSourceFactory(viewModelScope: CoroutineScope): AnimeSearchDataSourceFactory =
         AnimeSearchDataSourceFactory(service, viewModelScope)

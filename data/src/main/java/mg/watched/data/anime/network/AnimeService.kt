@@ -2,6 +2,7 @@ package mg.watched.data.anime.network
 
 import mg.watched.data.anime.network.models.AnimesWrapper
 import mg.watched.data.anime.network.models.MyListStatus
+import retrofit2.Call
 import retrofit2.http.*
 
 private const val additionalFields: String = "alternative_titles,synopsis,media_type,start_season,num_episodes," +
@@ -10,11 +11,11 @@ private const val additionalFields: String = "alternative_titles,synopsis,media_
 interface AnimeService {
 
     @GET("users/@me/animelist")
-    suspend fun getUserAnimesPaginated(
+    fun getUserAnimesPaginated(
         @Query("fields") fields: String = additionalFields,
         @Query("limit") pageSize: Int,
         @Query("offset") offset: Int,
-    ): AnimesWrapper
+    ): Call<AnimesWrapper>
 
     @GET("anime")
     suspend fun searchAnimes(

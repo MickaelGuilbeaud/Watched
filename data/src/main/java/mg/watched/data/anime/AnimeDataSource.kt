@@ -2,65 +2,58 @@ package mg.watched.data.anime
 
 import androidx.paging.DataSource
 import androidx.paging.PositionalDataSource
-import kotlinx.coroutines.CancellationException
-import kotlinx.coroutines.CoroutineScope
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.Anime
+import mg.watched.data.anime.network.models.AnimesWrapper
+import retrofit2.Call
+import retrofit2.Response
 import timber.log.Timber
 
-class AnimeDataSource(
-    private val animeService: AnimeService,
-    private val viewModelScope: CoroutineScope,
-) : PositionalDataSource<Anime>() {
+class AnimeDataSource(private val animeService: AnimeService) : PositionalDataSource<Anime>() {
 
     override fun loadInitial(params: LoadInitialParams, callback: LoadInitialCallback<Anime>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val animes: List<Anime> = animeService.getUserAnimesPaginated(
-                    pageSize = params.pageSize,
-                    offset = 0,
-                )
-                    .data
-                    .map { it.node }
-                callback.onResult(animes, 0)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.e(e, "Load animes failed")
-            }
+        Timber.d("Load initial animes")
+        val call: Call<AnimesWrapper> = animeService.getUserAnimesPaginated(
+            pageSize = params.pageSize,
+            offset = 0,
+        )
+        val response: Response<AnimesWrapper> = call.execute()
+
+        if (response.isSuccessful) {
+            val animes: List<Anime> = response.body()!!.data.map { it.node }
+            Timber.d("Load initial animes successful. Received ${animes.size} animes")
+            callback.onResult(animes, 0)
+        } else {
+            val error = Exception(response.errorBody()!!.string())
+            Timber.e(error, "Load initial animes failed")
         }
     }
 
     override fun loadRange(params: LoadRangeParams, callback: LoadRangeCallback<Anime>) {
-        viewModelScope.launch(Dispatchers.IO) {
-            try {
-                val animes: List<Anime> = animeService.getUserAnimesPaginated(
-                    pageSize = params.loadSize,
-                    offset = params.startPosition,
-                )
-                    .data
-                    .map { it.node }
-                callback.onResult(animes)
-            } catch (e: CancellationException) {
-                throw e
-            } catch (e: Exception) {
-                Timber.e(e, "Load animes failed")
-            }
+        Timber.d("Load range animes")
+        val call: Call<AnimesWrapper> = animeService.getUserAnimesPaginated(
+            pageSize = params.loadSize,
+            offset = params.startPosition,
+        )
+        val response: Response<AnimesWrapper> = call.execute()
+
+        if (response.isSuccessful) {
+            val animes: List<Anime> = response.body()!!.data.map { it.node }
+            Timber.d("Load range animes successful. Received ${animes.size} animes")
+            callback.onResult(animes)
+        } else {
+            val error = Exception(response.errorBody()!!.string())
+            Timber.e(error, "Load range animes failed")
         }
     }
 }
 
-class AnimeDataSourceFactory(
-    private val animeService: AnimeService,
-    private val viewModelScope: CoroutineScope,
-) : DataSource.Factory<Int, Anime>() {
+class AnimeDataSourceFactory(private val animeService: AnimeService) : DataSource.Factory<Int, Anime>() {
 
     private var dataSource: AnimeDataSource? = null
 
     override fun create(): DataSource<Int, Anime> {
-        dataSource = AnimeDataSource(animeService, viewModelScope)
+        dataSource = AnimeDataSource(animeService)
         return dataSource!!
     }
 
