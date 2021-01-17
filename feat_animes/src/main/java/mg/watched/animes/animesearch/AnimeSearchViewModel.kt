@@ -3,12 +3,10 @@ package mg.watched.animes.animesearch
 import androidx.lifecycle.asFlow
 import androidx.lifecycle.viewModelScope
 import androidx.paging.toLiveData
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.FlowPreview
+import kotlinx.coroutines.*
 import kotlinx.coroutines.channels.BroadcastChannel
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.*
-import kotlinx.coroutines.launch
 import mg.watched.core.viewmodel.BaseViewModel
 import mg.watched.data.anime.AnimeRepository
 import mg.watched.data.anime.AnimeSearchDataSourceFactory
@@ -18,6 +16,7 @@ import timber.log.Timber
 @FlowPreview
 internal class AnimeSearchViewModel(
     private val animesRepository: AnimeRepository,
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : BaseViewModel<AnimeSearchViewState, Unit, Unit>() {
 
     // region Properties
@@ -32,7 +31,7 @@ internal class AnimeSearchViewModel(
     init {
         pushViewState(AnimeSearchViewState.NoSearch)
 
-        viewModelScope.launch {
+        viewModelScope.launch(defaultDispatcher) {
             searchChannel.asFlow()
                 .debounce(500)
                 .distinctUntilChanged()
