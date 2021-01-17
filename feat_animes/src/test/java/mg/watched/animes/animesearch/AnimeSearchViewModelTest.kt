@@ -5,8 +5,9 @@ import androidx.paging.PagedList
 import io.mockk.MockKAnnotations
 import io.mockk.every
 import io.mockk.mockk
-import mg.watched.core.utils.SchedulerProvider
-import mg.watched.core.utils.TrampolineSchedulerProvider
+import kotlinx.coroutines.CoroutineDispatcher
+import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.test.TestCoroutineDispatcher
 import mg.watched.data.anime.AnimeRepository
 import mg.watched.data.anime.AnimeSearchDataSourceFactory
 import mg.watched.data.anime.network.models.*
@@ -16,15 +17,13 @@ import org.junit.Rule
 import org.junit.Test
 import org.junit.rules.TestRule
 
+@ExperimentalCoroutinesApi
 class AnimeSearchViewModelTest {
 
     @get:Rule
     var rule: TestRule = InstantTaskExecutorRule()
 
-    init {
-        // FIXME: Find a way to properly mock the toObservable static method
-        // mockkStatic("RxPagedListKt.FileKt")
-    }
+    private val testDispatcher: TestCoroutineDispatcher = TestCoroutineDispatcher()
 
     private val anime: Anime = Anime(
         1,
@@ -53,10 +52,10 @@ class AnimeSearchViewModelTest {
 
     private fun createViewModel(
         animeRepository: AnimeRepository = this.animeRepository,
-        schedulerProvider: SchedulerProvider = TrampolineSchedulerProvider(),
+        defaultDispatcher: CoroutineDispatcher = this.testDispatcher,
     ): AnimeSearchViewModel = AnimeSearchViewModel(
         animeRepository,
-        schedulerProvider,
+        defaultDispatcher = defaultDispatcher,
     )
 
     @Before

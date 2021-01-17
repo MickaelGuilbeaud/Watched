@@ -8,11 +8,11 @@ It aims to be a fully functional application, but also a showcase of modern Andr
 
 ### The stack
 
-- Full Kotlin!
+- Kotlin everywhere! Code, Coroutines and Gradle files (conversion in progress)
 - Single Activity
 - Day/Night theme
 - Multi-modules
-- Common libraries: Architecture components ViewModel and LiveData, Retrofit/OkHttp, Coroutines, Glide.
+- Common libraries: Architecture components ViewModel and LiveData, Retrofit/OkHttp, Glide
 
 ### TODOs
 

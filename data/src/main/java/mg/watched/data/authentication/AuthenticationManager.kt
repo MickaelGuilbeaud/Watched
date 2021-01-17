@@ -1,5 +1,6 @@
 package mg.watched.data.authentication
 
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import mg.watched.core.utils.WResult
@@ -18,6 +19,8 @@ class AuthenticationManager(
             val authResponse: AuthenticationResponse = authenticationService.authenticate(username, password)
             preferences.accessToken = authResponse.accessToken
             WResult.Success(Unit)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             WResult.Failure(e)
         }

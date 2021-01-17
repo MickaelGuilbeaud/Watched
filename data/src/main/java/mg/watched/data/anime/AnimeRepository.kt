@@ -1,9 +1,11 @@
 package mg.watched.data.anime
 
+import androidx.lifecycle.asFlow
 import androidx.paging.PagedList
-import androidx.paging.toObservable
-import io.reactivex.Observable
+import androidx.paging.toLiveData
+import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.withContext
 import mg.watched.core.utils.WResult
 import mg.watched.data.anime.network.AnimeService
@@ -24,8 +26,8 @@ class AnimeRepository(
     // region Animes
 
     private val animeDataSourceFactory: AnimeDataSourceFactory = AnimeDataSourceFactory(service)
-    val animePagedListStream: Observable<PagedList<Anime>> =
-        animeDataSourceFactory.toObservable(defaultAnimePagedListConfig)
+    val animePagedListStream: Flow<PagedList<Anime>> = animeDataSourceFactory.toLiveData(defaultAnimePagedListConfig)
+        .asFlow()
 
     fun createSearchDataSourceFactory(): AnimeSearchDataSourceFactory = AnimeSearchDataSourceFactory(service)
 
@@ -38,6 +40,8 @@ class AnimeRepository(
             val listStatus: MyListStatus =
                 service.addToWatchList(animeId, AnimeMoshiAdapters().watchStatusToJson(WatchStatus.PLAN_TO_WATCH))
             WResult.Success(listStatus)
+        } catch (e: CancellationException) {
+            throw e
         } catch (e: Exception) {
             WResult.Failure(e)
         }
@@ -53,6 +57,8 @@ class AnimeRepository(
                     AnimeMoshiAdapters().watchStatusToJson(listStatus.status),
                 )
                 WResult.Success(updatedListStatus)
+            } catch (e: CancellationException) {
+                throw e
             } catch (e: Exception) {
                 WResult.Failure(e)
             }
@@ -60,4 +66,3 @@ class AnimeRepository(
 
     // endregion
 }
-

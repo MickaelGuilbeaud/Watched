@@ -1,26 +1,28 @@
 package mg.watched.animes.animesearch
 
-import androidx.paging.toObservable
-import io.reactivex.Observable
-import io.reactivex.rxkotlin.addTo
-import io.reactivex.rxkotlin.subscribeBy
-import io.reactivex.subjects.PublishSubject
-import mg.watched.core.utils.DefaultSchedulerProvider
-import mg.watched.core.utils.SchedulerProvider
+import androidx.lifecycle.asFlow
+import androidx.lifecycle.viewModelScope
+import androidx.paging.toLiveData
+import kotlinx.coroutines.*
+import kotlinx.coroutines.channels.BroadcastChannel
+import kotlinx.coroutines.channels.Channel
+import kotlinx.coroutines.flow.*
 import mg.watched.core.viewmodel.BaseViewModel
 import mg.watched.data.anime.AnimeRepository
 import mg.watched.data.anime.AnimeSearchDataSourceFactory
 import timber.log.Timber
-import java.util.concurrent.TimeUnit
 
+@ExperimentalCoroutinesApi
+@FlowPreview
 internal class AnimeSearchViewModel(
     private val animesRepository: AnimeRepository,
-    private val schedulerProvider: SchedulerProvider = DefaultSchedulerProvider()
+    private val defaultDispatcher: CoroutineDispatcher = Dispatchers.Main,
 ) : BaseViewModel<AnimeSearchViewState, Unit, Unit>() {
 
     // region Properties
 
-    private val searchTermSubject = PublishSubject.create<String>()
+    private val searchChannel: BroadcastChannel<String> = BroadcastChannel(Channel.CONFLATED)
+
     private val animeSearchDataSourceFactory: AnimeSearchDataSourceFactory =
         animesRepository.createSearchDataSourceFactory()
 
@@ -29,36 +31,34 @@ internal class AnimeSearchViewModel(
     init {
         pushViewState(AnimeSearchViewState.NoSearch)
 
-        searchTermSubject.debounce(500, TimeUnit.MILLISECONDS)
-            .distinctUntilChanged()
-            .observeOn(schedulerProvider.ui())
-            .switchMap { searchTerm ->
-                if (searchTerm.length < 3) {
-                    pushViewState(AnimeSearchViewState.NoSearch)
-                    Observable.never()
-                } else {
-                    Timber.d("Search animes with search term $searchTerm")
+        viewModelScope.launch(defaultDispatcher) {
+            searchChannel.asFlow()
+                .debounce(500)
+                .distinctUntilChanged()
+                .flatMapLatest { searchTerm ->
+                    if (searchTerm.length < 3) {
+                        pushViewState(AnimeSearchViewState.NoSearch)
+                        flow {}
+                    } else {
+                        Timber.d("Search animes with search term $searchTerm")
 
-                    pushViewState(AnimeSearchViewState.Loading)
+                        pushViewState(AnimeSearchViewState.Loading)
 
-                    animeSearchDataSourceFactory.search(searchTerm)
-                    animeSearchDataSourceFactory.toObservable(animesRepository.defaultAnimePagedListConfig)
+                        animeSearchDataSourceFactory.search(searchTerm)
+                        animeSearchDataSourceFactory.toLiveData(animesRepository.defaultAnimePagedListConfig).asFlow()
+                    }
                 }
-            }
-            .subscribeBy(onNext = { animes ->
-                if (animes.isEmpty()) {
-                    pushViewState(AnimeSearchViewState.NoSearchResult)
-                } else {
-                    pushViewState(AnimeSearchViewState.SearchResults(animes))
+                .collectLatest { animes ->
+                    if (animes.isEmpty()) {
+                        pushViewState(AnimeSearchViewState.NoSearchResult)
+                    } else {
+                        pushViewState(AnimeSearchViewState.SearchResults(animes))
+                    }
                 }
-            }, onError = { error ->
-                Timber.e(error)
-                // TODO: Handle errors
-            })
-            .addTo(compositeDisposable)
+        }
     }
 
     fun searchAnimes(searchTerm: String) {
-        searchTermSubject.onNext(searchTerm)
+        searchChannel.offer(searchTerm)
     }
 }

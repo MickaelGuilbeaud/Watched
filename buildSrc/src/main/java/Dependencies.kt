@@ -44,7 +44,6 @@ object Dependencies {
 
     // AndroidX - Paging
     const val pagingRuntime = "androidx.paging:paging-runtime-ktx:${Versions.paging}"
-    const val pagingRxJava = "androidx.paging:paging-rxjava2-ktx:${Versions.paging}"
 
     // UI
     const val material = "com.google.android.material:material:1.2.1"
@@ -64,16 +63,10 @@ object Dependencies {
 
     // Database
     const val room = "androidx.room:room-runtime:${Versions.room}"
-    const val roomRxJava = "androidx.room:room-rxjava2:${Versions.room}"
     const val roomProcessor = "androidx.room:room-compiler:${Versions.room}"
 
     // JSON
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
-
-    // Rx
-    const val rxJava = "io.reactivex.rxjava2:rxjava:2.2.20"
-    const val rxAndroid = "io.reactivex.rxjava2:rxandroid:2.1.1"
-    const val rxKotlin = "io.reactivex.rxjava2:rxkotlin:2.4.0"
 
     // DI
     const val koin = "org.koin:koin-androidx-viewmodel:2.2.1"

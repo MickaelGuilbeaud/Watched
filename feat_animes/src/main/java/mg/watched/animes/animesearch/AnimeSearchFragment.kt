@@ -77,6 +77,11 @@ class AnimeSearchFragment : BaseFragment(R.layout.anime_search_fragment) {
         })
     }
 
+    override fun onDestroyView() {
+        binding.rvAnimes.adapter = null
+        super.onDestroyView()
+    }
+
     // endregion
 
     // region ViewStates, NavigationEvents and ActionEvents
