@@ -8,21 +8,25 @@ It aims to be a fully functional application, but also a showcase of modern Andr
 
 ### The stack
 
-- Kotlin everywhere! Code, Coroutines and Gradle files (conversion in progress)
-- Single Activity
-- Day/Night theme
-- Multi-modules
-- Common libraries: Architecture components ViewModel and LiveData, Retrofit/OkHttp, Glide
+- **Kotlin** everywhere! Code, Coroutines and Gradle files (conversion in progress)
+- **UI**: Material, Day/Night theme
+- **Architecture**: Single Activity, Multi-modules
+- **Libraries**: Architecture components ViewModel and LiveData, Retrofit/OkHttp, Moshi, Glide
 
-### TODOs
+### Feature TODOs
 
-As an ever evolving project, here's some of the planned improvements:
-
-- Update to Paging 3.X version (from 2.X)
 - Implement a Manga feature with the same capabilities than the Anime feature
 - Implement a Settings screen, allowing the user to disconnect, customize the app theme and choose the anime title language
+- Anime list: Show rating and watch status, add an empty state
+- Log in: Use Autofill so password managers work, and send to the myanimelist website to create an account (or do it in the app?)
+
+### Tech TODOs
+
 - Properly manage authentication tokens
+- Improve architecture
+- Update to Paging 3.X version (from 2.X)
+- Replace LiveData with a Flow equivalent
 - Offline mode
-- Migrate to kotlinx.serialization (from Moshi)
+- Consider kotlinx.serialization for JSON parsing (actually using Moshi)
 - More tests
 - Improve the CI
