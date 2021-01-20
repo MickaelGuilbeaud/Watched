@@ -15,6 +15,8 @@ class AuthenticationManager(
     val accessToken: String?
         get() = preferences.accessToken
 
+    fun isUserLoggedIn(): Boolean = preferences.accessToken != null && preferences.refreshToken != null
+
     suspend fun authenticateUser(username: String, password: String): WResult<Unit> = withContext(Dispatchers.IO) {
         try {
             val authResponse: AuthenticationResponse = authenticationService.authenticate(username, password)

@@ -26,8 +26,8 @@ class AnimesFragment : BaseFragment(R.layout.animes_fragment) {
 
     // region Properties
 
-    private val binding: AnimesFragmentBinding by viewBinding()
     private val viewModel: AnimesViewModel by viewModel()
+    private val binding: AnimesFragmentBinding by viewBinding()
 
     private val animeAdapter = AnimeAdapter { anime, view ->
         val fragment = AnimeDetailFragment.newInstance(anime)

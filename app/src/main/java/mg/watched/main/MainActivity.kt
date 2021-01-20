@@ -12,7 +12,8 @@ import mg.watched.animes.animes.AnimesRouterProvider
 import mg.watched.core.FragmentContainerProvider
 import mg.watched.core.FullScreenLoadingHolder
 import mg.watched.core.base.BaseActivity
-import mg.watched.data.authentication.AuthenticationManager
+import mg.watched.core.utils.exhaustive
+import mg.watched.core.viewmodel.observeEvents
 import mg.watched.databinding.MainActivityBinding
 import mg.watched.feat_mangas.list.MangasFragment
 import mg.watched.feat_settings.SettingsFragment
@@ -21,7 +22,7 @@ import mg.watched.login.LoginRouter
 import mg.watched.login.LoginRouterProvider
 import mg.watched.routers.AnimesRouterImpl
 import mg.watched.routers.LoginRouterImpl
-import org.koin.android.ext.android.get
+import org.koin.androidx.viewmodel.ext.android.viewModel
 import timber.log.Timber
 import java.security.InvalidParameterException
 
@@ -32,6 +33,7 @@ class MainActivity :
     AnimesRouterProvider,
     LoginRouterProvider {
 
+    private val viewModel: MainViewModel by viewModel()
     private lateinit var binding: MainActivityBinding
 
     override val animesRouter: AnimesRouter = AnimesRouterImpl(this)
@@ -46,18 +48,8 @@ class MainActivity :
 
         initBottomNavigation()
 
-        if (supportFragmentManager.findFragmentById(getFragmentContainerId()) == null) {
-            val authenticationManager: AuthenticationManager = get()
-            if (authenticationManager.accessToken != null) {
-                supportFragmentManager.beginTransaction()
-                    .replace(getFragmentContainerId(), AnimesFragment.newInstance())
-                    .commit()
-            } else {
-                supportFragmentManager.beginTransaction()
-                    .replace(getFragmentContainerId(), LogInFragment.newInstance())
-                    .commit()
-            }
-        }
+        viewModel.navigationEvents().observeEvents(this) { handleNavigationEvent(it) }
+        viewModel.actionEvents().observeEvents(this) { handleActionEvent(it) }
     }
 
     override fun showLoading(show: Boolean) {
@@ -65,6 +57,33 @@ class MainActivity :
     }
 
     override fun getFragmentContainerId(): Int = R.id.fragmentContainer
+
+    // region ViewStates, NavigationEvents and ActionEvents
+
+    private fun handleNavigationEvent(navigationEvent: MainNavigationEvent) {
+        when (navigationEvent) {
+            MainNavigationEvent.GoToLogInScreen -> {
+                supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                supportFragmentManager.beginTransaction()
+                    .replace(getFragmentContainerId(), LogInFragment.newInstance())
+                    .commit()
+            }
+            MainNavigationEvent.GoToAnimesScreen -> {
+                supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
+                supportFragmentManager.beginTransaction()
+                    .replace(getFragmentContainerId(), AnimesFragment.newInstance())
+                    .commit()
+            }
+        }.exhaustive
+    }
+
+    private fun handleActionEvent(actionEvent: MainActionEvent) {
+        when (actionEvent) {
+            MainActionEvent.SessionExpired -> TODO()
+        }.exhaustive
+    }
+
+    // endregion
 
     // region Bottom navigation
 
