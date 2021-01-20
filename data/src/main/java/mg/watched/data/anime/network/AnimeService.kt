@@ -10,14 +10,14 @@ private const val additionalFields: String = "alternative_titles,synopsis,media_
 
 interface AnimeService {
 
-    @GET("users/@me/animelist")
+    @GET("v2/users/@me/animelist")
     fun getUserAnimesPaginated(
         @Query("fields") fields: String = additionalFields,
         @Query("limit") pageSize: Int,
         @Query("offset") offset: Int,
     ): Call<AnimesWrapper>
 
-    @GET("anime")
+    @GET("v2/anime")
     fun searchAnimes(
         @Query("q") searchTerm: String,
         @Query("fields") fields: String = additionalFields,
@@ -26,14 +26,14 @@ interface AnimeService {
     ): Call<AnimesWrapper>
 
     @FormUrlEncoded
-    @PATCH("anime/{anime_id}/my_list_status")
+    @PATCH("v2/anime/{anime_id}/my_list_status")
     suspend fun addToWatchList(
         @Path("anime_id") animeId: Long,
         @Field("status") watchStatus: String,
     ): MyListStatus
 
     @FormUrlEncoded
-    @PATCH("anime/{anime_id}/my_list_status")
+    @PATCH("v2/anime/{anime_id}/my_list_status")
     suspend fun updateListStatus(
         @Path("anime_id") animeId: Long,
         @Field("num_watched_episodes") nbWatchedEpisodes: Int,

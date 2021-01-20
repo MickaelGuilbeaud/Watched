@@ -6,6 +6,6 @@ import org.koin.dsl.module
 val appDiModule = module {
 
     factory<String>(named("baseUrl")) {
-        "https://api.myanimelist.net/v2/"
+        "https://api.myanimelist.net/"
     }
 }

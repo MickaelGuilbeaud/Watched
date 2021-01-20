@@ -6,7 +6,7 @@ import android.util.Log
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
 import mg.watched.data.BuildConfig
-import mg.watched.data.UltimateListPreferences
+import mg.watched.data.WatchedPreferences
 import mg.watched.data.anime.AnimeRepository
 import mg.watched.data.anime.network.AnimeService
 import mg.watched.data.anime.network.models.AnimeMoshiAdapters
@@ -14,6 +14,7 @@ import mg.watched.data.authentication.AuthenticationManager
 import mg.watched.data.authentication.AuthenticationService
 import mg.watched.data.user.UserRepository
 import mg.watched.data.user.network.UserService
+import okhttp3.Authenticator
 import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.Response
@@ -32,7 +33,7 @@ val dataDiModule = module {
 
     factory<SharedPreferences> { androidContext().getSharedPreferences("watched", Context.MODE_PRIVATE) }
 
-    factory<UltimateListPreferences> { UltimateListPreferences(get(), get()) }
+    factory<WatchedPreferences> { WatchedPreferences(get(), get()) }
 
     single<AnimeRepository> { AnimeRepository(get()) }
 
@@ -42,7 +43,7 @@ val dataDiModule = module {
 
     // endregion
 
-    // region Network
+    // region JSON
 
     single<Moshi> {
         Moshi.Builder()
@@ -50,6 +51,10 @@ val dataDiModule = module {
             .add(AnimeMoshiAdapters())
             .build()
     }
+
+    // endregion
+
+    // region Network
 
     single<OkHttpClient>(named("default")) {
         val httpLoggingInterceptor = HttpLoggingInterceptor { message ->
@@ -77,21 +82,31 @@ val dataDiModule = module {
     }
 
     single<OkHttpClient>(named("authenticated")) {
-        val defaultOkHttpClient: OkHttpClient = get(named("default"))
         val authenticationManager: AuthenticationManager = get()
-        val authorizationInterceptor: Interceptor = object : Interceptor {
-            override fun intercept(chain: Interceptor.Chain): Response {
-                val request = chain.request().newBuilder()
+
+        val authorizationInterceptor = Interceptor { chain ->
+            val request = chain.request().newBuilder()
+                .header("authorization", "Bearer " + authenticationManager.accessToken!!)
+                .build()
+            chain.proceed(request)
+        }
+
+        val authenticator = Authenticator { _, response ->
+            val refreshAccessTokenSuccessful: Boolean = authenticationManager.refreshAccessToken()
+            if (refreshAccessTokenSuccessful) {
+                response.request.newBuilder()
                     .header("authorization", "Bearer " + authenticationManager.accessToken!!)
                     .build()
-                return chain.proceed(request)
+            } else {
+                null
             }
         }
 
+        val defaultOkHttpClient: OkHttpClient = get(named("default"))
         defaultOkHttpClient.newBuilder()
             .apply {
-                // Add authorization interceptor before the logging interceptor
-                interceptors().add(interceptors().size - 2, authorizationInterceptor)
+                interceptors().add(0, authorizationInterceptor)
+                authenticator(authenticator)
             }
             .build()
     }
@@ -126,18 +141,6 @@ val dataDiModule = module {
         val retrofit: Retrofit = get(named("authenticated"))
         retrofit.create(UserService::class.java)
     }
-
-    // endregion
-
-    // region Database
-
-    /*
-    single<TemplateDatabase> {
-        Room.databaseBuilder(androidContext(), TemplateDatabase::class.java, "template_database")
-            .fallbackToDestructiveMigration()
-            .build()
-    }
-     */
 
     // endregion
 }

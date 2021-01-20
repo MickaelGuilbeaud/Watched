@@ -5,13 +5,15 @@ import androidx.core.content.edit
 import com.squareup.moshi.Moshi
 import mg.watched.data.user.User
 
-class UltimateListPreferences(
+class WatchedPreferences(
     private val preferences: SharedPreferences,
     private val moshi: Moshi
 ) : SharedPreferences by preferences {
 
     companion object {
         private const val ACCESS_TOKEN = "access_token"
+        private const val REFRESH_TOKEN = "refresh_token"
+
         private const val USER = "user"
     }
 
@@ -19,6 +21,12 @@ class UltimateListPreferences(
         get() = getString(ACCESS_TOKEN, null)
         set(value) {
             edit { putString(ACCESS_TOKEN, value) }
+        }
+
+    var refreshToken: String?
+        get() = getString(REFRESH_TOKEN, null)
+        set(value) {
+            edit { putString(REFRESH_TOKEN, value) }
         }
 
     var user: User?

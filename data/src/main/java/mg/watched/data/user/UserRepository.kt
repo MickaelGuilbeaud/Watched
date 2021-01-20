@@ -1,11 +1,11 @@
 package mg.watched.data.user
 
-import mg.watched.data.UltimateListPreferences
+import mg.watched.data.WatchedPreferences
 import mg.watched.data.user.network.UserService
 
 class UserRepository(
     private val userService: UserService,
-    private val preferences: UltimateListPreferences,
+    private val preferences: WatchedPreferences,
 ) {
 
     val user: User?

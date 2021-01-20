@@ -6,6 +6,6 @@ import retrofit2.http.GET
 
 interface UserService {
 
-    @GET("users/@me")
+    @GET("v2/users/@me")
     fun getUserDetail(): Single<User>
 }
