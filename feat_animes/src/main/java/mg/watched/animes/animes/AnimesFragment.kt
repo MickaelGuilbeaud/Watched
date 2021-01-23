@@ -12,7 +12,7 @@ import mg.watched.animes.animesearch.AnimeSearchFragment
 import mg.watched.animes.databinding.AnimesFragmentBinding
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.core.base.BaseFragment
-import mg.watched.core.requireFragmentContainerProvider
+import mg.watched.core.base.requireWatchedActivity
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.toPx
 import mg.watched.design.MarginItemDecoration
@@ -34,7 +34,7 @@ class AnimesFragment : BaseFragment(R.layout.animes_fragment) {
         parentFragmentManager.commit {
             addSharedElement(view, AnimeAnimations.getAnimeMasterDetailTransitionName(anime))
             addToBackStack(null)
-            replace(requireFragmentContainerProvider().getFragmentContainerId(), fragment)
+            replace(requireWatchedActivity().getFragmentContainerId(), fragment)
         }
     }
 
@@ -54,6 +54,11 @@ class AnimesFragment : BaseFragment(R.layout.animes_fragment) {
         viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
     }
 
+    override fun onStart() {
+        super.onStart()
+        requireWatchedActivity().showBottomNavigationView(true)
+    }
+
     private fun initUI() {
         binding.rvAnimes.setHasFixedSize(true)
         binding.rvAnimes.adapter = animeAdapter
@@ -62,7 +67,7 @@ class AnimesFragment : BaseFragment(R.layout.animes_fragment) {
         binding.fabAddAnime.setOnClickListener {
             parentFragmentManager.commit {
                 addSharedElement(binding.fabAddAnime, "transition_anime_search")
-                replace(requireFragmentContainerProvider().getFragmentContainerId(), AnimeSearchFragment.newInstance())
+                replace(requireWatchedActivity().getFragmentContainerId(), AnimeSearchFragment.newInstance())
                 addToBackStack(null)
             }
         }

@@ -6,7 +6,7 @@ import android.view.inputmethod.EditorInfo
 import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import mg.watched.core.base.BaseFragment
-import mg.watched.core.requireFullScreenLoadingHolder
+import mg.watched.core.base.requireWatchedActivity
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.hideKeyboard
 import mg.watched.core.viewmodel.observeEvents
@@ -38,6 +38,11 @@ class LogInFragment : BaseFragment(R.layout.log_in_fragment) {
         viewModel.actionEvents().observeEvents(viewLifecycleOwner) { handleActionEvent(it) }
     }
 
+    override fun onStart() {
+        super.onStart()
+        requireWatchedActivity().showBottomNavigationView(false)
+    }
+
     private fun initUI() {
         binding.etPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
@@ -64,7 +69,7 @@ class LogInFragment : BaseFragment(R.layout.log_in_fragment) {
     // region ViewStates, NavigationEvents and ActionEvents
 
     private fun bindViewState(viewState: LogInViewState) {
-        requireFullScreenLoadingHolder().showLoading(viewState.loading)
+        requireWatchedActivity().showFullScreenLoading(viewState.loading)
 
         val usernameFieldError: String = if (viewState.showUsernameIsEmptyError) {
             requireContext().getString(R.string.log_in_error_empty_username)

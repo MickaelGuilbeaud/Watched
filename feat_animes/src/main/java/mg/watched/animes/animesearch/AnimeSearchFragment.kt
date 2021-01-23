@@ -15,7 +15,7 @@ import mg.watched.animes.animes.AnimeAdapter
 import mg.watched.animes.databinding.AnimeSearchFragmentBinding
 import mg.watched.animes.utils.AnimeAnimations
 import mg.watched.core.base.BaseFragment
-import mg.watched.core.requireFragmentContainerProvider
+import mg.watched.core.base.requireWatchedActivity
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.utils.hideKeyboard
 import mg.watched.core.utils.toPx
@@ -38,7 +38,7 @@ class AnimeSearchFragment : BaseFragment(R.layout.anime_search_fragment) {
         parentFragmentManager.commit {
             addSharedElement(view, AnimeAnimations.getAnimeMasterDetailTransitionName(anime))
             addToBackStack(null)
-            replace(requireFragmentContainerProvider().getFragmentContainerId(), fragment)
+            replace(requireWatchedActivity().getFragmentContainerId(), fragment)
         }
     }
 

@@ -9,9 +9,8 @@ import mg.watched.R
 import mg.watched.animes.animes.AnimesFragment
 import mg.watched.animes.animes.AnimesRouter
 import mg.watched.animes.animes.AnimesRouterProvider
-import mg.watched.core.FragmentContainerProvider
-import mg.watched.core.FullScreenLoadingHolder
 import mg.watched.core.base.BaseActivity
+import mg.watched.core.base.WatchedActivity
 import mg.watched.core.utils.exhaustive
 import mg.watched.core.viewmodel.observeEvents
 import mg.watched.databinding.MainActivityBinding
@@ -28,8 +27,7 @@ import java.security.InvalidParameterException
 
 class MainActivity :
     BaseActivity(),
-    FullScreenLoadingHolder,
-    FragmentContainerProvider,
+    WatchedActivity,
     AnimesRouterProvider,
     LoginRouterProvider {
 
@@ -52,27 +50,23 @@ class MainActivity :
         viewModel.actionEvents().observeEvents(this) { handleActionEvent(it) }
     }
 
-    override fun showLoading(show: Boolean) {
-        binding.vgLoading.isVisible = show
-    }
-
-    override fun getFragmentContainerId(): Int = R.id.fragmentContainer
-
     // region ViewStates, NavigationEvents and ActionEvents
 
     private fun handleNavigationEvent(navigationEvent: MainNavigationEvent) {
         when (navigationEvent) {
             MainNavigationEvent.GoToLogInScreen -> {
+                showBottomNavigationView(false)
+
                 supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                supportFragmentManager.beginTransaction()
-                    .replace(getFragmentContainerId(), LogInFragment.newInstance())
-                    .commit()
+                supportFragmentManager.commit {
+                    replace(getFragmentContainerId(), LogInFragment.newInstance())
+                }
             }
             MainNavigationEvent.GoToAnimesScreen -> {
                 supportFragmentManager.popBackStack(null, FragmentManager.POP_BACK_STACK_INCLUSIVE)
-                supportFragmentManager.beginTransaction()
-                    .replace(getFragmentContainerId(), AnimesFragment.newInstance())
-                    .commit()
+                supportFragmentManager.commit {
+                    replace(getFragmentContainerId(), AnimesFragment.newInstance())
+                }
             }
         }.exhaustive
     }
@@ -97,20 +91,41 @@ class MainActivity :
             when (menuItem.itemId) {
                 R.id.navigation_animes -> {
                     Timber.d("Switch to Animes screen")
-                    supportFragmentManager.commit { replace(getFragmentContainerId(), AnimesFragment.newInstance()) }
+                    supportFragmentManager.commit {
+                        replace(getFragmentContainerId(), AnimesFragment.newInstance())
+                    }
                 }
                 R.id.navigation_mangas -> {
                     Timber.d("Switch to Mangas screen")
-                    supportFragmentManager.commit { replace(getFragmentContainerId(), MangasFragment.newInstance()) }
+                    supportFragmentManager.commit {
+                        replace(getFragmentContainerId(), MangasFragment.newInstance())
+                    }
                 }
                 R.id.navigation_settings -> {
                     Timber.d("Switch to Settings screen")
-                    supportFragmentManager.commit { replace(getFragmentContainerId(), SettingsFragment.newInstance()) }
+                    supportFragmentManager.commit {
+                        replace(getFragmentContainerId(), SettingsFragment.newInstance())
+                    }
                 }
                 else -> throw InvalidParameterException("Bottom navigation menu item not handled")
             }
             true
         }
+    }
+
+    // endregion
+
+    // region WatchedActivity implementation
+
+    override fun getFragmentContainerId(): Int = R.id.fragmentContainer
+
+    override fun showFullScreenLoading(show: Boolean) {
+        binding.vgLoading.isVisible = show
+    }
+
+    override fun showBottomNavigationView(show: Boolean) {
+        Timber.d("Show bottom navigation view: $show")
+        binding.bottomNavigation.isVisible = show
     }
 
     // endregion
