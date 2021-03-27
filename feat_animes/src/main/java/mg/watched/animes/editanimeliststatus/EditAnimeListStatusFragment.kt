@@ -5,7 +5,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ArrayAdapter
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.bottomsheet.BottomSheetDialogFragment
 import mg.watched.animes.R
 import mg.watched.animes.databinding.EditAnimeListStatusFragmentBinding
@@ -30,7 +29,6 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
     }
 
     private val viewModel: EditAnimeListStatusViewModel by viewModel { parametersOf(anime) }
-    private val binding: EditAnimeListStatusFragmentBinding by viewBinding()
 
     private val anime: Anime
         get() = requireArguments().getParcelable(ARG_ANIME)!!
@@ -47,14 +45,15 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initUI()
-        bindAnime(anime)
+        val binding: EditAnimeListStatusFragmentBinding = EditAnimeListStatusFragmentBinding.bind(requireView())
+        initUI(binding)
+        bindAnime(binding, anime)
 
-        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
+        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(binding, it) }
         viewModel.navigationEvents().observeEvents(viewLifecycleOwner) { handleNavigationEvent(it) }
     }
 
-    private fun initUI() {
+    private fun initUI(binding: EditAnimeListStatusFragmentBinding) {
         val watchStatuses: List<String> = listOf(
             getString(R.string.watch_status_watching),
             getString(R.string.watch_status_completed),
@@ -93,12 +92,12 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
         }
         binding.spRating.adapter = ratingsAdapter
 
-        binding.btnApplyChanges.setOnClickListener { applyChanges() }
+        binding.btnApplyChanges.setOnClickListener { applyChanges(binding) }
         binding.btnRemoveEpisode.setOnClickListener { viewModel.removeWatchedEpisode(1) }
         binding.btnAddEpisode.setOnClickListener { viewModel.addWatchedEpisode(1) }
     }
 
-    private fun applyChanges() {
+    private fun applyChanges(binding: EditAnimeListStatusFragmentBinding) {
         val selectedWatchStatus: WatchStatus = when (binding.spWatchStatus.selectedItemPosition) {
             0 -> WatchStatus.WATCHING
             1 -> WatchStatus.COMPLETED
@@ -132,7 +131,7 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
 
     // region ViewStates, NavigationEvents and ActionEvents
 
-    private fun bindViewState(viewState: EditAnimeListStatusViewState) {
+    private fun bindViewState(binding: EditAnimeListStatusFragmentBinding, viewState: EditAnimeListStatusViewState) {
         binding.tvEpisodeProgress.text = resources.getQuantityString(
             R.plurals.edit_anime_list_status_episode_progress,
             viewState.nbEpisodesTotal,
@@ -154,7 +153,7 @@ class EditAnimeListStatusFragment : BottomSheetDialogFragment() {
 
     // region Anime
 
-    private fun bindAnime(anime: Anime) {
+    private fun bindAnime(binding: EditAnimeListStatusFragmentBinding, anime: Anime) {
         val watchStatusPosition: Int = when (anime.myListStatus!!.status) {
             WatchStatus.COMPLETED -> 1
             WatchStatus.DROPPED -> 3

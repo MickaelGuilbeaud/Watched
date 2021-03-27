@@ -3,7 +3,6 @@ package mg.watched.login
 import android.os.Bundle
 import android.view.View
 import android.view.inputmethod.EditorInfo
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.snackbar.Snackbar
 import mg.watched.core.base.BaseFragment
 import mg.watched.core.requireFullScreenLoadingHolder
@@ -21,7 +20,6 @@ class LogInFragment : BaseFragment(R.layout.log_in_fragment) {
 
     // region Properties
 
-    private val binding: LogInFragmentBinding by viewBinding()
     private val viewModel: LogInViewModel by viewModel()
 
     // endregion
@@ -31,27 +29,28 @@ class LogInFragment : BaseFragment(R.layout.log_in_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        initUI()
+        val binding: LogInFragmentBinding = LogInFragmentBinding.bind(requireView())
+        initUI(binding)
 
-        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
+        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it, binding) }
         viewModel.navigationEvents().observeEvents(viewLifecycleOwner) { handleNavigationEvent(it) }
         viewModel.actionEvents().observeEvents(viewLifecycleOwner) { handleActionEvent(it) }
     }
 
-    private fun initUI() {
+    private fun initUI(binding: LogInFragmentBinding) {
         binding.etPassword.setOnEditorActionListener { _, actionId, _ ->
             if (actionId == EditorInfo.IME_ACTION_DONE) {
-                logIn()
+                logIn(binding)
                 true
             } else {
                 false
             }
         }
 
-        binding.btnLogIn.setOnClickListener { logIn() }
+        binding.btnLogIn.setOnClickListener { logIn(binding) }
     }
 
-    private fun logIn() {
+    private fun logIn(binding: LogInFragmentBinding) {
         hideKeyboard()
 
         val username: String = binding.etUsername.text.toString().trim()
@@ -63,7 +62,7 @@ class LogInFragment : BaseFragment(R.layout.log_in_fragment) {
 
     // region ViewStates, NavigationEvents and ActionEvents
 
-    private fun bindViewState(viewState: LogInViewState) {
+    private fun bindViewState(viewState: LogInViewState, binding: LogInFragmentBinding) {
         requireFullScreenLoadingHolder().showLoading(viewState.loading)
 
         val usernameFieldError: String = if (viewState.showUsernameIsEmptyError) {

@@ -51,8 +51,6 @@ object Dependencies {
     const val glide = "com.github.bumptech.glide:glide:${Versions.glide}"
     const val glideProcessor = "com.github.bumptech.glide:compiler:${Versions.glide}"
     const val glideOkhttp3 = "com.github.bumptech.glide:okhttp3-integration:${Versions.glide}"
-    const val viewBindingPropertyDelegate =
-        "com.kirich1409.viewbindingpropertydelegate:viewbindingpropertydelegate:1.4.1"
 
     // Network
     const val okHttpClient = "com.squareup.okhttp3:okhttp:${Versions.okhttp}"
