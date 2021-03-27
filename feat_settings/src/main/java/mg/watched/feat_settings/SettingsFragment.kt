@@ -1,8 +1,6 @@
 package mg.watched.feat_settings
 
-import by.kirich1409.viewbindingdelegate.viewBinding
 import mg.watched.core.base.BaseFragment
-import mg.watched.feat_settings.databinding.SettingsFragmentBinding
 
 class SettingsFragment : BaseFragment(R.layout.settings_fragment) {
 
@@ -11,8 +9,6 @@ class SettingsFragment : BaseFragment(R.layout.settings_fragment) {
     }
 
     // region Properties
-
-    private val binding: SettingsFragmentBinding by viewBinding()
 
     // endregion
 }

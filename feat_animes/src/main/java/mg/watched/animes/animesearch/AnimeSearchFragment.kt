@@ -6,7 +6,6 @@ import androidx.core.view.isVisible
 import androidx.core.widget.doOnTextChanged
 import androidx.fragment.app.commit
 import androidx.recyclerview.widget.RecyclerView
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.transition.MaterialContainerTransform
 import mg.watched.animes.R
@@ -30,17 +29,7 @@ class AnimeSearchFragment : BaseFragment(R.layout.anime_search_fragment) {
 
     // region Properties
 
-    private val binding: AnimeSearchFragmentBinding by viewBinding()
     private val viewModel: AnimeSearchViewModel by viewModel()
-
-    private val animeAdapter = AnimeAdapter { anime, view ->
-        val fragment = AnimeDetailFragment.newInstance(anime)
-        parentFragmentManager.commit {
-            addSharedElement(view, AnimeAnimations.getAnimeMasterDetailTransitionName(anime))
-            addToBackStack(null)
-            replace(requireFragmentContainerProvider().getFragmentContainerId(), fragment)
-        }
-    }
 
     // endregion
 
@@ -57,12 +46,23 @@ class AnimeSearchFragment : BaseFragment(R.layout.anime_search_fragment) {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        initUI()
 
-        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
+        val binding: AnimeSearchFragmentBinding = AnimeSearchFragmentBinding.bind(requireView())
+        val animeAdapter = AnimeAdapter { anime, animeView ->
+            val fragment = AnimeDetailFragment.newInstance(anime)
+            parentFragmentManager.commit {
+                addSharedElement(animeView, AnimeAnimations.getAnimeMasterDetailTransitionName(anime))
+                addToBackStack(null)
+                replace(requireFragmentContainerProvider().getFragmentContainerId(), fragment)
+            }
+        }
+
+        initUI(binding, animeAdapter)
+
+        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it, binding, animeAdapter) }
     }
 
-    private fun initUI() {
+    private fun initUI(binding: AnimeSearchFragmentBinding, animeAdapter: AnimeAdapter) {
         binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
 
         binding.etSearch.doOnTextChanged { text, _, _, _ -> viewModel.searchAnimes(text.toString().trim()) }
@@ -77,16 +77,15 @@ class AnimeSearchFragment : BaseFragment(R.layout.anime_search_fragment) {
         })
     }
 
-    override fun onDestroyView() {
-        binding.rvAnimes.adapter = null
-        super.onDestroyView()
-    }
-
     // endregion
 
     // region ViewStates, NavigationEvents and ActionEvents
 
-    private fun bindViewState(viewState: AnimeSearchViewState) {
+    private fun bindViewState(
+        viewState: AnimeSearchViewState,
+        binding: AnimeSearchFragmentBinding,
+        animeAdapter: AnimeAdapter,
+    ) {
         when (viewState) {
             AnimeSearchViewState.NoSearch -> {
                 binding.tvNoSearch.isVisible = true
