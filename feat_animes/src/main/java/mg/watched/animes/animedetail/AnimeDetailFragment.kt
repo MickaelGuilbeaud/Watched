@@ -5,7 +5,6 @@ import android.view.View
 import androidx.annotation.DrawableRes
 import androidx.annotation.StringRes
 import androidx.core.view.isVisible
-import by.kirich1409.viewbindingdelegate.viewBinding
 import com.bumptech.glide.Glide
 import com.google.android.material.color.MaterialColors
 import com.google.android.material.snackbar.Snackbar
@@ -36,11 +35,14 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
         )
     }
 
+    // region Properties
+
     private val viewModel: AnimeDetailViewModel by viewModel { parametersOf(anime) }
-    private val binding: AnimeDetailFragmentBinding by viewBinding()
 
     private val anime: Anime
         get() = requireArguments().getParcelable(ARG_ANIME)!!
+
+    // endregion
 
     // region Lifecycle
 
@@ -56,14 +58,14 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val anime: Anime = anime
-        initUI(anime)
+        val binding: AnimeDetailFragmentBinding = AnimeDetailFragmentBinding.bind(requireView())
+        initUI(binding, anime)
 
-        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it) }
+        viewModel.viewStates().observe(viewLifecycleOwner) { bindViewState(it, binding) }
         viewModel.actionEvents().observeEvents(viewLifecycleOwner) { handleActionEvent(it) }
     }
 
-    private fun initUI(anime: Anime) {
+    private fun initUI(binding: AnimeDetailFragmentBinding, anime: Anime) {
         requireView().transitionName = AnimeAnimations.getAnimeMasterDetailTransitionName(anime)
 
         binding.toolbar.setNavigationOnClickListener { requireActivity().onBackPressed() }
@@ -73,11 +75,9 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
 
     // region ViewStates, NavigationEvents and ActionEvents
 
-    private fun bindViewState(viewState: AnimeDetailViewState) {
-        bindAnime(viewState.anime)
-    }
+    private fun bindViewState(viewState: AnimeDetailViewState, binding: AnimeDetailFragmentBinding) {
+        val anime: Anime = viewState.anime
 
-    private fun bindAnime(anime: Anime) {
         binding.tvTitle.text = anime.title
         binding.tvKindSeasonAiring.text = anime.formatKindSeasonAiring(requireContext())
 
@@ -89,12 +89,12 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
             binding.vgAddToWatchlist.root.isVisible = true
             binding.vgWatchStatus.root.isVisible = false
 
-            bindAddToWatchlist(anime)
+            bindAddToWatchlist(binding, anime)
         } else {
             binding.vgAddToWatchlist.root.isVisible = false
             binding.vgWatchStatus.root.isVisible = true
 
-            bindWatchStatus(anime)
+            bindWatchStatus(binding, anime)
         }
 
         val alternativeTitles: AlternativeTitles = anime.alternativeTitles
@@ -113,7 +113,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
         binding.tvSynopsisBody.text = anime.synopsis
     }
 
-    private fun bindAddToWatchlist(anime: Anime) {
+    private fun bindAddToWatchlist(binding: AnimeDetailFragmentBinding, anime: Anime) {
         binding.vgAddToWatchlist.tvEpisodes.text = resources.getQuantityString(
             R.plurals.anime_detail_nb_episodes,
             anime.nbEpisodes,
@@ -122,7 +122,7 @@ class AnimeDetailFragment : BaseFragment(R.layout.anime_detail_fragment) {
         binding.vgAddToWatchlist.root.setOnClickListener { viewModel.addToWatchlist() }
     }
 
-    private fun bindWatchStatus(anime: Anime) {
+    private fun bindWatchStatus(binding: AnimeDetailFragmentBinding, anime: Anime) {
         @StringRes val watchStatusTextResId: Int
         @DrawableRes val watchStatusDrawableResId: Int
         when (anime.myListStatus!!.status) {
