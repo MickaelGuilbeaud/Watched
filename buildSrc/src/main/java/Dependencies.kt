@@ -13,8 +13,8 @@ object Versions {
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.4.30"
-    const val coroutines = "1.4.2"
+    const val kotlin = "1.4.31"
+    const val coroutines = "1.4.3"
     const val lifecycle = "2.2.0"
     const val paging = "2.1.2"
     const val okhttp = "4.9.0"
@@ -33,7 +33,7 @@ object Dependencies {
     const val appcompat = "androidx.appcompat:appcompat:1.2.0"
     const val core = "androidx.core:core-ktx:1.3.2"
     const val activity = "androidx.activity:activity-ktx:1.1.0"
-    const val fragment = "androidx.fragment:fragment-ktx:1.2.5"
+    const val fragment = "androidx.fragment:fragment-ktx:1.3.2"
 
     // AndroidX - UI
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
@@ -70,18 +70,18 @@ object Dependencies {
     const val koin = "org.koin:koin-androidx-viewmodel:2.2.1"
 
     // Firebase
-    const val firebaseBom = "com.google.firebase:firebase-bom:26.4.0"
+    const val firebaseBom = "com.google.firebase:firebase-bom:26.8.0"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
     // Tools
     const val timber = "com.jakewharton.timber:timber:4.7.1"
-    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.6"
+    const val leakCanary = "com.squareup.leakcanary:leakcanary-android:2.7"
 
     // Testing
-    const val junit = "junit:junit:4.13.1"
+    const val junit = "junit:junit:4.13.2"
     const val assertJ = "org.assertj:assertj-core:3.19.0"
-    const val mockk = "io.mockk:mockk:1.10.5"
+    const val mockk = "io.mockk:mockk:1.11.0"
     const val lifecycleTesting = "androidx.arch.core:core-testing:2.1.0"
     const val coroutinesTesting = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
 }
