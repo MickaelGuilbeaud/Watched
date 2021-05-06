@@ -1,5 +1,1 @@
 apply from: "$rootProject.projectDir/feature-android-library.gradle"
-
-dependencies {
-    implementation Dependencies.flexbox
-}
