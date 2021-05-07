@@ -66,7 +66,7 @@ object Dependencies {
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     // DI
-    const val koin = "io.insert-koin:koin-androidx-viewmodel:2.2.2"
+    const val koin = "io.insert-koin:koin-android:3.0.1"
 
     // Firebase
     const val firebaseBom = "com.google.firebase:firebase-bom:27.1.0"
