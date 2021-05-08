@@ -19,7 +19,6 @@ object Versions {
     const val paging = "2.1.2"
     const val okhttp = "4.9.0"
     const val retrofit = "2.9.0"
-    const val room = "2.2.5"
     const val moshi = "1.12.0"
     const val glide = "4.12.0"
 }
@@ -57,10 +56,6 @@ object Dependencies {
     const val retrofitClient = "com.squareup.retrofit2:retrofit:${Versions.retrofit}"
     const val retrofitAdapterRxJava2 = "com.squareup.retrofit2:adapter-rxjava2:${Versions.retrofit}"
     const val retrofitMoshiConverter = "com.squareup.retrofit2:converter-moshi:${Versions.retrofit}"
-
-    // Database
-    const val room = "androidx.room:room-runtime:${Versions.room}"
-    const val roomProcessor = "androidx.room:room-compiler:${Versions.room}"
 
     // JSON
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"

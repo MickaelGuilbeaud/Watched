@@ -1,9 +1,5 @@
 apply from: "$rootProject.projectDir/base-android-library.gradle"
-apply plugin: "kotlin-kapt"
 
 dependencies {
     api project(":core")
-
-    // Database
-    kapt Dependencies.roomProcessor
 }
