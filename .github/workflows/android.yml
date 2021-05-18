@@ -36,4 +36,4 @@ jobs:
         FIREBASE_SECRET: ${{ secrets.FIREBASE_SECRET }}
       run: echo $FIREBASE_SECRET > app/google-services.json
     - name: Build with Gradle
-      run: ./gradlew assembleDevDebug
+      run: ./gradlew assembleDebug
