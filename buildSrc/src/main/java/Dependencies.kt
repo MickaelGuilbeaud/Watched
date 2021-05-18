@@ -14,7 +14,7 @@ object Versions {
     const val kotlinJvmTarget = "1.8"
 
     const val kotlin = "1.5.0"
-    const val coroutines = "1.4.3"
+    const val coroutines = "1.5.0"
     const val lifecycle = "2.2.0"
     const val paging = "2.1.2"
     const val okhttp = "4.9.0"
@@ -61,10 +61,10 @@ object Dependencies {
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     // DI
-    const val koin = "io.insert-koin:koin-android:3.0.1"
+    const val koin = "io.insert-koin:koin-android:3.0.2"
 
     // Firebase
-    const val firebaseBom = "com.google.firebase:firebase-bom:27.1.0"
+    const val firebaseBom = "com.google.firebase:firebase-bom:28.0.1"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
