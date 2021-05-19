@@ -38,19 +38,6 @@ android {
         }
     }
 
-    flavorDimensions "env"
-    productFlavors {
-        dev {
-            dimension "env"
-            applicationIdSuffix ".dev"
-            buildConfigField "String", "BASE_URL", "\"https://api.jikan.moe/v3/\""
-        }
-        prod {
-            dimension "env"
-            buildConfigField "String", "BASE_URL", "\"https://api.jikan.moe/v3/\""
-        }
-    }
-
     buildFeatures {
         viewBinding true
     }

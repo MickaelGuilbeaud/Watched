@@ -46,9 +46,6 @@ dependencies {
     api Dependencies.retrofitAdapterRxJava2
     api Dependencies.retrofitMoshiConverter
 
-    // Database
-    api Dependencies.room
-
     // JSON
     api Dependencies.moshi
 
