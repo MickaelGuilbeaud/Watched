@@ -13,9 +13,9 @@ object Versions {
     val javaSourceCompatibility = JavaVersion.VERSION_1_8
     const val kotlinJvmTarget = "1.8"
 
-    const val kotlin = "1.5.0"
+    const val kotlin = "1.5.20"
     const val coroutines = "1.5.0"
-    const val lifecycle = "2.2.0"
+    const val lifecycle = "2.3.1"
     const val paging = "2.1.2"
     const val okhttp = "4.9.0"
     const val retrofit = "2.9.0"
@@ -29,10 +29,10 @@ object Dependencies {
     const val kotlinCoroutines = "org.jetbrains.kotlinx:kotlinx-coroutines-android:${Versions.coroutines}"
 
     // AndroidX - General
-    const val appcompat = "androidx.appcompat:appcompat:1.2.0"
-    const val core = "androidx.core:core-ktx:1.3.2"
-    const val activity = "androidx.activity:activity-ktx:1.1.0"
-    const val fragment = "androidx.fragment:fragment-ktx:1.3.3"
+    const val appcompat = "androidx.appcompat:appcompat:1.3.0"
+    const val core = "androidx.core:core-ktx:1.5.0"
+    const val activity = "androidx.activity:activity-ktx:1.2.3"
+    const val fragment = "androidx.fragment:fragment-ktx:1.3.5"
 
     // AndroidX - UI
     const val constraintLayout = "androidx.constraintlayout:constraintlayout:2.0.1"
@@ -61,10 +61,10 @@ object Dependencies {
     const val moshi = "com.squareup.moshi:moshi-kotlin:${Versions.moshi}"
 
     // DI
-    const val koin = "io.insert-koin:koin-android:3.0.2"
+    const val koin = "io.insert-koin:koin-android:3.1.1"
 
     // Firebase
-    const val firebaseBom = "com.google.firebase:firebase-bom:28.0.1"
+    const val firebaseBom = "com.google.firebase:firebase-bom:28.2.0"
     const val firebaseAnalytics = "com.google.firebase:firebase-analytics-ktx"
     const val firebaseCrashlytics = "com.google.firebase:firebase-crashlytics-ktx"
 
@@ -74,7 +74,7 @@ object Dependencies {
 
     // Testing
     const val junit = "junit:junit:4.13.2"
-    const val assertJ = "org.assertj:assertj-core:3.19.0"
+    const val assertJ = "org.assertj:assertj-core:3.20.2"
     const val mockk = "io.mockk:mockk:1.11.0"
     const val lifecycleTesting = "androidx.arch.core:core-testing:2.1.0"
     const val coroutinesTesting = "org.jetbrains.kotlinx:kotlinx-coroutines-test:${Versions.coroutines}"
